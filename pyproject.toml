@@ -3,6 +3,3 @@ entrypoint = "main.py"
 
 [tool.vercel.scripts]
 build = "npm ci && npm run build"
-
-[tool.vercel.fastapi.static]
-exclude = true
