@@ -11,7 +11,10 @@ import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .data import KEYWORDS, OBSERVATIONS, OPPORTUNITIES, PROFILE, RESEARCHED_ON, SOURCES
+if __package__:
+    from .data import KEYWORDS, OBSERVATIONS, OPPORTUNITIES, PROFILE, RESEARCHED_ON, SOURCES
+else:  # Vercel loads this service entrypoint as the top-level module `main`.
+    from data import KEYWORDS, OBSERVATIONS, OPPORTUNITIES, PROFILE, RESEARCHED_ON, SOURCES
 
 DEFAULT_DB_PATH = Path("/tmp/caratello.sqlite3") if os.getenv("VERCEL") else Path(__file__).parent / "caratello.sqlite3"
 DB_PATH = Path(os.getenv("CARATELLO_DB", DEFAULT_DB_PATH))
