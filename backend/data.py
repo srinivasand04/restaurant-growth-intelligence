@@ -6,7 +6,7 @@ which need owner or crawler access are deliberately represented as unknown.
 RESEARCHED_ON = "2026-11-14"
 
 PROFILE = {
-    "name": "Pizza Caratello",
+    "name": "Piccolo Caratello",
     "address": "8 Rue Audran, 75018 Paris, France",
     "website": "https://pizzacaratello.com/",
     "area": "Abbesses, Montmartre · Paris 18e",
@@ -17,8 +17,8 @@ PROFILE = {
 }
 
 SOURCES = [
-    {"id": "site-fr", "label": "Pizza Caratello · French home page", "url": "https://pizzacaratello.com/", "kind": "Restaurant website", "checked_at": RESEARCHED_ON},
-    {"id": "site-en", "label": "Pizza Caratello · English page", "url": "https://pizzacaratello.com/en", "kind": "Restaurant website", "checked_at": RESEARCHED_ON},
+    {"id": "site-fr", "label": "Restaurant · French home page", "url": "https://pizzacaratello.com/", "kind": "Restaurant website", "checked_at": RESEARCHED_ON},
+    {"id": "site-en", "label": "Restaurant · English page", "url": "https://pizzacaratello.com/en", "kind": "Restaurant website", "checked_at": RESEARCHED_ON},
     {"id": "google-seo", "label": "Google Search Central · SEO starter guide", "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide", "kind": "Google documentation", "checked_at": RESEARCHED_ON},
     {"id": "google-local", "label": "Google Business Profile · Improve local ranking", "url": "https://support.google.com/business/answer/7091", "kind": "Google documentation", "checked_at": RESEARCHED_ON},
     {"id": "google-schema", "label": "Google Search Central · Local business structured data", "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business", "kind": "Google documentation", "checked_at": RESEARCHED_ON},

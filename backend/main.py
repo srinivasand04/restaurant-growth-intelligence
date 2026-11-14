@@ -40,7 +40,11 @@ def seed_database() -> None:
         rows.extend(("opportunity", o["id"], o) for o in OPPORTUNITIES)
         rows.extend(("keyword", str(i), k) for i, k in enumerate(KEYWORDS))
         for kind, item_id, payload in rows:
-            db.execute("INSERT OR IGNORE INTO research_items VALUES (?, ?, ?, ?)", (kind, item_id, json.dumps(payload), RESEARCHED_ON))
+            db.execute(
+                "INSERT INTO research_items VALUES (?, ?, ?, ?) "
+                "ON CONFLICT(kind, item_id) DO UPDATE SET payload=excluded.payload, researched_on=excluded.researched_on",
+                (kind, item_id, json.dumps(payload), RESEARCHED_ON),
+            )
         db.commit()
 
 
