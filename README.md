@@ -1,71 +1,113 @@
-# Restaurant Growth Intelligence — Pizza Caratello
+# Restaurant Growth Intelligence — Piccolo Caratello
 
-Step 1 of the restaurant growth platform: a source-linked public website audit, French and English search opportunity hypotheses, and a practical local customer acquisition plan. The workspace started empty, so this is a new, self-contained React + TypeScript + Vite frontend and FastAPI + SQLite backend. The GitHub repository and Vercel project use the name `restaurant-growth-intelligence`.
+A bilingual (French / English) dashboard that tells the restaurant owner what to fix and what to do next to win more local guests. Built with React + TypeScript + Vite and a small FastAPI backend; deployed on Vercel as `restaurant-growth-intelligence`.
 
-## What the demo does
+## What it does today
 
-- Shows only dated public-page observations as verified; technical checks that were not run are marked unknown or partial.
-- Provides eight French and English search phrase ideas based on location, cuisine, and guest intent. Search volumes and rankings are intentionally unavailable until Search Console data is connected.
-- Turns evidence into five concrete recommendations, each with expected business value, effort, confidence, and source links.
-- Saves the research snapshot in SQLite and uses Pandas to summarize observation status.
-- Includes a working fallback snapshot in the frontend, so the interface can still be browsed when the API is stopped.
+- **Site health.** An automated check loads every page in the restaurant's sitemap and reports what is actually there: titles, search descriptions, language tags, French/English links, structured data for Google, opening hours, phone link, share preview, speed, and every outgoing link (menu PDF, delivery apps, review sites). Problems come first, each with a plain-language fix. Nothing is estimated; checks that cannot be verified automatically say so.
+- **Action plan.** Problems found by the site check and curated recommendations (French copy fixes, Google Maps listing, English visitor path, measurement) in one list, most urgent first.
+- **Owner-only items.** What can only be confirmed once the owner grants access: Google Business Profile, Search Console, and a quick real-phone test.
+- **Search ideas.** French and English search phrases based on location, cuisine and guest intent. These are hypotheses until Search Console data is connected; no volumes or rankings are claimed.
+- **FR / EN toggle** on every page; the choice is remembered in the browser.
 
-The current public research snapshot is dated **14 November 2026**. Restaurant details and website copy are taken from [the French home page](https://pizzacaratello.com/) and [the English page](https://pizzacaratello.com/en). Google documentation is linked next to recommendations. The public site displays its own Google review summary; this demo does not import or analyze reviews.
+## Roadmap
+
+| Phase | What | Needs from the owner |
+|---|---|---|
+| ✅ 0 | Single data source, automated site check, rebuilt site health and action plan | — |
+| 1 | Guest review analysis: themes (food, service, wait, price), languages, trend over time, most-praised dishes | — (public reviews) |
+| 2 | Reply drafts for new reviews; weekly one-page brief in French; scheduled weekly refresh | An email address for the brief |
+| 3 | Real numbers: Google Business Profile (calls, directions, website clicks) and Search Console (actual searches) | Access to both |
+
+## How the data flows
+
+```
+backend/collect/site_check.py  ──writes──▶  backend/snapshot/site_check.json ─┐
+(hand-edited)                               backend/snapshot/research.json  ──┼─▶ FastAPI /api/*  ─▶ dashboard
+                                                                              └─▶ bundled into the dashboard at build time
+```
+
+- `research.json` holds the curated, bilingual content (profile, recommendations, owner checks, search ideas). Every text field has `en` and `fr`.
+- `site_check.json` is generated. Do not edit it by hand; rerun the check.
+- The dashboard bundles both files, so it still works when the API is down. When the API answers, it shows the freshest copy.
 
 ## Run locally
 
-Requirements: Node.js 20+ and Python 3.12+.
+Requirements: Node.js 20+ and Python 3.12 or 3.13.
 
-### 1. Start the API
+> **Windows note:** if `py` defaults to the free-threaded build (`3.13t`, shown by `py -0`), package installs fail with "Microsoft Visual C++ 14.0 or greater is required". Create the venv with `py -3.13` (or `py -3.12`) as below.
 
-From the repository root:
+### 1. Install
 
 ```powershell
-py -m venv .venv
+py -3.13 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r backend\requirements.txt
-py -m uvicorn backend.main:app --reload --port 8000
+npm install
 ```
 
-The API creates `backend/caratello.sqlite3` on first start. Set `CARATELLO_DB` to use a different SQLite path.
-
-### 2. Start the frontend
-
-In a second terminal from the repository root:
+### 2. Refresh the site check (optional, about 30 seconds)
 
 ```powershell
-npm install
+python -m backend.collect.site_check
+```
+
+It prints a one-line summary and lists anything to fix, then saves `backend/snapshot/site_check.json`. It uses only the Python standard library. Links to delivery and review platforms are retried with a browser-like request before being reported as broken, because some platforms reject automated requests; sites that block checks entirely are reported as "not verifiable", never as broken.
+
+### 3. Start the API and the dashboard
+
+In two terminals from the repository root:
+
+```powershell
+python -m uvicorn backend.main:app --reload --port 8000
+```
+
+```powershell
 npm run dev
 ```
 
-Open http://localhost:5173. Vite proxies `/api` requests to FastAPI on port 8000; if it cannot connect, the saved public-research snapshot is shown and the connection status is visible in the sidebar.
+Open http://localhost:5180. Vite proxies `/api` to FastAPI on port 8000. The port is fixed (`strictPort`) so it never collides with other projects on 5173.
 
-### 3. Build the frontend
+### 4. Build
 
 ```powershell
 npm run build
 ```
 
-## API endpoints
+## API
 
-- `GET /api/health` — health and snapshot date
+- `GET /api/health` — status, research date, last site-check time
 - `GET /api/profile` — restaurant profile
-- `GET /api/research` — observations, keyword hypotheses, opportunities, linked sources, and evidence counts
+- `GET /api/research` — curated research (profile, sources, owner checks, search ideas, recommendations)
+- `GET /api/site-check` — latest automated site check
 
-Interactive API docs are available at http://localhost:8000/docs.
+Interactive docs: http://localhost:8000/docs
 
 ## Deploy to Vercel
 
-The root `main.py` exports the FastAPI app. Vercel runs `npm ci && npm run build`, then serves the Vite frontend at `/` and the API routes at `/api/*`. FastAPI's built-in frontend support lets Vercel promote the static dashboard to its CDN. SQLite uses `/tmp` on Vercel because serverless filesystems are temporary; the current read-only demo data is seeded at startup and owner edits are not persisted.
+The root `main.py` exports the FastAPI app. Vercel runs `npm ci && npm run build`, serves the Vite dashboard at `/` and the API at `/api/*`. The snapshot files ship with each deployment.
 
-Connect the GitHub repository to a Vercel project and keep the project root at the repository root. Vercel will build and deploy each push automatically.
+## Daily refresh (automatic)
 
-## Evidence and interpretation
+[`.github/workflows/daily-site-check.yml`](.github/workflows/daily-site-check.yml) runs every day at 05:00 UTC (06:00 Paris in winter, 07:00 in summer):
 
-“Observed” means visible in the linked public page. “Partial” means a related fact appears on the restaurant website, but the relevant Google Business Profile details were not checked directly. “Unverified” means no technical measurement was performed. Keyword fit is an editorial relevance judgment, not demand data. Priority, effort, and confidence are transparent planning labels, not predicted outcomes.
+1. GitHub Actions reruns the site check against the live website.
+2. It commits `backend/snapshot/site_check.json` and `site_check_history.json` as `github-actions[bot]`.
+3. Vercel sees the push to `main` and redeploys, so the dashboard shows that morning's results.
 
-No sales, traffic, conversion, rank, search volume, or competitor data is present. There are no guarantees about Google rankings or revenue. Before claiming business impact, the owner should connect Search Console and agree on a baseline for booking, call, direction, and order actions, then use actual booking/POS outcomes where available.
+What the owner sees:
 
-## What is needed to improve confidence
+- **Top bar:** date and time of the last check.
+- **Site health → "What changed":** problems fixed and new problems since the previous check.
+- **A red warning on every page** if the data is more than 36 hours old, which means the daily job stopped. GitHub also emails the repository owner when a run fails.
 
-Owner access to Google Business Profile for category, menu, photos, attributes, and profile status; Search Console for actual queries and landing pages; permission to inspect HTML and run mobile checks; and analytics or booking/order data for conversion measurement. No paid API or production website change is required for this demo.
+Requirements: the Vercel project must be connected to this GitHub repository with automatic deployments from `main`. To run it immediately, open the repository's **Actions** tab → **Daily site check** → **Run workflow**.
+
+Because the job commits to `main` every day, run `git pull` before pushing your own changes. `site_check_history.json` keeps one line per day (counts and problem ids) for later trend charts.
+
+## Evidence rules
+
+- Only what was loaded from a public page or confirmed by the owner is reported as fact; each recommendation links to its source.
+- Search phrase fit is an editorial judgment, not demand data.
+- Priority, effort and confidence are planning labels, not predicted outcomes.
+- No sales, traffic, ranking or revenue figures are shown or promised. Business impact should be measured against a baseline of bookings, calls, direction requests and orders once the owner connects their data.

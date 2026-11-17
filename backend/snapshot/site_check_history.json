@@ -1,0 +1,16 @@
+[
+ {
+  "date": "2026-11-17",
+  "pass": 12,
+  "warn": 4,
+  "fail": 1,
+  "unknown": 0,
+  "problems": [
+   "language",
+   "links",
+   "name_match",
+   "schema",
+   "social_preview"
+  ]
+ }
+]

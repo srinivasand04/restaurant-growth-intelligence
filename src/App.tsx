@@ -1,84 +1,436 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Activity, ArrowDownRight, ArrowUpRight, BadgeCheck, BookOpen, Check, ChevronDown, CircleHelp, Clock3, Compass, ExternalLink, FileSearch, Globe2, Lightbulb, MapPin, Menu, MousePointer2, Search, Settings2, Sparkles, Target, X } from 'lucide-react'
+import { Activity, ArrowDownRight, ArrowUpRight, BadgeCheck, BookOpen, Check, ChevronDown, CircleHelp, Clock3, Compass, ExternalLink, FileSearch, Globe2, KeyRound, Lightbulb, MapPin, Menu, MousePointer2, Search, Settings2, Sparkles, Target, TriangleAlert, Wrench, X } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { getMessages, keywordTranslations, observationTranslations, opportunityTranslations, serviceTranslations, sourceLabelTranslations, type MessageKey, type UiLanguage } from './i18n'
+import researchSnapshot from '../backend/snapshot/research.json'
+import siteCheckSnapshot from '../backend/snapshot/site_check.json'
+import { getMessages, type MessageKey, type UiLanguage } from './i18n'
+import SiteHealth from './SiteHealth'
+import type { ActionItem, Level, Localized, Priority, Research, SiteCheck } from './types'
 
-type Source = { id:string; label:string; url:string; kind:string; checked_at:string }
-type Observation = { id:string; category:string; title:string; status:'observed'|'unknown'|'partial'; observation:string; evidence:string; source_ids:string[] }
-type Opportunity = { id:string; priority:'High'|'Medium'|'Low'; opportunity:string; observation:string; recommendation:string; benefit:string; effort:string; confidence:string; source_ids:string[] }
-type Keyword = { phrase:string; language:'FR'|'EN'; intent:string; fit:string; rationale:string; volume:number|null; rank:number|null }
-type Research = { researched_on:string; observations:Observation[]; keywords:Keyword[]; opportunities:Opportunity[]; sources:Source[]; summary:{verified:number;needs_check:number;keyword_ideas:number;metrics_available:boolean} }
-type Profile = {name:string;address:string;website:string;area:string;cuisine:string;audiences:string[];services:string[];verified_at:string}
+// The snapshots are bundled at build time, so the dashboard always has data.
+// When the API is reachable it replaces them with the freshest copy.
+const AUTHOR = 'Srinivasan'
+// The daily check runs every morning; older data than this gets a visible warning.
+const STALE_AFTER_HOURS = 36
 
-const fallbackProfile:Profile={name:'Piccolo Caratello',address:'8 Rue Audran, 75018 Paris, France',website:'https://pizzacaratello.com/',area:'Abbesses, Montmartre · Paris 18e',cuisine:'Italian · pizza, pasta, risotto',audiences:['Local residents','Paris visitors','International guests'],services:['Dine in','Takeaway','Online ordering','Table booking'],verified_at:'2026-11-14'}
-const fallback:Research={researched_on:'2026-11-14',summary:{verified:3,needs_check:3,keyword_ideas:8,metrics_available:false},observations:[
- {id:'title',category:'Website',title:'Search snippet and page title',status:'observed',observation:'The public page presents the business as a pizzeria in Montmartre / Paris 18e. A browser-level title-tag and description check is still required; search result wording alone does not confirm the HTML metadata.',evidence:'French and English page headings',source_ids:['site-fr','site-en']},
- {id:'content',category:'Website',title:'Useful menu and intent content',status:'observed',observation:'The French page shows named dishes and prices, order links, a booking path, address, phone and opening hours. This gives visitors several decision and conversion details on one page.',evidence:'Public home page content',source_ids:['site-fr']},
- {id:'language',category:'Website',title:'English landing page exists',status:'observed',observation:'An English page describes the location, dine-in and takeaway, menu sections, selected dishes, hours and booking. Verify language switch links and that every key menu/contact page has a complete English version.',evidence:'English page content',source_ids:['site-en']},
- {id:'mobile',category:'Technical',title:'Mobile usability',status:'unknown',observation:'Not measured in this research snapshot. Check booking, menu PDF, tap targets, text sizing and Core Web Vitals on a real mobile device before making a technical claim.',evidence:'No mobile lab or field test performed',source_ids:[]},
- {id:'schema',category:'Technical',title:'Restaurant structured data',status:'unknown',observation:'JSON-LD / Restaurant markup was not verified from page source. Inspect the rendered HTML and Rich Results Test; add or correct it only after checking the current markup.',evidence:'Source code not inspected',source_ids:['google-schema']},
- {id:'gbp',category:'Local discovery',title:'Google Business Profile completeness',status:'partial',observation:'The site displays a Google review summary, contact details, hours and a map/access link. Profile categories, attributes, photo freshness, menu URL, description and owner access were not independently verified.',evidence:'Restaurant website only; profile access unavailable',source_ids:['site-fr','google-local']}
-],keywords:[
- {phrase:'pizzeria près du Sacré-Cœur',language:'FR',intent:'Nearby visit',fit:'High',rationale:'Connects the restaurant\'s Montmartre location with a clear meal need.',volume:null,rank:null},{phrase:'restaurant italien Montmartre',language:'FR',intent:'Cuisine + area',fit:'High',rationale:'Matches the Italian menu and the neighborhood positioning already used on the site.',volume:null,rank:null},{phrase:'pizzeria Paris 18',language:'FR',intent:'Local category',fit:'High',rationale:'Useful neighborhood/category phrase for the landing page and business profile.',volume:null,rank:null},{phrase:'restaurant près de moi Montmartre',language:'FR',intent:'Immediate visit',fit:'Medium',rationale:'Maps and location signals matter for this local discovery intent.',volume:null,rank:null},{phrase:'pizza near Sacré-Cœur',language:'EN',intent:'Tourist visit',fit:'High',rationale:'Useful English phrasing for visitors exploring the nearby landmark.',volume:null,rank:null},{phrase:'Italian restaurant in Montmartre',language:'EN',intent:'Cuisine + area',fit:'High',rationale:'The existing English page already targets this cuisine and neighborhood pairing.',volume:null,rank:null},{phrase:'pizza restaurant Paris 18',language:'EN',intent:'Local category',fit:'Medium',rationale:'Supports English-language local discovery; validate wording against Search Console queries.',volume:null,rank:null},{phrase:'restaurant near Sacré-Cœur',language:'EN',intent:'Tourist visit',fit:'High',rationale:'A direct landmark + dining need worth covering in helpful location content.',volume:null,rank:null}
-],opportunities:[
- {id:'gbp-checklist',priority:'High',opportunity:'Complete the Google Maps decision profile',observation:'The website displays hours, contact details, map access and a review summary; the live profile\'s categories, attributes, photos and menu link are unverified.',recommendation:'With owner access, confirm the primary category and services; add a direct menu and booking link, current exterior/menu photos, holiday hours, and an accurate description in French and English.',benefit:'Makes it easier for nearby diners and visitors to decide and take the next step. Google says local results mainly reflect relevance, distance and prominence; no ranking outcome is promised.',effort:'Low',confidence:'Medium',source_ids:['site-fr','google-local']},
- {id:'english-path',priority:'High',opportunity:'Strengthen the tourist-to-table path in English',observation:'An English page exists, with address, hours, menu highlights and booking, alongside a language switch.',recommendation:'Walk through the full booking, menu and directions journey in English on a phone; give the English page a clear menu/booking CTA and concise landmark directions.',benefit:'Reduces uncertainty for international visitors already searching in English; measure clicks to booking and directions before and after.',effort:'Low',confidence:'Medium',source_ids:['site-en']},
- {id:'snippets',priority:'Medium',opportunity:'Check search snippets and local business markup',observation:'Public page copy contains cuisine, neighborhood, menu items and contact details, but actual title/description tags and structured data were not verified.',recommendation:'Inspect page HTML, then write a unique title and description for the home/menu pages and validate Restaurant schema for accurate name, address, phone, hours, menu and languages.',benefit:'Helps search engines interpret the business and lets searchers see a more useful result; eligibility does not guarantee a rich result or rank change.',effort:'Medium',confidence:'Medium',source_ids:['site-fr','google-seo','google-schema']},
- {id:'query-data',priority:'Medium',opportunity:'Replace keyword guesses with actual query evidence',observation:'Search demand and current rankings are unavailable in this public-only review. Keyword phrases below are hypotheses based on location, cuisine and audience.',recommendation:'Connect Search Console with owner permission; review query impressions, clicks, CTR and landing pages by French/English intent before prioritizing new content.',benefit:'Keeps time focused on searches the restaurant is actually appearing for; creates a baseline for monitoring.',effort:'Low',confidence:'High',source_ids:['gsc']},
- {id:'conversion',priority:'Medium',opportunity:'Measure the path from discovery to booking or order',observation:'The website offers booking and third-party ordering links, but their click and completion data are not available here.',recommendation:'Record baseline clicks for booking, phone, directions and delivery partners in GA4 or a privacy-appropriate analytics setup, then review weekly with actual bookings/orders.',benefit:'Shows whether visibility improvements result in useful customer actions without guessing revenue.',effort:'Medium',confidence:'High',source_ids:['site-fr']}
-],sources:[
- {id:'site-fr',label:'Restaurant · French home page',url:'https://pizzacaratello.com/',kind:'Restaurant website',checked_at:'2026-11-14'},{id:'site-en',label:'Restaurant · English page',url:'https://pizzacaratello.com/en',kind:'Restaurant website',checked_at:'2026-11-14'},{id:'google-seo',label:'Google Search Central · SEO starter guide',url:'https://developers.google.com/search/docs/fundamentals/seo-starter-guide',kind:'Google documentation',checked_at:'2026-11-14'},{id:'google-local',label:'Google Business Profile · Improve local ranking',url:'https://support.google.com/business/answer/7091',kind:'Google documentation',checked_at:'2026-11-14'},{id:'google-schema',label:'Google Search Central · Local business structured data',url:'https://developers.google.com/search/docs/appearance/structured-data/local-business',kind:'Google documentation',checked_at:'2026-11-14'},{id:'gsc',label:'Google Search Console',url:'https://search.google.com/search-console/',kind:'Future data connection',checked_at:'2026-11-14'}
-]}
+const bundledResearch = researchSnapshot as Research
+const bundledSiteCheck = siteCheckSnapshot as SiteCheck
 
-const menuItems=[{id:'overview',key:'overview',icon:Compass},{id:'keywords',key:'keywords',icon:Search},{id:'audit',key:'audit',icon:FileSearch},{id:'actions',key:'actions',icon:Target}] as const
-const fmtDate=(iso:string,language:UiLanguage)=>new Date(`${iso}T12:00:00`).toLocaleDateString(language==='FR'?'fr-FR':'en-GB',{day:'2-digit',month:'short',year:'numeric'})
-const priorityText=(value:Opportunity['priority'],language:UiLanguage)=>language==='FR'?({High:'Élevée',Medium:'Moyenne',Low:'Faible'}[value]):value
+const menuItems = [
+  { id: 'overview', key: 'overview', icon: Compass },
+  { id: 'actions', key: 'actions', icon: Target },
+  { id: 'audit', key: 'audit', icon: FileSearch },
+  { id: 'keywords', key: 'keywords', icon: Search },
+] as const
+type SectionId = (typeof menuItems)[number]['id']
 
-export default function App(){
- const [data,setData]=useState(fallback); const [profile,setProfile]=useState(fallbackProfile); const [section,setSection]=useState('overview'); const [uiLanguage,setUiLanguage]=useState<UiLanguage>(()=>(localStorage.getItem('caratello-language')==='FR'?'FR':'EN')); const [keywordLanguage,setKeywordLanguage]=useState<'All'|'FR'|'EN'>('All'); const [query,setQuery]=useState(''); const [sourceOpen,setSourceOpen]=useState(false); const [mobileOpen,setMobileOpen]=useState(false); const [apiStatus,setApiStatus]=useState<'loading'|'live'|'offline'>('loading')
- const t=(key:MessageKey)=>getMessages(uiLanguage)[key]
- useEffect(()=>{document.documentElement.lang=uiLanguage.toLowerCase();document.title=`Piccolo Caratello — ${getMessages(uiLanguage).brandSub}`;localStorage.setItem('caratello-language',uiLanguage)},[uiLanguage])
- useEffect(()=>{Promise.all([fetch('/api/research'),fetch('/api/profile')]).then(async([a,b])=>{if(!a.ok||!b.ok)throw new Error('API unavailable');setData(await a.json());setProfile(await b.json());setApiStatus('live')}).catch(()=>setApiStatus('offline'))},[])
- const filteredKeywords=useMemo(()=>data.keywords.filter(k=>(keywordLanguage==='All'||k.language===keywordLanguage)&&`${k.phrase} ${uiLanguage==='FR'?(keywordTranslations[k.phrase]?.intent??k.intent):k.intent} ${uiLanguage==='FR'?(keywordTranslations[k.phrase]?.rationale??k.rationale):k.rationale}`.toLowerCase().includes(query.toLowerCase())),[data,keywordLanguage,query,uiLanguage])
- const sourceById=(id:string)=>data.sources.find(s=>s.id===id)
- const localizedOpportunity=(o:Opportunity,field:'opportunity'|'observation'|'recommendation'|'benefit')=>uiLanguage==='FR'?opportunityTranslations[o.id]?.[field]??o[field]:o[field]
- const localizedObservation=(o:Observation,field:'category'|'title'|'observation'|'evidence')=>uiLanguage==='FR'?observationTranslations[o.id]?.[field]??o[field]:o[field]
- const localizedKeyword=(k:Keyword,field:'intent'|'rationale')=>uiLanguage==='FR'?keywordTranslations[k.phrase]?.[field]??k[field]:k[field]
- const localizedSource=(value:string)=>uiLanguage==='FR'?sourceLabelTranslations[value]??value:value
- const localizedProfile={...profile,name:'Piccolo Caratello',area:profile.area,cuisine:uiLanguage==='FR'?(serviceTranslations[profile.cuisine]??profile.cuisine):profile.cuisine,services:profile.services.map(s=>uiLanguage==='FR'?(serviceTranslations[s]??s):s)}
- const chartData=[{priority:t('priorityHigh'),count:data.opportunities.filter(o=>o.priority==='High').length},{priority:t('priorityMedium'),count:data.opportunities.filter(o=>o.priority==='Medium').length},{priority:t('priorityLow'),count:data.opportunities.filter(o=>o.priority==='Low').length}]
- const navigate=(id:string)=>{setSection(id);setMobileOpen(false);window.scrollTo({top:0,behavior:'smooth'})}
- return <div className="app-shell">
-  <aside className={`sidebar ${mobileOpen?'sidebar-open':''}`}>
-   <div className="brand"><div className="brand-mark">P<span>·</span></div><div className="brand-name">Piccolo Caratello<span>{t('brandSub')}</span></div><button className="icon-btn close-mobile" onClick={()=>setMobileOpen(false)} aria-label={t('closeNavigation')}><X size={18}/></button></div>
-   <div className="workspace-label">{t('workspace').toUpperCase()}</div><button className="restaurant-switch"><span className="restaurant-avatar">PC</span><span className="switch-copy"><b>Piccolo Caratello</b><small>Paris 18e, France</small></span><ChevronDown size={15}/></button>
-   <div className="nav-label">{t('intelligence')}</div><nav>{menuItems.map(item=><button key={item.id} className={`nav-item ${section===item.id?'active':''}`} onClick={()=>navigate(item.id)}><item.icon size={17}/>{t(item.key)}{item.id==='actions'&&<span className="nav-count">{data.opportunities.length}</span>}</button>)}</nav>
-   <div className="nav-label tools-label">{t('tools')}</div><button className="nav-item" onClick={()=>setSourceOpen(true)}><BookOpen size={17}/>{t('sources')}<ExternalLink size={13} className="nav-trailing"/></button>
-   <div className="sidebar-bottom"><div className="profile-card"><div className="profile-avatar">S</div><div><b>{t('strategyWorkspace')}</b><small>{t('stepLocal')}</small></div><Settings2 size={15}/></div><div className="sidebar-foot"><span className={`api-dot ${apiStatus}`}></span>{apiStatus==='live'?t('apiConnected'):apiStatus==='offline'?t('apiOffline'):t('apiLoading')}</div></div>
-  </aside>
-  {mobileOpen&&<div className="mobile-scrim" onClick={()=>setMobileOpen(false)}/>}
-  <main className="main-area"><header className="topbar"><button className="icon-btn mobile-menu" onClick={()=>setMobileOpen(true)} aria-label={t('openNavigation')}><Menu size={20}/></button><div className="crumb">{t('workspace')} <span>/</span> <b>{t(menuItems.find(x=>x.id===section)?.key??'overview')}</b></div><div className="top-actions"><div className="snapshot"><span className="snapshot-dot"/> {t('snapshot')} <b>{fmtDate(data.researched_on,uiLanguage)}</b></div><div className="language-toggle" role="group" aria-label={t('language')}><button type="button" aria-pressed={uiLanguage==='EN'} className={uiLanguage==='EN'?'selected':''} onClick={()=>setUiLanguage('EN')}>EN</button><button type="button" aria-pressed={uiLanguage==='FR'} className={uiLanguage==='FR'?'selected':''} onClick={()=>setUiLanguage('FR')}>FR</button></div><button className="avatar-button" aria-label={t('account')}>S</button></div></header>
-   <div className="content-wrap">
-    <div className="page-heading"><div><div className="eyebrow"><span>{t('step01')}</span><i/> {t('eyebrow')}</div><h1>{t(section==='overview'?'titleOverview':section==='keywords'?'titleKeywords':section==='audit'?'titleAudit':'titleActions')}</h1><p>{t(section==='overview'?'descOverview':section==='keywords'?'descKeywords':section==='audit'?'descAudit':'descActions')}</p></div><a className="site-link" href={profile.website} target="_blank" rel="noreferrer"><Globe2 size={16}/> {t('viewSite')} <ExternalLink size={13}/></a></div>
-    {section==='overview'&&<>
-      <div className="hero-panel"><div className="hero-copy"><div className="hero-kicker"><MapPin size={14}/> {localizedProfile.area}</div><h2>{t('heroTitle1')}<br/><em>{t('heroTitle2')}</em></h2><p>{t('heroBody')}</p><button className="hero-cta" onClick={()=>navigate('actions')}>{t('seeActions')} <ArrowUpRight size={15}/></button></div><div className="hero-art"><div className="sun-disc"/><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="landmark"><div className="dome"/><div className="tower"/><div className="chapel"><span/><span/><span/></div><div className="hill"/></div><div className="pin-card"><div className="pin-icon"><MapPin size={15}/></div><div><b>Abbesses</b><small>Paris 18e · Montmartre</small></div><span className="pin-status">{t('live')}</span></div><div className="tiny-note">{t('localSearch')} <b>→</b> {t('yourDoor')}</div></div><div className="hero-foot"><span><Check size={13}/> {t('sourceLinked')}</span><span><Check size={13}/> {t('noMadeUp')}</span><span><Clock3 size={13}/> {t('snapshotDated')} {fmtDate(data.researched_on,uiLanguage)}</span></div></div>
-      <div className="metric-grid"><Metric icon={<BadgeCheck size={18}/>} label={t('verifiedSite')} value={`${data.summary.verified}`} sub={t('verifiedSub')} tone="green" t={t}/><Metric icon={<CircleHelp size={18}/>} label={t('needsCheck')} value={`${data.summary.needs_check}`} sub={t('needsCheckSub')} tone="amber" t={t}/><Metric icon={<Search size={18}/>} label={t('searchIdeas')} value={`${data.summary.keyword_ideas}`} sub={t('searchIdeasSub')} tone="purple" t={t}/><Metric icon={<MousePointer2 size={18}/>} label={t('guestActions')} value={t('bookingOrder')} sub={t('guestActionsSub')} tone="blue" t={t}/></div>
-      <div className="section-grid"><section className="card opportunity-card"><div className="card-top"><div><div className="section-eyebrow">{t('firstMoves')}</div><h3>{t('focusFirst')}</h3></div><button className="text-button" onClick={()=>navigate('actions')}>{t('fullPlan')} <ArrowUpRight size={14}/></button></div><div className="priority-list">{data.opportunities.slice(0,3).map((o,i)=><button className="priority-row" key={o.id} onClick={()=>navigate('actions')}><span className={`priority-index p-${i+1}`}>0{i+1}</span><span className="priority-main"><b>{localizedOpportunity(o,'opportunity')}</b><small>{localizedOpportunity(o,'benefit').split(';')[0]}</small></span><span className={`priority-pill ${o.priority.toLowerCase()}`}>{priorityText(o.priority,uiLanguage)}</span><ArrowUpRight size={15} className="row-arrow"/></button>)}</div></section>
-       <section className="card profile-overview"><div className="card-top"><div><div className="section-eyebrow">{t('businessSnapshot')}</div><h3>{t('strongStart')}</h3></div><span className="verified-badge"><Check size={12}/> {t('publicSite')}</span></div><div className="snapshot-title"><div className="pizza-icon">✳</div><div><b>{localizedProfile.name}</b><span>{localizedProfile.cuisine}</span></div></div><div className="profile-detail"><MapPin size={15}/><span>{profile.address}</span></div><div className="service-chips">{localizedProfile.services.map(s=><span key={s}>{s}</span>)}</div><div className="profile-note"><Lightbulb size={15}/><span>{t('profileNote')}</span></div></section></div>
-      <div className="section-grid second-grid"><section className="card chart-card"><div className="card-top"><div><div className="section-eyebrow">{t('recommendationMix')}</div><h3>{t('opportunities')}</h3></div><span className="chart-note">{t('effortEvidence')}</span></div><div className="chart-area"><ResponsiveContainer width="100%" height="100%"><BarChart data={chartData} layout="vertical" margin={{left:8,right:26,top:4,bottom:4}}><CartesianGrid strokeDasharray="3 5" horizontal={false} stroke="#e9e8e2"/><XAxis type="number" allowDecimals={false} hide/><YAxis dataKey="priority" type="category" axisLine={false} tickLine={false} tick={{fill:'#70736e',fontSize:12,fontWeight:600}} width={64}/><Tooltip cursor={{fill:'rgba(27,37,29,.035)'}} contentStyle={{border:'1px solid #e7e7df',borderRadius:12,fontFamily:'DM Sans',fontSize:12}} formatter={(v)=>[`${v} ${t('recommendationCount')}`,t('count')]}/><Bar dataKey="count" radius={[0,7,7,0]} barSize={15} fill="#385b47"/></BarChart></ResponsiveContainer></div><div className="chart-caption"><span><i className="legend-dot"/> {t('plannedCount')}</span><button onClick={()=>navigate('actions')}>{t('reviewList')} <ArrowUpRight size={13}/></button></div></section>
-       <section className="card audit-mini"><div className="card-top"><div><div className="section-eyebrow">{t('researchStatus')}</div><h3>{t('honestDesign')}</h3></div><Activity size={18} className="muted-icon"/></div><div className="audit-status-list"><div><span className="status-icon observed"><Check size={13}/></span><span><b>{t('visiblePublic')}</b><small>{t('publicDetails')}</small></span><strong>{data.summary.verified}</strong></div><div><span className="status-icon unknown"><CircleHelp size={13}/></span><span><b>{t('requiresAccess')}</b><small>{t('accessDetails')}</small></span><strong>{data.summary.needs_check}</strong></div></div><button className="audit-link" onClick={()=>navigate('audit')}>{t('fullAudit')} <ArrowUpRight size={14}/></button></section></div>
-      <div className="bottom-callout"><div className="callout-icon"><Sparkles size={18}/></div><div><b>{t('nextStep')}</b><p>{t('connectSearchConsole')}</p></div><button onClick={()=>navigate('keywords')}>{t('exploreIdeas')} <ArrowUpRight size={14}/></button></div>
-    </>}
-    {section==='keywords'&&<><div className="data-banner"><div className="banner-icon"><Search size={18}/></div><div><b>{t('hypotheses')}</b><span>{t('unavailableInsights')}</span></div><a href="https://search.google.com/search-console/" target="_blank" rel="noreferrer">{t('aboutSearchConsole')} <ExternalLink size={13}/></a></div><section className="card keyword-card"><div className="table-heading"><div><div className="section-eyebrow">{t('queryIdeas')} · {filteredKeywords.length} {t('shown')}</div><h3>{t('matchMoment')}</h3></div><div className="table-controls"><div className="search-box"><Search size={15}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={t('searchPlaceholder')}/></div><div className="segmented">{(['All','FR','EN'] as const).map(l=><button key={l} className={keywordLanguage===l?'selected':''} onClick={()=>setKeywordLanguage(l)}>{l==='All'?t('all'):l}</button>)}</div></div></div><div className="table-wrap"><table><thead><tr><th>{t('searchTheme')}</th><th>{t('language')}</th><th>{t('guestIntent')}</th><th>{t('fit')}</th><th>{t('searchVolume')}</th><th>{t('position')}</th></tr></thead><tbody>{filteredKeywords.map(k=><tr key={k.phrase}><td><b>{k.phrase}</b><small>{localizedKeyword(k,'rationale')}</small></td><td data-label={t('language')}><span className={`language-tag ${k.language.toLowerCase()}`}>{k.language==='FR'?'🇫🇷':'🇬🇧'} {k.language}</span></td><td data-label={t('guestIntent')}>{localizedKeyword(k,'intent')}</td><td data-label={t('fit')}><span className={`fit-tag ${k.fit.toLowerCase()}`}>{uiLanguage==='FR'?({High:'Élevée',Medium:'Moyenne',Low:'Faible'}[k.fit]??k.fit):k.fit}</span></td><td data-label={t('searchVolume')}><span className="unavailable">{t('notAvailable')}</span></td><td data-label={t('position')}><span className="unavailable">{t('notMeasured')}</span></td></tr>)}</tbody></table>{filteredKeywords.length===0&&<div className="empty-state">{t('noKeywordMatches')}</div>}</div><div className="table-footer"><span><CircleHelp size={14}/> {t('ideasEvidence')}</span><span>{t('researchDate')} · {fmtDate(data.researched_on,uiLanguage)}</span></div></section><section className="note-grid"><div className="card note-card"><div className="note-icon fr">FR</div><div><b>{t('frenchNearby')}</b><p>{t('frenchTip')}</p></div></div><div className="card note-card"><div className="note-icon en">EN</div><div><b>{t('englishDecide')}</b><p>{t('englishTip')}</p></div></div></section></>}
-    {section==='audit'&&<><div className="data-banner audit-banner"><div className="banner-icon"><FileSearch size={18}/></div><div><b>{t('evidenceBoundary')}</b><span>{t('auditScope')}</span></div><span className="snapshot-date">{t('checked')} {fmtDate(data.researched_on,uiLanguage).toUpperCase()}</span></div><div className="audit-grid">{data.observations.map(o=><article className="card audit-card" key={o.id}><div className="audit-card-top"><span className="audit-category">{localizedObservation(o,'category')}</span><StatusBadge status={o.status} t={t}/></div><h3>{localizedObservation(o,'title')}</h3><p>{localizedObservation(o,'observation')}</p><div className="evidence-line"><span>{t('evidence')}</span><b>{localizedObservation(o,'evidence')}</b></div><div className="source-links">{o.source_ids.map(id=>{const s=sourceById(id);return s?<a href={s.url} target="_blank" rel="noreferrer" key={id}>{s.kind==='Google documentation'?t('googleDocs'):s.id==='site-en'?t('englishPage'):t('restaurantSite')} <ExternalLink size={11}/></a>:null})}</div></article>)}</div><section className="card audit-bottom"><div className="audit-bottom-icon"><Compass size={17}/></div><div><b>{t('finishChecks')}</b><p>{t('technicalChecks')}</p></div><button onClick={()=>navigate('actions')}>{t('actionSequence')} <ArrowUpRight size={14}/></button></section></>}
-    {section==='actions'&&<><div className="action-intro"><div className="action-intro-copy"><span className="section-eyebrow">{t('firstSprint')}</span><h2>{t('guestChoice')}</h2><p>{t('actionIntro')}</p></div><div className="action-intro-metric"><span>5</span><small>{t('evidenceOpportunities').split(' ').slice(0,-1).join(' ')}<br/>{t('evidenceOpportunities').split(' ').slice(-1)}</small></div></div><div className="action-list">{data.opportunities.map((o,i)=><article className="card action-card" key={o.id}><div className="action-number">0{i+1}</div><div className="action-body"><div className="action-title-line"><h3>{localizedOpportunity(o,'opportunity')}</h3><PriorityBadge value={o.priority} t={t}/></div><p className="action-observation"><b>{t('observed')}</b> {localizedOpportunity(o,'observation')}</p><div className="action-recommendation"><div className="recommendation-icon"><Lightbulb size={15}/></div><div><b>{t('recommendedAction')}</b><p>{localizedOpportunity(o,'recommendation')}</p></div></div><div className="action-meta"><span><b>{t('effort')}</b>{uiLanguage==='FR'?({Low:'Faible',Medium:'Moyen',High:'Élevé'}[o.effort]??o.effort):o.effort}</span><span><b>{t('confidence')}</b>{uiLanguage==='FR'?({Low:'Faible',Medium:'Moyen',High:'Élevé'}[o.confidence]??o.confidence):o.confidence}</span><span><b>{t('value')}</b>{localizedOpportunity(o,'benefit')}</span></div><div className="source-links">{o.source_ids.map(id=>{const s=sourceById(id);return s?<a href={s.url} target="_blank" rel="noreferrer" key={id}>{localizedSource(s.label)} <ExternalLink size={11}/></a>:null})}</div></div></article>)}</div><div className="measurement-note"><div className="measure-icon"><Target size={17}/></div><div><b>{t('measureOwner')}</b><p>{t('measureCopy')}</p></div></div></>}
-    <footer className="page-footer"><span>{t('footerBrand')} <i>·</i> {t('footerSub')}</span><span>{t('footerStep')} <i>·</i> {t('publicResearch')} <i>·</i> {fmtDate(data.researched_on,uiLanguage)}</span></footer>
-   </div>
-  </main>
-  {sourceOpen&&<div className="modal-scrim" onMouseDown={e=>{if(e.target===e.currentTarget)setSourceOpen(false)}}><section className="source-modal"><div className="modal-head"><div><div className="section-eyebrow">{t('researchTrail')}</div><h2>{t('sourceTitle')}</h2><p>{t('sourceIntro')}</p></div><button className="icon-btn" onClick={()=>setSourceOpen(false)} aria-label={t('closeSources')}><X size={19}/></button></div><div className="source-list">{data.sources.map(s=><a href={s.url} target="_blank" rel="noreferrer" className="source-item" key={s.id}><span className="source-type">{localizedSource(s.kind)}</span><b>{localizedSource(s.label)}</b><small>{s.url}</small><span className="source-date">{t('checkedDate')} {fmtDate(s.checked_at,uiLanguage)} <ExternalLink size={12}/></span></a>)}</div><div className="modal-foot"><CircleHelp size={14}/> {t('sourceLimit')}</div></section></div>}
- </div>
+const pageTitle: Record<SectionId, MessageKey> = { overview: 'titleOverview', keywords: 'titleKeywords', audit: 'titleAudit', actions: 'titleActions' }
+const pageIntro: Record<SectionId, MessageKey> = { overview: 'descOverview', keywords: 'descKeywords', audit: 'descAudit', actions: 'descActions' }
+const priorityKey: Record<Priority, MessageKey> = { High: 'priorityHigh', Medium: 'priorityMedium', Low: 'priorityLow' }
+const badgeKey: Record<Priority, MessageKey> = { High: 'badgeHigh', Medium: 'badgeMedium', Low: 'badgeLow' }
+const priorityRank: Record<Priority, number> = { High: 0, Medium: 1, Low: 2 }
+const sourceKindKey = { site: 'kindSite', google: 'kindGoogle', future: 'kindFuture' } as const
+const levelFr: Record<Level, string> = { Low: 'Faible', Medium: 'Moyen', High: 'Élevé' }
+
+/** Site problems and curated recommendations in one list, most urgent first. */
+function buildActions(research: Research, siteCheck: SiteCheck): ActionItem[] {
+  const fromSite: ActionItem[] = siteCheck.checks
+    .filter(check => check.status === 'fail' || check.status === 'warn')
+    .sort((a, b) => Number(b.status === 'fail') - Number(a.status === 'fail'))
+    .map(check => ({
+      kind: 'site',
+      id: `site-${check.id}`,
+      priority: check.status === 'fail' ? 'High' : 'Medium',
+      title: check.title,
+      observation: check.detail,
+      recommendation: check.fix ?? check.detail,
+    }))
+  const fromPlan: ActionItem[] = research.opportunities.map(opportunity => ({ kind: 'plan', ...opportunity }))
+  return [...fromSite, ...fromPlan].sort((a, b) => priorityRank[a.priority] - priorityRank[b.priority])
 }
 
-function Metric({icon,label,value,sub,tone,t}:{icon:React.ReactNode;label:string;value:string;sub:string;tone:string;t:(key:MessageKey)=>string}){return <div className="metric-card"><div className={`metric-icon ${tone}`}>{icon}</div><div className="metric-label">{label}</div><div className="metric-value">{value}</div><div className="metric-sub">{sub}</div><div className={`metric-trend ${tone}`}>{tone==='green'?<ArrowUpRight size={13}/>:tone==='amber'?<CircleHelp size={13}/>:tone==='purple'?<Sparkles size={13}/>:<ArrowDownRight size={13}/>}<span>{tone==='green'?t('confirmed'):tone==='amber'?t('needsAccess'):tone==='purple'?t('researchIdeas'):t('conversionPath')}</span></div></div>}
-function StatusBadge({status,t}:{status:Observation['status'];t:(key:MessageKey)=>string}){return <span className={`status-badge ${status}`}>{status==='observed'?<Check size={12}/>:<CircleHelp size={12}/>} {status==='observed'?t('observedStatus'):status==='partial'?t('partialStatus'):t('unknownStatus')}</span>}
-function PriorityBadge({value,t}:{value:Opportunity['priority'];t:(key:MessageKey)=>string}){const labelKey=value==='High'?'priorityHigh':value==='Medium'?'priorityMedium':'priorityLow';return <span className={`priority-pill ${value.toLowerCase()}`}>{value==='High'?<ArrowUpRight size={12}/>:<ArrowDownRight size={12}/>} {t(labelKey)} {t('priority')}</span>}
+export default function App() {
+  const [research, setResearch] = useState(bundledResearch)
+  const [siteCheck, setSiteCheck] = useState(bundledSiteCheck)
+  const [section, setSection] = useState<SectionId>('overview')
+  const [uiLanguage, setUiLanguage] = useState<UiLanguage>(() => (localStorage.getItem('caratello-language') === 'FR' ? 'FR' : 'EN'))
+  const [keywordLanguage, setKeywordLanguage] = useState<'All' | 'FR' | 'EN'>('All')
+  const [query, setQuery] = useState('')
+  const [sourceOpen, setSourceOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [apiStatus, setApiStatus] = useState<'loading' | 'live' | 'offline'>('loading')
+
+  const t = (key: MessageKey) => getMessages(uiLanguage)[key]
+  const tx = (text: Localized) => (uiLanguage === 'FR' ? text.fr : text.en)
+  const fmtDate = (iso: string) =>
+    new Date(iso.length === 10 ? `${iso}T12:00:00` : iso).toLocaleDateString(uiLanguage === 'FR' ? 'fr-FR' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+  const levelText = (level: Level) => (uiLanguage === 'FR' ? levelFr[level] : level)
+
+  const profile = research.profile
+
+  useEffect(() => {
+    document.documentElement.lang = uiLanguage.toLowerCase()
+    document.title = `${profile.name} — ${getMessages(uiLanguage).appTitle}`
+    localStorage.setItem('caratello-language', uiLanguage)
+  }, [uiLanguage, profile.name])
+
+  useEffect(() => {
+    Promise.all([fetch('/api/research'), fetch('/api/site-check')])
+      .then(async ([researchReply, siteCheckReply]) => {
+        if (!researchReply.ok || !siteCheckReply.ok) throw new Error('API unavailable')
+        setResearch(await researchReply.json())
+        setSiteCheck(await siteCheckReply.json())
+        setApiStatus('live')
+      })
+      .catch(() => setApiStatus('offline'))
+  }, [])
+
+  const actions = useMemo(() => buildActions(research, siteCheck), [research, siteCheck])
+  const toFix = siteCheck.summary.fail + siteCheck.summary.warn
+  const fmtTime = (iso: string) => new Date(iso).toLocaleTimeString(uiLanguage === 'FR' ? 'fr-FR' : 'en-GB', { hour: '2-digit', minute: '2-digit' })
+  const hoursOld = (Date.now() - Date.parse(siteCheck.checked_at)) / 3_600_000
+  const stale = hoursOld > STALE_AFTER_HOURS
+
+  const filteredKeywords = useMemo(() => {
+    const needle = query.toLowerCase()
+    return research.keywords.filter(keyword =>
+      (keywordLanguage === 'All' || keyword.language === keywordLanguage) &&
+      `${keyword.phrase} ${tx(keyword.intent)} ${tx(keyword.rationale)}`.toLowerCase().includes(needle))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [research, keywordLanguage, query, uiLanguage])
+
+  const chartData = (['High', 'Medium', 'Low'] as const).map(priority => ({
+    priority: t(priorityKey[priority]),
+    count: actions.filter(action => action.priority === priority).length,
+  }))
+
+  const sourceById = (id: string) => research.sources.find(source => source.id === id)
+  const navigate = (id: SectionId) => {
+    setSection(id)
+    setMobileOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const initials = profile.name.split(' ').map(word => word[0]).join('').slice(0, 2).toUpperCase()
+
+  return (
+    <div className="app-shell">
+      <aside className={`sidebar ${mobileOpen ? 'sidebar-open' : ''}`}>
+        <div className="brand">
+          <div className="brand-mark">{initials[0]}<span>·</span></div>
+          <div className="brand-name">{profile.name}<span>{t('brandSub')}</span></div>
+          <button className="icon-btn close-mobile" onClick={() => setMobileOpen(false)} aria-label={t('closeNavigation')}><X size={18} /></button>
+        </div>
+        <div className="workspace-label">{t('workspace').toUpperCase()}</div>
+        <button className="restaurant-switch">
+          <span className="restaurant-avatar">{initials}</span>
+          <span className="switch-copy"><b>{profile.name}</b><small>Paris 18e, France</small></span>
+          <ChevronDown size={15} />
+        </button>
+        <div className="nav-label">{t('intelligence')}</div>
+        <nav>
+          {menuItems.map(item => (
+            <button key={item.id} className={`nav-item ${section === item.id ? 'active' : ''}`} onClick={() => navigate(item.id)}>
+              <item.icon size={17} />{t(item.key)}
+              {item.id === 'actions' && <span className="nav-count">{actions.length}</span>}
+              {item.id === 'audit' && toFix > 0 && <span className="nav-count alert">{toFix}</span>}
+            </button>
+          ))}
+        </nav>
+        <div className="nav-label tools-label">{t('tools')}</div>
+        <button className="nav-item" onClick={() => setSourceOpen(true)}><BookOpen size={17} />{t('sources')}<ExternalLink size={13} className="nav-trailing" /></button>
+        <div className="sidebar-bottom">
+          <div className="profile-card">
+            <div className="profile-avatar">S</div>
+            <div><b>{t('strategyWorkspace')}</b><small>{t('stepLocal')}</small></div>
+            <Settings2 size={15} />
+          </div>
+          <div className="sidebar-foot">
+            <span className={`api-dot ${apiStatus}`}></span>
+            {apiStatus === 'live' ? t('apiConnected') : apiStatus === 'offline' ? t('apiOffline') : t('apiLoading')}
+          </div>
+        </div>
+      </aside>
+      {mobileOpen && <div className="mobile-scrim" onClick={() => setMobileOpen(false)} />}
+
+      <main className="main-area">
+        <header className="topbar">
+          <button className="icon-btn mobile-menu" onClick={() => setMobileOpen(true)} aria-label={t('openNavigation')}><Menu size={20} /></button>
+          <div className="crumb">{t('workspace')} <span>/</span> <b>{t(menuItems.find(item => item.id === section)?.key ?? 'overview')}</b></div>
+          <div className="top-actions">
+            <div className={`snapshot ${stale ? 'stale' : ''}`} title={`${fmtDate(siteCheck.checked_at)} ${t('checkedAtTime')} ${fmtTime(siteCheck.checked_at)}`}>
+              <span className="snapshot-dot" /> {t('snapshot')} <b>{fmtDate(siteCheck.checked_at)}</b> <span className="snapshot-time">{fmtTime(siteCheck.checked_at)}</span>
+            </div>
+            <div className="language-toggle" role="group" aria-label={t('language')}>
+              <button type="button" aria-pressed={uiLanguage === 'EN'} className={uiLanguage === 'EN' ? 'selected' : ''} onClick={() => setUiLanguage('EN')}>EN</button>
+              <button type="button" aria-pressed={uiLanguage === 'FR'} className={uiLanguage === 'FR' ? 'selected' : ''} onClick={() => setUiLanguage('FR')}>FR</button>
+            </div>
+            <button className="avatar-button" aria-label={t('account')}>S</button>
+          </div>
+        </header>
+
+        <div className="content-wrap">
+          {stale && (
+            <div className="stale-banner" role="status">
+              <TriangleAlert size={16} />
+              <div><b>{t('staleTitle')}</b><span>{t('staleBody')} {fmtDate(siteCheck.checked_at)} {t('checkedAtTime')} {fmtTime(siteCheck.checked_at)}. {t('staleBody2')}</span></div>
+            </div>
+          )}
+          <div className="page-heading">
+            <div>
+              <div className="eyebrow"><span>{t('step01')}</span><i /> {t('eyebrow')}</div>
+              <h1>{t(pageTitle[section])}</h1>
+              <p>{t(pageIntro[section])}</p>
+            </div>
+            <a className="site-link" href={profile.website} target="_blank" rel="noreferrer"><Globe2 size={16} /> {t('viewSite')} <ExternalLink size={13} /></a>
+          </div>
+
+          {section === 'overview' && <>
+            <div className="hero-panel">
+              <div className="hero-copy">
+                <div className="hero-kicker"><MapPin size={14} /> {profile.area}</div>
+                <h2>{t('heroTitle1')}<br /><em>{t('heroTitle2')}</em></h2>
+                <p>{t('heroBody')}</p>
+                <button className="hero-cta" onClick={() => navigate('actions')}>{t('seeActions')} <ArrowUpRight size={15} /></button>
+              </div>
+              <div className="hero-art">
+                <div className="sun-disc" /><div className="orbit orbit-one" /><div className="orbit orbit-two" />
+                <div className="landmark"><div className="dome" /><div className="tower" /><div className="chapel"><span /><span /><span /></div><div className="hill" /></div>
+                <div className="pin-card">
+                  <div className="pin-icon"><MapPin size={15} /></div>
+                  <div><b>Abbesses</b><small>Paris 18e · Montmartre</small></div>
+                  <span className="pin-status">{t('live')}</span>
+                </div>
+                <div className="tiny-note">{t('localSearch')} <b>→</b> {t('yourDoor')}</div>
+              </div>
+              <div className="hero-foot">
+                <span><Check size={13} /> {t('sourceLinked')}</span>
+                <span><Check size={13} /> {t('noMadeUp')}</span>
+                <span><Clock3 size={13} /> {t('snapshotDated')} {fmtDate(siteCheck.checked_at)}</span>
+              </div>
+            </div>
+
+            <div className="metric-grid">
+              <Metric icon={<Wrench size={18} />} label={t('toFix')} value={`${toFix}`} sub={t('toFixSub')} tone="amber" trend={t('seeFixes')} onClick={() => navigate('audit')} />
+              <Metric icon={<BadgeCheck size={18} />} label={t('checksPassed')} value={`${siteCheck.summary.pass}`} sub={t('checksPassedSub')} tone="green" trend={t('checkedLive')} onClick={() => navigate('audit')} />
+              <Metric icon={<Search size={18} />} label={t('searchIdeas')} value={`${research.keywords.length}`} sub={t('searchIdeasSub')} tone="purple" trend={t('researchIdeas')} onClick={() => navigate('keywords')} />
+              <Metric icon={<MousePointer2 size={18} />} label={t('guestActions')} value={t('bookingOrder')} sub={t('guestActionsSub')} tone="blue" trend={t('conversionPath')} />
+            </div>
+
+            <div className="section-grid">
+              <section className="card opportunity-card">
+                <div className="card-top">
+                  <div><div className="section-eyebrow">{t('firstMoves')}</div><h3>{t('focusFirst')}</h3></div>
+                  <button className="text-button" onClick={() => navigate('actions')}>{t('fullPlan')} <ArrowUpRight size={14} /></button>
+                </div>
+                <div className="priority-list">
+                  {actions.slice(0, 3).map((action, index) => (
+                    <button className="priority-row" key={action.id} onClick={() => navigate('actions')}>
+                      <span className={`priority-index p-${index + 1}`}>0{index + 1}</span>
+                      <span className="priority-main"><b>{tx(action.title)}</b><small>{tx(action.kind === 'plan' ? action.benefit : action.recommendation)}</small></span>
+                      <span className={`priority-pill ${action.priority.toLowerCase()}`}>{t(priorityKey[action.priority])}</span>
+                      <ArrowUpRight size={15} className="row-arrow" />
+                    </button>
+                  ))}
+                </div>
+              </section>
+              <section className="card profile-overview">
+                <div className="card-top">
+                  <div><div className="section-eyebrow">{t('businessSnapshot')}</div><h3>{t('strongStart')}</h3></div>
+                  <span className="verified-badge"><Check size={12} /> {t('publicSite')}</span>
+                </div>
+                <div className="snapshot-title"><div className="pizza-icon">✳</div><div><b>{profile.name}</b><span>{tx(profile.cuisine)}</span></div></div>
+                <div className="profile-detail"><MapPin size={15} /><span>{profile.address}</span></div>
+                <div className="service-chips">{profile.services.map(service => <span key={service.en}>{tx(service)}</span>)}</div>
+                <div className="profile-note"><Lightbulb size={15} /><span>{t('profileNote')}</span></div>
+              </section>
+            </div>
+
+            <div className="section-grid second-grid">
+              <section className="card chart-card">
+                <div className="card-top">
+                  <div><div className="section-eyebrow">{t('recommendationMix')}</div><h3>{t('practicalOpportunities')}</h3></div>
+                  <span className="chart-note">{t('effortEvidence')}</span>
+                </div>
+                <div className="chart-area">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 26, top: 4, bottom: 4 }}>
+                      <CartesianGrid strokeDasharray="3 5" horizontal={false} stroke="#e9e8e2" />
+                      <XAxis type="number" allowDecimals={false} hide />
+                      <YAxis dataKey="priority" type="category" axisLine={false} tickLine={false} tick={{ fill: '#70736e', fontSize: 12, fontWeight: 600 }} width={64} />
+                      <Tooltip cursor={{ fill: 'rgba(27,37,29,.035)' }} contentStyle={{ border: '1px solid #e7e7df', borderRadius: 12, fontFamily: 'DM Sans', fontSize: 12 }} formatter={value => [`${value} ${t('recommendationCount')}`, t('count')]} />
+                      <Bar dataKey="count" radius={[0, 7, 7, 0]} barSize={15} fill="#385b47" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="chart-caption">
+                  <span><i className="legend-dot" /> {t('plannedCount')}</span>
+                  <button onClick={() => navigate('actions')}>{t('reviewList')} <ArrowUpRight size={13} /></button>
+                </div>
+              </section>
+              <section className="card audit-mini">
+                <div className="card-top">
+                  <div><div className="section-eyebrow">{t('researchStatus')}</div><h3>{t('honestDesign')}</h3></div>
+                  <Activity size={18} className="muted-icon" />
+                </div>
+                <div className="audit-status-list">
+                  <div><span className="status-icon unknown"><TriangleAlert size={13} /></span><span><b>{t('toFixRow')}</b><small>{t('toFixRowSub')}</small></span><strong>{toFix}</strong></div>
+                  <div><span className="status-icon observed"><Check size={13} /></span><span><b>{t('passedLive')}</b><small>{t('passedLiveSub')}</small></span><strong>{siteCheck.summary.pass}</strong></div>
+                  <div><span className="status-icon owner"><KeyRound size={13} /></span><span><b>{t('ownerAccessRow')}</b><small>{t('ownerAccessSub')}</small></span><strong>{research.owner_checks.length}</strong></div>
+                </div>
+                <button className="audit-link" onClick={() => navigate('audit')}>{t('fullAudit')} <ArrowUpRight size={14} /></button>
+              </section>
+            </div>
+
+            <div className="bottom-callout">
+              <div className="callout-icon"><Sparkles size={18} /></div>
+              <div><b>{t('nextStep')}</b><p>{t('connectSearchConsole')}</p></div>
+              <button onClick={() => navigate('keywords')}>{t('exploreIdeas')} <ArrowUpRight size={14} /></button>
+            </div>
+          </>}
+
+          {section === 'keywords' && <>
+            <div className="data-banner">
+              <div className="banner-icon"><Search size={18} /></div>
+              <div><b>{t('hypotheses')}</b><span>{t('unavailableInsights')}</span></div>
+              <a href="https://search.google.com/search-console/" target="_blank" rel="noreferrer">{t('aboutSearchConsole')} <ExternalLink size={13} /></a>
+            </div>
+            <section className="card keyword-card">
+              <div className="table-heading">
+                <div><div className="section-eyebrow">{t('queryIdeas')} · {filteredKeywords.length} {t('shown')}</div><h3>{t('matchMoment')}</h3></div>
+                <div className="table-controls">
+                  <div className="search-box"><Search size={15} /><input value={query} onChange={event => setQuery(event.target.value)} placeholder={t('searchPlaceholder')} /></div>
+                  <div className="segmented">
+                    {(['All', 'FR', 'EN'] as const).map(language => (
+                      <button key={language} className={keywordLanguage === language ? 'selected' : ''} onClick={() => setKeywordLanguage(language)}>{language === 'All' ? t('all') : language}</button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>{t('searchTheme')}</th><th>{t('language')}</th><th>{t('guestIntent')}</th><th>{t('fit')}</th><th>{t('searchVolume')}</th><th>{t('position')}</th></tr></thead>
+                  <tbody>
+                    {filteredKeywords.map(keyword => (
+                      <tr key={keyword.phrase}>
+                        <td><b>{keyword.phrase}</b><small>{tx(keyword.rationale)}</small></td>
+                        <td data-label={t('language')}><span className={`language-tag ${keyword.language.toLowerCase()}`}>{keyword.language === 'FR' ? '🇫🇷' : '🇬🇧'} {keyword.language}</span></td>
+                        <td data-label={t('guestIntent')}>{tx(keyword.intent)}</td>
+                        <td data-label={t('fit')}><span className={`fit-tag ${keyword.fit.toLowerCase()}`}>{t(priorityKey[keyword.fit])}</span></td>
+                        <td data-label={t('searchVolume')}><span className="unavailable">{t('notAvailable')}</span></td>
+                        <td data-label={t('position')}><span className="unavailable">{t('notMeasured')}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {filteredKeywords.length === 0 && <div className="empty-state">{t('noKeywordMatches')}</div>}
+              </div>
+              <div className="table-footer">
+                <span><CircleHelp size={14} /> {t('ideasEvidence')}</span>
+                <span>{t('researchDate')} · {fmtDate(research.researched_on)}</span>
+              </div>
+            </section>
+            <section className="note-grid">
+              <div className="card note-card"><div className="note-icon fr">FR</div><div><b>{t('frenchNearby')}</b><p>{t('frenchTip')}</p></div></div>
+              <div className="card note-card"><div className="note-icon en">EN</div><div><b>{t('englishDecide')}</b><p>{t('englishTip')}</p></div></div>
+            </section>
+          </>}
+
+          {section === 'audit' && <SiteHealth siteCheck={siteCheck} research={research} t={t} tx={tx} fmtDate={fmtDate} onSeeActions={() => navigate('actions')} />}
+
+          {section === 'actions' && <>
+            <div className="action-intro">
+              <div className="action-intro-copy"><span className="section-eyebrow">{t('firstSprint')}</span><h2>{t('guestChoice')}</h2><p>{t('actionIntro')}</p></div>
+              <div className="action-intro-metric"><span>{actions.length}</span><small>{t('evidenceOpportunities')}</small></div>
+            </div>
+            <div className="action-list">
+              {actions.map((action, index) => (
+                <article className="card action-card" key={action.id}>
+                  <div className="action-number">{String(index + 1).padStart(2, '0')}</div>
+                  <div className="action-body">
+                    <div className="action-title-line"><h3>{tx(action.title)}</h3><PriorityBadge value={action.priority} t={t} /></div>
+                    <p className="action-observation"><b>{t('observed')}</b> {tx(action.observation)}</p>
+                    <div className="action-recommendation">
+                      <div className="recommendation-icon"><Lightbulb size={15} /></div>
+                      <div><b>{t('recommendedAction')}</b><p>{tx(action.recommendation)}</p></div>
+                    </div>
+                    {action.kind === 'plan' ? <>
+                      <div className="action-meta">
+                        <span><b>{t('effort')}</b>{levelText(action.effort)}</span>
+                        <span><b>{t('confidence')}</b>{levelText(action.confidence)}</span>
+                        <span><b>{t('value')}</b>{tx(action.benefit)}</span>
+                      </div>
+                      <div className="source-links">
+                        {action.source_ids.map(id => {
+                          const source = sourceById(id)
+                          return source ? <a href={source.url} target="_blank" rel="noreferrer" key={id}>{tx(source.label)} <ExternalLink size={11} /></a> : null
+                        })}
+                      </div>
+                    </> : (
+                      <div className="source-links">
+                        <span className="origin-tag"><FileSearch size={11} /> {t('siteCheckOrigin')} · {fmtDate(siteCheck.checked_at)}</span>
+                        <button onClick={() => navigate('audit')}>{t('seeEvidence')} <ArrowUpRight size={11} /></button>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="measurement-note">
+              <div className="measure-icon"><Target size={17} /></div>
+              <div><b>{t('measureOwner')}</b><p>{t('measureCopy')}</p></div>
+            </div>
+          </>}
+
+          <footer className="page-footer">
+            <span>{profile.name.toUpperCase()} <i>·</i> {t('footerSub')}</span>
+            <span>{t('footerStep')} <i>·</i> {fmtDate(siteCheck.checked_at)} <i>·</i> {t('madeBy')} <b className="footer-author">{AUTHOR}</b></span>
+          </footer>
+        </div>
+      </main>
+
+      {sourceOpen && (
+        <div className="modal-scrim" onMouseDown={event => { if (event.target === event.currentTarget) setSourceOpen(false) }}>
+          <section className="source-modal">
+            <div className="modal-head">
+              <div><div className="section-eyebrow">{t('researchTrail')}</div><h2>{t('sourceTitle')}</h2><p>{t('sourceIntro')}</p></div>
+              <button className="icon-btn" onClick={() => setSourceOpen(false)} aria-label={t('closeSources')}><X size={19} /></button>
+            </div>
+            <div className="source-list">
+              {research.sources.map(source => (
+                <a href={source.url} target="_blank" rel="noreferrer" className="source-item" key={source.id}>
+                  <span className="source-type">{t(sourceKindKey[source.kind])}</span>
+                  <b>{tx(source.label)}</b>
+                  <small>{source.url}</small>
+                  <span className="source-date">{t('checkedDate')} {fmtDate(source.checked_at)} <ExternalLink size={12} /></span>
+                </a>
+              ))}
+            </div>
+            <div className="modal-foot"><CircleHelp size={14} /> {t('sourceLimit')}</div>
+          </section>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const trendIcon = { green: ArrowUpRight, amber: Wrench, purple: Sparkles, blue: ArrowDownRight }
+
+function Metric({ icon, label, value, sub, tone, trend, onClick }: { icon: React.ReactNode; label: string; value: string; sub: string; tone: keyof typeof trendIcon; trend: string; onClick?: () => void }) {
+  const TrendIcon = trendIcon[tone]
+  const body = <>
+    <div className={`metric-icon ${tone}`}>{icon}</div>
+    <div className="metric-label">{label}</div>
+    <div className="metric-value">{value}</div>
+    <div className="metric-sub">{sub}</div>
+    <div className={`metric-trend ${tone}`}><TrendIcon size={13} /><span>{trend}</span></div>
+  </>
+  return onClick ? <button className="metric-card metric-button" onClick={onClick}>{body}</button> : <div className="metric-card">{body}</div>
+}
+
+function PriorityBadge({ value, t }: { value: Priority; t: (key: MessageKey) => string }) {
+  return (
+    <span className={`priority-pill ${value.toLowerCase()}`}>
+      {value === 'High' ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />} {t(badgeKey[value])}
+    </span>
+  )
+}

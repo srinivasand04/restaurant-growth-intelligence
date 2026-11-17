@@ -1,0 +1,171 @@
+{
+  "researched_on": "2026-11-17",
+  "profile": {
+    "name": "Piccolo Caratello",
+    "address": "8 Rue Audran, 75018 Paris, France",
+    "website": "https://pizzacaratello.com/",
+    "area": "Abbesses, Montmartre · Paris 18e",
+    "cuisine": { "en": "Italian · pizza, pasta, risotto", "fr": "Italien · pizza, pâtes, risotto" },
+    "services": [
+      { "en": "Dine in", "fr": "Sur place" },
+      { "en": "Takeaway", "fr": "À emporter" },
+      { "en": "Online ordering", "fr": "Commande en ligne" },
+      { "en": "Table booking", "fr": "Réservation" }
+    ]
+  },
+  "sources": [
+    { "id": "site-fr", "kind": "site", "label": { "en": "Restaurant · French home page", "fr": "Restaurant · page française" }, "url": "https://pizzacaratello.com/", "checked_at": "2026-11-17" },
+    { "id": "site-en", "kind": "site", "label": { "en": "Restaurant · English page", "fr": "Restaurant · page anglaise" }, "url": "https://pizzacaratello.com/en", "checked_at": "2026-11-17" },
+    { "id": "google-seo", "kind": "google", "label": { "en": "Google Search Central · SEO starter guide", "fr": "Google Search Central · guide de démarrage SEO" }, "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide", "checked_at": "2026-11-14" },
+    { "id": "google-local", "kind": "google", "label": { "en": "Google Business Profile · Improve local ranking", "fr": "Fiche d’établissement Google · améliorer le classement local" }, "url": "https://support.google.com/business/answer/7091", "checked_at": "2026-11-14" },
+    { "id": "google-schema", "kind": "google", "label": { "en": "Google Search Central · Local business structured data", "fr": "Google Search Central · données structurées d’établissement local" }, "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business", "checked_at": "2026-11-14" },
+    { "id": "gsc", "kind": "future", "label": { "en": "Google Search Console", "fr": "Google Search Console" }, "url": "https://search.google.com/search-console/", "checked_at": "2026-11-14" }
+  ],
+  "owner_checks": [
+    {
+      "id": "gbp",
+      "status": "partial",
+      "title": { "en": "Google Maps listing", "fr": "Fiche Google Maps" },
+      "detail": {
+        "en": "The site shows a Google rating, contact details, hours and a map link. The listing’s category, attributes, photo freshness, menu link and description can only be confirmed from the owner’s Google Business Profile.",
+        "fr": "Le site affiche une note Google, les coordonnées, les horaires et un lien vers la carte. La catégorie, les attributs, la fraîcheur des photos, le lien du menu et la description ne peuvent être confirmés que depuis la fiche d’établissement du propriétaire."
+      },
+      "needs": { "en": "Owner access to Google Business Profile", "fr": "Accès propriétaire à la fiche d’établissement Google" },
+      "source_ids": ["site-fr", "google-local"]
+    },
+    {
+      "id": "search-console",
+      "status": "unknown",
+      "title": { "en": "What people really search", "fr": "Ce que les gens recherchent vraiment" },
+      "detail": {
+        "en": "Which searches show the restaurant, how often, and how many people click are only visible in Search Console. Until then the search phrases here are informed ideas, not measurements.",
+        "fr": "Les recherches qui affichent le restaurant, leur fréquence et le nombre de clics ne sont visibles que dans Search Console. D’ici là, les requêtes proposées sont des pistes argumentées, pas des mesures."
+      },
+      "needs": { "en": "Owner access to Google Search Console", "fr": "Accès propriétaire à Google Search Console" },
+      "source_ids": ["gsc"]
+    },
+    {
+      "id": "mobile",
+      "status": "unknown",
+      "title": { "en": "Booking and menu on a real phone", "fr": "Réservation et menu sur un vrai téléphone" },
+      "detail": {
+        "en": "The automated check confirms pages are set up for phones. Tap comfort, the menu PDF and the booking steps still need a five-minute walk-through on an actual phone.",
+        "fr": "Le contrôle automatique confirme que les pages sont prévues pour les téléphones. Le confort tactile, le menu PDF et les étapes de réservation demandent encore un essai de cinq minutes sur un vrai téléphone."
+      },
+      "needs": { "en": "Five minutes with a phone", "fr": "Cinq minutes avec un téléphone" },
+      "source_ids": []
+    }
+  ],
+  "keywords": [
+    { "phrase": "pizzeria près du Sacré-Cœur", "language": "FR", "fit": "High", "intent": { "en": "Nearby visit", "fr": "Visite à proximité" }, "rationale": { "en": "Connects the restaurant’s Montmartre location with a clear meal need.", "fr": "Associe le quartier de Montmartre à un besoin concret de restauration." } },
+    { "phrase": "restaurant italien Montmartre", "language": "FR", "fit": "High", "intent": { "en": "Cuisine + area", "fr": "Cuisine + quartier" }, "rationale": { "en": "Matches the Italian menu and the neighborhood positioning already used on the site.", "fr": "Correspond à la cuisine italienne et au positionnement de quartier déjà présents sur le site." } },
+    { "phrase": "pizzeria Paris 18", "language": "FR", "fit": "High", "intent": { "en": "Local category", "fr": "Catégorie locale" }, "rationale": { "en": "Useful neighborhood/category phrase for the landing page and business profile.", "fr": "Une expression de quartier et de catégorie utile pour la page et la fiche d’établissement." } },
+    { "phrase": "restaurant près de moi Montmartre", "language": "FR", "fit": "Medium", "intent": { "en": "Immediate visit", "fr": "Visite immédiate" }, "rationale": { "en": "Maps and location signals matter for this local discovery intent.", "fr": "La carte et les informations locales sont importantes pour cette recherche de proximité." } },
+    { "phrase": "pizza near Sacré-Cœur", "language": "EN", "fit": "High", "intent": { "en": "Tourist visit", "fr": "Visite touristique" }, "rationale": { "en": "Useful English phrasing for visitors exploring the nearby landmark.", "fr": "Une expression anglaise utile aux visiteurs qui explorent les environs du Sacré-Cœur." } },
+    { "phrase": "Italian restaurant in Montmartre", "language": "EN", "fit": "High", "intent": { "en": "Cuisine + area", "fr": "Cuisine + quartier" }, "rationale": { "en": "The existing English page already targets this cuisine and neighborhood pairing.", "fr": "La page anglaise actuelle cible déjà cette association de cuisine et de quartier." } },
+    { "phrase": "pizza restaurant Paris 18", "language": "EN", "fit": "Medium", "intent": { "en": "Local category", "fr": "Catégorie locale" }, "rationale": { "en": "Supports English-language local discovery; validate wording against Search Console queries.", "fr": "Soutient la visibilité locale en anglais ; validez la formulation avec les requêtes Search Console." } },
+    { "phrase": "restaurant near Sacré-Cœur", "language": "EN", "fit": "High", "intent": { "en": "Tourist visit", "fr": "Visite touristique" }, "rationale": { "en": "A direct landmark + dining need worth covering in helpful location content.", "fr": "Une recherche directe qui associe un lieu connu à un besoin de restauration." } }
+  ],
+  "opportunities": [
+    {
+      "id": "french-copy",
+      "priority": "High",
+      "effort": "Low",
+      "confidence": "High",
+      "title": { "en": "Correct the French wording on the home page", "fr": "Corriger le texte français de la page d’accueil" },
+      "observation": {
+        "en": "Read on the French home page on 17 Nov 2026: “Nos menu”, “Une vrais cuisine italienne”, “des délicieux plat”, “se sont aussi deux restaurants”, “Nous vous invitons réserver”, and the booking heading “LIVRE DE TABLE”. The booking box itself is in English (“BOOK A TABLE”, “How many guests?”), and the reviews shown are marked “Translated by Google”.",
+        "fr": "Relevé sur la page d’accueil française le 17 nov. 2026 : « Nos menu », « Une vrais cuisine italienne », « des délicieux plat », « se sont aussi deux restaurants », « Nous vous invitons réserver » et le titre de réservation « LIVRE DE TABLE ». Le module de réservation est en anglais (« BOOK A TABLE », « How many guests? ») et les avis affichés portent la mention « Translated by Google »."
+      },
+      "recommendation": {
+        "en": "Fix to: “Nos menus”, “Une vraie cuisine italienne”, “de délicieux plats”, “ce sont aussi deux restaurants”, “Nous vous invitons à réserver”, “Réservation”. Show the booking box in French on the French page and pick reviews written in French.",
+        "fr": "Corriger en : « Nos menus », « Une vraie cuisine italienne », « de délicieux plats », « ce sont aussi deux restaurants », « Nous vous invitons à réserver », « Réservation ». Afficher le module de réservation en français sur la page française et choisir des avis rédigés en français."
+      },
+      "benefit": {
+        "en": "A local guest judges a restaurant’s care in seconds; clean French on the first screen removes a reason to hesitate.",
+        "fr": "Un client du quartier juge le soin d’un restaurant en quelques secondes ; un français soigné dès le premier écran enlève une raison d’hésiter."
+      },
+      "source_ids": ["site-fr"]
+    },
+    {
+      "id": "gbp-checklist",
+      "priority": "High",
+      "effort": "Low",
+      "confidence": "Medium",
+      "title": { "en": "Complete the Google Maps listing", "fr": "Compléter la fiche Google Maps" },
+      "observation": {
+        "en": "The website displays hours, contact details, map access and a Google rating; the live listing’s categories, attributes, photos and menu link are unverified.",
+        "fr": "Le site affiche les horaires, les coordonnées, l’accès à la carte et une note Google ; les catégories, attributs, photos et lien du menu de la fiche restent à vérifier."
+      },
+      "recommendation": {
+        "en": "With owner access, confirm the primary category and services; add a direct menu and booking link, current exterior and dish photos, holiday hours, and an accurate description in French and English.",
+        "fr": "Avec l’accès du propriétaire, confirmez la catégorie principale et les services ; ajoutez un lien direct vers le menu et la réservation, des photos récentes de la façade et des plats, les horaires exceptionnels et une description fidèle en français et en anglais."
+      },
+      "benefit": {
+        "en": "Makes it easier for nearby diners and visitors to decide and take the next step. Google says local results mainly reflect relevance, distance and prominence; no ranking outcome is promised.",
+        "fr": "Aide les clients du quartier et les visiteurs à choisir et à passer à l’étape suivante. Google indique que les résultats locaux reposent surtout sur la pertinence, la distance et la notoriété ; aucun classement n’est garanti."
+      },
+      "source_ids": ["site-fr", "google-local"]
+    },
+    {
+      "id": "english-path",
+      "priority": "Medium",
+      "effort": "Low",
+      "confidence": "Medium",
+      "title": { "en": "Strengthen the tourist-to-table path in English", "fr": "Faciliter le parcours des visiteurs en anglais" },
+      "observation": {
+        "en": "An English page exists, with address, hours, menu highlights and booking, alongside a language switch.",
+        "fr": "Une page en anglais existe avec l’adresse, les horaires, des points forts du menu et la réservation, ainsi qu’un sélecteur de langue."
+      },
+      "recommendation": {
+        "en": "Walk through the full booking, menu and directions journey in English on a phone; give the English page a clear menu and booking button and concise directions from Abbesses and Sacré-Cœur.",
+        "fr": "Parcourez le menu, la réservation et l’itinéraire en anglais sur un téléphone. Ajoutez des boutons clairs vers le menu et la réservation, ainsi que des indications simples depuis Abbesses et le Sacré-Cœur."
+      },
+      "benefit": {
+        "en": "Reduces uncertainty for international visitors already searching in English; measure clicks to booking and directions before and after.",
+        "fr": "Aide les visiteurs internationaux qui recherchent déjà en anglais à décider plus facilement ; mesurez les clics vers la réservation et l’itinéraire avant et après."
+      },
+      "source_ids": ["site-en"]
+    },
+    {
+      "id": "query-data",
+      "priority": "Medium",
+      "effort": "Low",
+      "confidence": "High",
+      "title": { "en": "Replace keyword guesses with actual query evidence", "fr": "Remplacer les suppositions par les vraies requêtes" },
+      "observation": {
+        "en": "Search demand and current rankings are unavailable in this public-only review. The keyword phrases are hypotheses based on location, cuisine and audience.",
+        "fr": "Les volumes de recherche et les classements actuels ne sont pas disponibles dans cette analyse publique. Les requêtes proposées sont des hypothèses fondées sur le lieu, la cuisine et le public."
+      },
+      "recommendation": {
+        "en": "Connect Search Console with owner permission; review query impressions, clicks and landing pages by French and English intent before prioritizing new content.",
+        "fr": "Avec l’accord du propriétaire, connectez Search Console et étudiez les impressions, clics et pages de destination par intention et par langue avant de prioriser du contenu."
+      },
+      "benefit": {
+        "en": "Keeps time focused on searches the restaurant is actually appearing for; creates a baseline for monitoring.",
+        "fr": "Permet de concentrer les efforts sur les recherches où le restaurant apparaît réellement et de créer une référence mesurable."
+      },
+      "source_ids": ["gsc"]
+    },
+    {
+      "id": "conversion",
+      "priority": "Medium",
+      "effort": "Medium",
+      "confidence": "High",
+      "title": { "en": "Measure the path from discovery to booking or order", "fr": "Mesurer le parcours entre découverte et réservation" },
+      "observation": {
+        "en": "The website offers booking and third-party ordering links, but their click and completion data are not available here.",
+        "fr": "Le site propose la réservation et des liens de commande tiers, mais les clics et les commandes terminées ne sont pas disponibles ici."
+      },
+      "recommendation": {
+        "en": "Record baseline clicks for booking, phone, directions and delivery partners in a privacy-appropriate analytics setup, then review weekly with actual bookings and orders.",
+        "fr": "Relevez une base de clics vers la réservation, le téléphone, l’itinéraire et les partenaires de livraison dans un outil respectueux de la vie privée, puis comparez chaque semaine avec les réservations et commandes réelles."
+      },
+      "benefit": {
+        "en": "Shows whether visibility improvements result in useful customer actions without guessing revenue.",
+        "fr": "Permet de vérifier si les améliorations de visibilité entraînent des actions utiles sans estimer le chiffre d’affaires."
+      },
+      "source_ids": ["site-fr"]
+    }
+  ]
+}

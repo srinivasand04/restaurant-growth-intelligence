@@ -1,0 +1,426 @@
+{
+  "checked_at": "2026-11-17T11:39:40+00:00",
+  "site": "https://pizzacaratello.com/",
+  "pages": [
+    {
+      "url": "https://pizzacaratello.com/",
+      "status": 200,
+      "ms": 724,
+      "title": "Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
+    },
+    {
+      "url": "https://pizzacaratello.com/menu",
+      "status": 200,
+      "ms": 663,
+      "title": "Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
+    },
+    {
+      "url": "https://pizzacaratello.com/book",
+      "status": 200,
+      "ms": 680,
+      "title": "Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e"
+    },
+    {
+      "url": "https://pizzacaratello.com/acces",
+      "status": 200,
+      "ms": 1379,
+      "title": "Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e"
+    },
+    {
+      "url": "https://pizzacaratello.com/en",
+      "status": 200,
+      "ms": 396,
+      "title": "Pizza Caratello — Pizzeria in Montmartre, Paris 18th"
+    }
+  ],
+  "summary": {
+    "pass": 12,
+    "warn": 4,
+    "fail": 1,
+    "unknown": 0
+  },
+  "checks": [
+    {
+      "id": "robots_sitemap",
+      "group": "findability",
+      "status": "pass",
+      "title": {
+        "en": "Search engines are given a map of the site",
+        "fr": "Les moteurs de recherche disposent d’un plan du site"
+      },
+      "detail": {
+        "en": "robots.txt is reachable and points to a sitemap listing 5 pages.",
+        "fr": "Le fichier robots.txt est accessible et renvoie vers un sitemap de 5 pages."
+      },
+      "fix": null,
+      "evidence": [
+        "https://pizzacaratello.com/sitemap.xml",
+        "https://pizzacaratello.com/",
+        "https://pizzacaratello.com/menu",
+        "https://pizzacaratello.com/book",
+        "https://pizzacaratello.com/acces",
+        "https://pizzacaratello.com/en"
+      ]
+    },
+    {
+      "id": "reachable",
+      "group": "guest_path",
+      "status": "pass",
+      "title": {
+        "en": "Every page opens",
+        "fr": "Toutes les pages s’ouvrent"
+      },
+      "detail": {
+        "en": "All 5 pages listed in the sitemap load correctly.",
+        "fr": "Les 5 pages du sitemap se chargent correctement."
+      },
+      "fix": null,
+      "evidence": [
+        "/ → 200 · 724 ms",
+        "/menu → 200 · 663 ms",
+        "/book → 200 · 680 ms",
+        "/acces → 200 · 1379 ms",
+        "/en → 200 · 396 ms"
+      ]
+    },
+    {
+      "id": "titles",
+      "group": "findability",
+      "status": "pass",
+      "title": {
+        "en": "Every page has its own title",
+        "fr": "Chaque page a son propre titre"
+      },
+      "detail": {
+        "en": "Titles are present, distinct and short enough to be shown in full in search results.",
+        "fr": "Les titres sont présents, distincts et assez courts pour s’afficher en entier dans les résultats."
+      },
+      "fix": null,
+      "evidence": [
+        "/ → “Pizza Caratello — Pizzeria à Montmartre | Paris 18e” (51)",
+        "/menu → “Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e” (56)",
+        "/book → “Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e” (61)",
+        "/acces → “Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e” (60)",
+        "/en → “Pizza Caratello — Pizzeria in Montmartre, Paris 18th” (52)"
+      ]
+    },
+    {
+      "id": "descriptions",
+      "group": "findability",
+      "status": "pass",
+      "title": {
+        "en": "Every page has a search description",
+        "fr": "Chaque page a une description"
+      },
+      "detail": {
+        "en": "Descriptions are present and a good length for search results.",
+        "fr": "Les descriptions sont présentes et d’une longueur adaptée aux résultats de recherche."
+      },
+      "fix": null,
+      "evidence": [
+        "/ → 152 characters",
+        "/menu → 150 characters",
+        "/book → 150 characters",
+        "/acces → 119 characters",
+        "/en → 144 characters"
+      ]
+    },
+    {
+      "id": "canonical",
+      "group": "findability",
+      "status": "pass",
+      "title": {
+        "en": "Each page declares its official address",
+        "fr": "Chaque page déclare son adresse officielle"
+      },
+      "detail": {
+        "en": "Canonical links are in place, so search engines do not split the page between duplicate addresses.",
+        "fr": "Les liens canoniques sont en place : les moteurs ne dispersent pas la page entre plusieurs adresses."
+      },
+      "fix": null,
+      "evidence": []
+    },
+    {
+      "id": "headings",
+      "group": "findability",
+      "status": "pass",
+      "title": {
+        "en": "Each page has one clear main heading",
+        "fr": "Chaque page a un titre principal clair"
+      },
+      "detail": {
+        "en": "One main heading per page tells guests and search engines what the page is about.",
+        "fr": "Un titre principal par page indique aux clients et aux moteurs le sujet de la page."
+      },
+      "fix": null,
+      "evidence": [
+        "/ → “Pizza Caratello Pizzeria à Montmartre · Paris 18e”",
+        "/menu → “Pizza CaratelloPizzeria italienne à Montmartre · Paris 18e”",
+        "/book → “Réserver une table chez Pizza Caratello, pizzeria italienne à Montmartre (Paris 18e)”",
+        "/acces → “Accès et horaires — Pizza Caratello, pizzeria italienne à Montmartre (Paris 18e)”",
+        "/en → “Pizza Caratello — Pizzeria in Montmartre, Paris 18th”"
+      ]
+    },
+    {
+      "id": "schema",
+      "group": "findability",
+      "status": "warn",
+      "title": {
+        "en": "Restaurant details for Google are almost complete",
+        "fr": "Les informations du restaurant pour Google sont presque complètes"
+      },
+      "detail": {
+        "en": "Name, address, phone and hours are declared. Still missing: price range (priceRange), photo (image), map coordinates (geo). Google recommends these for restaurant listings.",
+        "fr": "Nom, adresse, téléphone et horaires sont déclarés. Il manque encore : gamme de prix (priceRange), photo (image), coordonnées GPS (geo). Google recommande ces champs pour les restaurants."
+      },
+      "fix": {
+        "en": "Ask the web developer to add to the Restaurant JSON-LD: price range (priceRange), photo (image), map coordinates (geo).",
+        "fr": "Demandez au développeur du site d’ajouter au JSON-LD Restaurant : gamme de prix (priceRange), photo (image), coordonnées GPS (geo)."
+      },
+      "evidence": [
+        "✓ name, address, telephone, openingHoursSpecification, hasMenu, servesCuisine",
+        "✗ priceRange, image, geo"
+      ]
+    },
+    {
+      "id": "name_match",
+      "group": "findability",
+      "status": "warn",
+      "title": {
+        "en": "The site uses a different restaurant name",
+        "fr": "Le site utilise un autre nom de restaurant"
+      },
+      "detail": {
+        "en": "The website and its data for Google say “Pizza Caratello”; this workspace is set up for “Piccolo Caratello”. Guests and Google should see one name everywhere (site, Maps, delivery apps).",
+        "fr": "Le site et ses données pour Google indiquent « Pizza Caratello » ; cet espace est configuré pour « Piccolo Caratello ». Les clients et Google doivent voir un seul nom partout (site, Maps, applications de livraison)."
+      },
+      "fix": {
+        "en": "Confirm with the owner which name this address, website and Google listing belong to, then use it everywhere.",
+        "fr": "Confirmez avec le propriétaire à quel nom correspondent cette adresse, ce site et la fiche Google, puis utilisez-le partout."
+      },
+      "evidence": [
+        "site: Pizza Caratello",
+        "workspace: Piccolo Caratello"
+      ]
+    },
+    {
+      "id": "hours",
+      "group": "guest_path",
+      "status": "pass",
+      "title": {
+        "en": "Opening hours are declared and consistent",
+        "fr": "Les horaires sont déclarés et cohérents"
+      },
+      "detail": {
+        "en": "These are the hours the site gives to Google. The owner should confirm they match the Google Maps listing and holiday closures.",
+        "fr": "Voici les horaires transmis à Google. Le propriétaire doit confirmer qu’ils correspondent à la fiche Google Maps et aux fermetures exceptionnelles."
+      },
+      "fix": null,
+      "evidence": [
+        {
+          "en": "Monday: 12:00–15:00, 18:30–23:30",
+          "fr": "Lundi : 12:00–15:00, 18:30–23:30"
+        },
+        {
+          "en": "Tuesday: 12:00–15:00, 18:30–23:30",
+          "fr": "Mardi : 12:00–15:00, 18:30–23:30"
+        },
+        {
+          "en": "Wednesday: 12:00–15:00, 18:30–23:30",
+          "fr": "Mercredi : 12:00–15:00, 18:30–23:30"
+        },
+        {
+          "en": "Thursday: 12:00–15:00, 18:30–23:30",
+          "fr": "Jeudi : 12:00–15:00, 18:30–23:30"
+        },
+        {
+          "en": "Friday: 12:00–15:00, 18:30–23:30",
+          "fr": "Vendredi : 12:00–15:00, 18:30–23:30"
+        },
+        {
+          "en": "Saturday: 12:00–15:30, 18:30–23:30",
+          "fr": "Samedi : 12:00–15:30, 18:30–23:30"
+        },
+        {
+          "en": "Sunday: 12:00–15:30, 18:30–23:30",
+          "fr": "Dimanche : 12:00–15:30, 18:30–23:30"
+        }
+      ]
+    },
+    {
+      "id": "language",
+      "group": "languages",
+      "status": "warn",
+      "title": {
+        "en": "Some pages declare the wrong language",
+        "fr": "Certaines pages déclarent la mauvaise langue"
+      },
+      "detail": {
+        "en": "/en: the content and the declared language do not match. Browsers may offer to translate the English page into English, and Google may treat it as French.",
+        "fr": "/en : le contenu et la langue déclarée ne correspondent pas. Le navigateur peut proposer de traduire la page anglaise en anglais, et Google peut la considérer comme française."
+      },
+      "fix": {
+        "en": "Ask the web developer to declare the right language in the page’s <html lang> tag (en for English pages).",
+        "fr": "Demandez au développeur du site de déclarer la bonne langue dans la balise <html lang> (en pour les pages anglaises)."
+      },
+      "evidence": [
+        "/en → lang=\"fr\" ≠ en"
+      ]
+    },
+    {
+      "id": "hreflang",
+      "group": "languages",
+      "status": "pass",
+      "title": {
+        "en": "French and English versions point to each other",
+        "fr": "Les versions française et anglaise se référencent mutuellement"
+      },
+      "detail": {
+        "en": "Google can show the English page to visitors searching in English and the French page to locals.",
+        "fr": "Google peut proposer la page anglaise aux visiteurs anglophones et la page française aux habitants."
+      },
+      "fix": null,
+      "evidence": [
+        "/ → fr: https://pizzacaratello.com/",
+        "/ → en: https://pizzacaratello.com/en",
+        "/ → x-default: https://pizzacaratello.com/",
+        "/en → fr: https://pizzacaratello.com/",
+        "/en → en: https://pizzacaratello.com/en",
+        "/en → x-default: https://pizzacaratello.com/"
+      ]
+    },
+    {
+      "id": "viewport",
+      "group": "mobile_sharing",
+      "status": "pass",
+      "title": {
+        "en": "Pages are set up for phone screens",
+        "fr": "Les pages sont prévues pour les écrans de téléphone"
+      },
+      "detail": {
+        "en": "Every page adapts its width to the phone. This is a setup check only; tap comfort and speed still need a real-phone test.",
+        "fr": "Chaque page adapte sa largeur au téléphone. Vérification de configuration uniquement : le confort tactile et la vitesse restent à tester sur un vrai téléphone."
+      },
+      "fix": null,
+      "evidence": []
+    },
+    {
+      "id": "image_alt",
+      "group": "mobile_sharing",
+      "status": "pass",
+      "title": {
+        "en": "Every photo has a description",
+        "fr": "Chaque photo a une description"
+      },
+      "detail": {
+        "en": "Image descriptions help Google Images and guests using screen readers.",
+        "fr": "Les descriptions d’images aident Google Images et les clients utilisant un lecteur d’écran."
+      },
+      "fix": null,
+      "evidence": []
+    },
+    {
+      "id": "social_preview",
+      "group": "mobile_sharing",
+      "status": "warn",
+      "title": {
+        "en": "Shared links show no photo",
+        "fr": "Les liens partagés n’affichent pas de photo"
+      },
+      "detail": {
+        "en": "When a guest shares the site on WhatsApp, Instagram or Facebook, the preview has no image. A food photo is what makes friends tap the link.",
+        "fr": "Quand un client partage le site sur WhatsApp, Instagram ou Facebook, l’aperçu n’a pas d’image. Une photo de plat est ce qui donne envie de cliquer."
+      },
+      "fix": {
+        "en": "Add a share image (og:image, about 1200×630 px) showing the restaurant’s best dish.",
+        "fr": "Ajoutez une image de partage (og:image, environ 1200×630 px) montrant le meilleur plat du restaurant."
+      },
+      "evidence": [
+        "og:title → Pizza Caratello — Pizzeria à Montmartre | Paris 18e",
+        "og:description → Pizza Caratello, pizzeria italienne au 8 rue Audran à Montmartre (Paris 18e) : pizzas cuites à la commande, pâtes fraîches, risottos. Réservez en ligne.",
+        "og:image → none"
+      ]
+    },
+    {
+      "id": "speed",
+      "group": "mobile_sharing",
+      "status": "pass",
+      "title": {
+        "en": "The home page answers quickly",
+        "fr": "La page d’accueil répond rapidement"
+      },
+      "detail": {
+        "en": "The server answered in 440 ms (74 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 440 ms (74 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+      },
+      "fix": null,
+      "evidence": [
+        "440 ms",
+        "74 KB"
+      ]
+    },
+    {
+      "id": "contact",
+      "group": "guest_path",
+      "status": "pass",
+      "title": {
+        "en": "Guests can call with one tap",
+        "fr": "Les clients peuvent appeler en un geste"
+      },
+      "detail": {
+        "en": "The phone number is a tappable link, which matters for last-minute bookings from a phone.",
+        "fr": "Le numéro est un lien cliquable, utile pour les réservations de dernière minute depuis un téléphone."
+      },
+      "fix": null,
+      "evidence": [
+        "tel:0142648851",
+        "tel:+33142648851",
+        "mailto:pizzacaratelloparis@gmail.com"
+      ]
+    },
+    {
+      "id": "links",
+      "group": "guest_path",
+      "status": "fail",
+      "title": {
+        "en": "Some outgoing links are broken",
+        "fr": "Certains liens sortants sont cassés"
+      },
+      "detail": {
+        "en": "1 of 11 links to the menu, delivery or review sites does not open: just-eat.fr. A guest who taps it lands on an error page instead of ordering.",
+        "fr": "1 lien sur 11 vers le menu, la livraison ou les avis ne s’ouvre pas : just-eat.fr. Un client qui clique arrive sur une page d’erreur au lieu de commander."
+      },
+      "fix": {
+        "en": "Check that the restaurant is still listed on just-eat.fr. If so, replace the link with the current listing address; if not, remove it from the site.",
+        "fr": "Vérifiez que le restaurant est toujours présent sur just-eat.fr. Si oui, remplacez le lien par l’adresse actuelle de la fiche ; sinon, retirez-le du site."
+      },
+      "evidence": [
+        "hindflnvbnqaunwodgev.supabase.co → OK",
+        "ubereats.com → OK",
+        {
+          "en": "deliveroo.fr → not verifiable (403): the site blocks automated checks",
+          "fr": "deliveroo.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
+        },
+        "https://www.just-eat.fr/en/menu/pizza-caratello → 404",
+        {
+          "en": "tripadvisor.fr → not verifiable (403): the site blocks automated checks",
+          "fr": "tripadvisor.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
+        },
+        {
+          "en": "yelp.com → not verifiable (403): the site blocks automated checks",
+          "fr": "yelp.com → non vérifiable (403) : le site bloque les contrôles automatiques"
+        },
+        "facebook.com → OK",
+        "instagram.com → OK",
+        "google.com → OK",
+        "localisr.app → OK",
+        "google.com → OK"
+      ]
+    }
+  ],
+  "changes": {
+    "since": "2026-11-17T11:20:46+00:00",
+    "new": [],
+    "resolved": []
+  }
+}

@@ -1,91 +1,62 @@
+"""Restaurant Growth Intelligence API.
+
+The API serves the JSON files in backend/snapshot:
+
+- research.json    curated, bilingual research (profile, keywords, actions)
+- site_check.json  written by `python -m backend.collect.site_check`
+
+The dashboard bundles the same files at build time, so it still works when the
+API is unreachable; the API simply provides the freshest copy.
+"""
 from __future__ import annotations
 
 import json
-import os
-import sqlite3
-from contextlib import closing
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-if __package__:
-    from .data import KEYWORDS, OBSERVATIONS, OPPORTUNITIES, PROFILE, RESEARCHED_ON, SOURCES
-else:  # Vercel loads this service entrypoint as the top-level module `main`.
-    from data import KEYWORDS, OBSERVATIONS, OPPORTUNITIES, PROFILE, RESEARCHED_ON, SOURCES
+SNAPSHOT_DIR = Path(__file__).resolve().parent / "snapshot"
 
-DEFAULT_DB_PATH = Path("/tmp/caratello.sqlite3") if os.getenv("VERCEL") else Path(__file__).parent / "caratello.sqlite3"
-DB_PATH = Path(os.getenv("CARATELLO_DB", DEFAULT_DB_PATH))
-app = FastAPI(title="Restaurant Growth Intelligence API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET"], allow_headers=["*"])
-
-
-def connect() -> sqlite3.Connection:
-    db = sqlite3.connect(DB_PATH)
-    db.row_factory = sqlite3.Row
-    return db
+app = FastAPI(title="Restaurant Growth Intelligence API", version="0.2.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5180", "http://127.0.0.1:5180"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 
-def seed_database() -> None:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with closing(connect()) as db:
-        db.executescript("""
-            CREATE TABLE IF NOT EXISTS research_items (kind TEXT NOT NULL, item_id TEXT NOT NULL, payload TEXT NOT NULL, researched_on TEXT NOT NULL, PRIMARY KEY(kind, item_id));
-        """)
-        rows = []
-        rows.extend(("source", s["id"], s) for s in SOURCES)
-        rows.extend(("observation", o["id"], o) for o in OBSERVATIONS)
-        rows.extend(("opportunity", o["id"], o) for o in OPPORTUNITIES)
-        rows.extend(("keyword", str(i), k) for i, k in enumerate(KEYWORDS))
-        for kind, item_id, payload in rows:
-            db.execute(
-                "INSERT INTO research_items VALUES (?, ?, ?, ?) "
-                "ON CONFLICT(kind, item_id) DO UPDATE SET payload=excluded.payload, researched_on=excluded.researched_on",
-                (kind, item_id, json.dumps(payload), RESEARCHED_ON),
-            )
-        db.commit()
-
-
-@app.on_event("startup")
-def startup() -> None:
-    seed_database()
-
-
-def read_items(kind: str) -> list[dict[str, Any]]:
-    with closing(connect()) as db:
-        rows = db.execute("SELECT payload FROM research_items WHERE kind = ? ORDER BY item_id", (kind,)).fetchall()
-    return [json.loads(row["payload"]) for row in rows]
+def read_snapshot(name: str) -> dict[str, Any]:
+    path = SNAPSHOT_DIR / f"{name}.json"
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail=f"No {name} snapshot has been collected yet.")
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @app.get("/api/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "researched_on": RESEARCHED_ON}
+    return {
+        "status": "ok",
+        "researched_on": read_snapshot("research")["researched_on"],
+        "site_checked_at": read_snapshot("site_check")["checked_at"],
+    }
 
 
 @app.get("/api/profile")
 def profile() -> dict[str, Any]:
-    return PROFILE
+    return read_snapshot("research")["profile"]
 
 
 @app.get("/api/research")
 def research() -> dict[str, Any]:
-    observations = pd.DataFrame(read_items("observation"))
-    keywords = read_items("keyword")
-    return {
-        "researched_on": RESEARCHED_ON,
-        "observations": observations.to_dict(orient="records"),
-        "keywords": keywords,
-        "opportunities": read_items("opportunity"),
-        "sources": read_items("source"),
-        "summary": {
-            "verified": int((observations["status"] == "observed").sum()) if not observations.empty else 0,
-            "needs_check": int(observations["status"].isin(["unknown", "partial"]).sum()) if not observations.empty else 0,
-            "keyword_ideas": len(keywords),
-            "metrics_available": False,
-        },
-    }
+    return read_snapshot("research")
+
+
+@app.get("/api/site-check")
+def site_check() -> dict[str, Any]:
+    return read_snapshot("site_check")
 
 
 # On Vercel, `app.frontend()` publishes the Vite build through its CDN while

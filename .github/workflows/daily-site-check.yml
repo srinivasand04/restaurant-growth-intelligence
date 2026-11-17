@@ -1,0 +1,50 @@
+# Refreshes the restaurant website check every morning.
+#
+# The job reruns backend/collect/site_check.py against the live site and commits
+# the updated snapshot files. Vercel deploys every push to main, so the
+# dashboard shows that morning's results without anyone doing anything.
+#
+# Run it by hand from the GitHub "Actions" tab with "Run workflow".
+name: Daily site check
+
+on:
+  schedule:
+    # 05:00 UTC = 06:00 in Paris in winter, 07:00 in summer (before lunch service).
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-site-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The checker uses only the Python standard library: nothing to install.
+      - name: Check the live website
+        run: python -m backend.collect.site_check
+
+      - name: Commit the new snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/snapshot/site_check.json backend/snapshot/site_check_history.json
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git commit -m "Daily site check $(date -u +%Y-%m-%d)"
+          # If someone pushed while the check ran, replay this commit on top.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
