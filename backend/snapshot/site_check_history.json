@@ -12,5 +12,19 @@
    "schema",
    "social_preview"
   ]
+ },
+ {
+  "date": "2026-11-18",
+  "pass": 12,
+  "warn": 5,
+  "fail": 0,
+  "unknown": 0,
+  "problems": [
+   "language",
+   "name_match",
+   "schema",
+   "social_preview",
+   "speed"
+  ]
  }
 ]

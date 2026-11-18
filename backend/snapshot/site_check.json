@@ -1,42 +1,42 @@
 {
-  "checked_at": "2026-11-17T11:39:40+00:00",
+  "checked_at": "2026-11-18T13:43:23+00:00",
   "site": "https://pizzacaratello.com/",
   "pages": [
     {
       "url": "https://pizzacaratello.com/",
       "status": 200,
-      "ms": 724,
+      "ms": 1122,
       "title": "Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/menu",
       "status": 200,
-      "ms": 663,
+      "ms": 1121,
       "title": "Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/book",
       "status": 200,
-      "ms": 680,
+      "ms": 869,
       "title": "Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/acces",
       "status": 200,
-      "ms": 1379,
+      "ms": 738,
       "title": "Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/en",
       "status": 200,
-      "ms": 396,
+      "ms": 832,
       "title": "Pizza Caratello — Pizzeria in Montmartre, Paris 18th"
     }
   ],
   "summary": {
     "pass": 12,
-    "warn": 4,
-    "fail": 1,
+    "warn": 5,
+    "fail": 0,
     "unknown": 0
   },
   "checks": [
@@ -76,11 +76,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 200 · 724 ms",
-        "/menu → 200 · 663 ms",
-        "/book → 200 · 680 ms",
-        "/acces → 200 · 1379 ms",
-        "/en → 200 · 396 ms"
+        "/ → 200 · 1122 ms",
+        "/menu → 200 · 1121 ms",
+        "/book → 200 · 869 ms",
+        "/acces → 200 · 738 ms",
+        "/en → 200 · 832 ms"
       ]
     },
     {
@@ -344,19 +344,22 @@
     {
       "id": "speed",
       "group": "mobile_sharing",
-      "status": "pass",
+      "status": "warn",
       "title": {
-        "en": "The home page answers quickly",
-        "fr": "La page d’accueil répond rapidement"
+        "en": "The home page is slow to answer",
+        "fr": "La page d’accueil met du temps à répondre"
       },
       "detail": {
-        "en": "The server answered in 440 ms (74 KB of HTML). This is one request from one location, not a full phone-speed test.",
-        "fr": "Le serveur a répondu en 440 ms (74 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+        "en": "The server answered in 1029 ms (75 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 1029 ms (75 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
       },
-      "fix": null,
+      "fix": {
+        "en": "Run PageSpeed Insights on the home page and review hosting and image sizes.",
+        "fr": "Lancez PageSpeed Insights sur la page d’accueil et vérifiez l’hébergement et le poids des images."
+      },
       "evidence": [
-        "440 ms",
-        "74 KB"
+        "1029 ms",
+        "75 KB"
       ]
     },
     {
@@ -381,19 +384,16 @@
     {
       "id": "links",
       "group": "guest_path",
-      "status": "fail",
+      "status": "pass",
       "title": {
-        "en": "Some outgoing links are broken",
-        "fr": "Certains liens sortants sont cassés"
+        "en": "Menu, delivery and review links open",
+        "fr": "Les liens menu, livraison et avis fonctionnent"
       },
       "detail": {
-        "en": "1 of 11 links to the menu, delivery or review sites does not open: just-eat.fr. A guest who taps it lands on an error page instead of ordering.",
-        "fr": "1 lien sur 11 vers le menu, la livraison ou les avis ne s’ouvre pas : just-eat.fr. Un client qui clique arrive sur une page d’erreur au lieu de commander."
+        "en": "6 of 11 outgoing links were opened successfully. 5 could not be verified because those sites block automated checks; open them by hand once.",
+        "fr": "6 liens sortants sur 11 ont été ouverts avec succès. 5 n’ont pas pu être vérifiés car ces sites bloquent les contrôles automatiques ; ouvrez-les une fois à la main."
       },
-      "fix": {
-        "en": "Check that the restaurant is still listed on just-eat.fr. If so, replace the link with the current listing address; if not, remove it from the site.",
-        "fr": "Vérifiez que le restaurant est toujours présent sur just-eat.fr. Si oui, remplacez le lien par l’adresse actuelle de la fiche ; sinon, retirez-le du site."
-      },
+      "fix": null,
       "evidence": [
         "hindflnvbnqaunwodgev.supabase.co → OK",
         "ubereats.com → OK",
@@ -401,7 +401,10 @@
           "en": "deliveroo.fr → not verifiable (403): the site blocks automated checks",
           "fr": "deliveroo.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
         },
-        "https://www.just-eat.fr/en/menu/pizza-caratello → 404",
+        {
+          "en": "just-eat.fr → not verifiable (403): the site blocks automated checks",
+          "fr": "just-eat.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
+        },
         {
           "en": "tripadvisor.fr → not verifiable (403): the site blocks automated checks",
           "fr": "tripadvisor.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
@@ -411,7 +414,10 @@
           "fr": "yelp.com → non vérifiable (403) : le site bloque les contrôles automatiques"
         },
         "facebook.com → OK",
-        "instagram.com → OK",
+        {
+          "en": "instagram.com → not verifiable (429): the site blocks automated checks",
+          "fr": "instagram.com → non vérifiable (429) : le site bloque les contrôles automatiques"
+        },
         "google.com → OK",
         "localisr.app → OK",
         "google.com → OK"
@@ -419,8 +425,12 @@
     }
   ],
   "changes": {
-    "since": "2026-11-17T11:20:46+00:00",
-    "new": [],
-    "resolved": []
+    "since": "2026-11-17T11:39:40+00:00",
+    "new": [
+      "speed"
+    ],
+    "resolved": [
+      "links"
+    ]
   }
 }
