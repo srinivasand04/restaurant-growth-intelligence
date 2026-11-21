@@ -1,35 +1,35 @@
 {
-  "checked_at": "2026-11-20T13:53:02+00:00",
+  "checked_at": "2026-11-21T13:17:10+00:00",
   "site": "https://pizzacaratello.com/",
   "pages": [
     {
       "url": "https://pizzacaratello.com/",
       "status": 200,
-      "ms": 1127,
+      "ms": 2261,
       "title": "Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/menu",
       "status": 200,
-      "ms": 1114,
+      "ms": 1266,
       "title": "Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/book",
       "status": 200,
-      "ms": 687,
+      "ms": 905,
       "title": "Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/acces",
       "status": 200,
-      "ms": 698,
+      "ms": 971,
       "title": "Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/en",
       "status": 200,
-      "ms": 813,
+      "ms": 956,
       "title": "Pizza Caratello — Pizzeria in Montmartre, Paris 18th"
     }
   ],
@@ -76,11 +76,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 200 · 1127 ms",
-        "/menu → 200 · 1114 ms",
-        "/book → 200 · 687 ms",
-        "/acces → 200 · 698 ms",
-        "/en → 200 · 813 ms"
+        "/ → 200 · 2261 ms",
+        "/menu → 200 · 1266 ms",
+        "/book → 200 · 905 ms",
+        "/acces → 200 · 971 ms",
+        "/en → 200 · 956 ms"
       ]
     },
     {
@@ -350,15 +350,15 @@
         "fr": "La page d’accueil met du temps à répondre"
       },
       "detail": {
-        "en": "The server answered in 855 ms (75 KB of HTML). This is one request from one location, not a full phone-speed test.",
-        "fr": "Le serveur a répondu en 855 ms (75 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+        "en": "The server answered in 986 ms (75 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 986 ms (75 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
       },
       "fix": {
         "en": "Run PageSpeed Insights on the home page and review hosting and image sizes.",
         "fr": "Lancez PageSpeed Insights sur la page d’accueil et vérifiez l’hébergement et le poids des images."
       },
       "evidence": [
-        "855 ms",
+        "986 ms",
         "75 KB"
       ]
     },
@@ -390,8 +390,8 @@
         "fr": "Les liens menu, livraison et avis fonctionnent"
       },
       "detail": {
-        "en": "6 of 11 outgoing links were opened successfully. 5 could not be verified because those sites block automated checks; open them by hand once.",
-        "fr": "6 liens sortants sur 11 ont été ouverts avec succès. 5 n’ont pas pu être vérifiés car ces sites bloquent les contrôles automatiques ; ouvrez-les une fois à la main."
+        "en": "7 of 11 outgoing links were opened successfully. 4 could not be verified because those sites block automated checks; open them by hand once.",
+        "fr": "7 liens sortants sur 11 ont été ouverts avec succès. 4 n’ont pas pu être vérifiés car ces sites bloquent les contrôles automatiques ; ouvrez-les une fois à la main."
       },
       "fix": null,
       "evidence": [
@@ -414,10 +414,7 @@
           "fr": "yelp.com → non vérifiable (403) : le site bloque les contrôles automatiques"
         },
         "facebook.com → OK",
-        {
-          "en": "instagram.com → not verifiable (429): the site blocks automated checks",
-          "fr": "instagram.com → non vérifiable (429) : le site bloque les contrôles automatiques"
-        },
+        "instagram.com → OK",
         "google.com → OK",
         "localisr.app → OK",
         "google.com → OK"
@@ -425,7 +422,7 @@
     }
   ],
   "changes": {
-    "since": "2026-11-19T14:11:47+00:00",
+    "since": "2026-11-20T13:53:02+00:00",
     "new": [],
     "resolved": []
   }
