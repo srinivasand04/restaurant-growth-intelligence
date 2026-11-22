@@ -39,7 +39,7 @@ def read_snapshot(name: str) -> dict[str, Any]:
 def health() -> dict[str, str]:
     return {
         "status": "ok",
-        "researched_on": read_snapshot("research")["researched_on"],
+        "research_updated_on": read_snapshot("research")["updated_on"],
         "site_checked_at": read_snapshot("site_check")["checked_at"],
     }
 
