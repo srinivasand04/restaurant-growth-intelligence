@@ -1,23 +1,29 @@
 # Restaurant Growth Intelligence — Piccolo Caratello
 
-A bilingual (French / English) dashboard that tells the restaurant owner what to fix and what to do next to win more local guests. Built with React + TypeScript + Vite and a small FastAPI backend; deployed on Vercel as `restaurant-growth-intelligence`.
+A bilingual (French / English) dashboard for **Piccolo Caratello** (8 rue Audran, Paris 18e, [piccolocaratello.com](https://piccolocaratello.com/)). It shows the owner where the restaurant stands, the 30-day plan to reach the **top 3 Italian restaurants in the 18th**, and what we need from him. Built with React + TypeScript + Vite and a small FastAPI backend; deployed on Vercel as `restaurant-growth-intelligence`.
 
-## What it does today
+Pizza Caratello and Al Caratello come later, using the same method once Piccolo shows results.
 
-- **Site health.** An automated check loads every page in the restaurant's sitemap and reports what is actually there: titles, search descriptions, language tags, French/English links, structured data for Google, opening hours, phone link, share preview, speed, and every outgoing link (menu PDF, delivery apps, review sites). Problems come first, each with a plain-language fix. Nothing is estimated; checks that cannot be verified automatically say so.
-- **Action plan.** Problems found by the site check and curated recommendations (French copy fixes, Google Maps listing, English visitor path, measurement) in one list, most urgent first.
-- **Owner-only items.** What can only be confirmed once the owner grants access: Google Business Profile, Search Console, and a quick real-phone test.
-- **Search ideas.** French and English search phrases based on location, cuisine and guest intent. These are hypotheses until Search Console data is connected; no volumes or rankings are claimed.
-- **FR / EN toggle** on every page; the choice is remembered in the browser.
+## The four tabs
 
-## Roadmap
+| Tab | What the owner sees |
+|---|---|
+| **Today** | The 30-day goal with a ranking ladder (No. 11 of 27 → top 3), Google rating and review count (updated every morning), plan progress, website health, a review-count chart, the next steps, and the access we still need |
+| **30-day plan** | Every task with why it matters, the steps, and when it counts as done. Filter by area; tasks that need access the owner has not given yet show "Waiting for access" |
+| **Reputation** | Google, TheFork, Tripadvisor, Restaurant Guru, Rankeat and Uber Eats side by side, with source and date for every number, information that does not match between sites, a sample of what guests say, and the words to use everywhere |
+| **Website** | The automatic morning check of piccolocaratello.com: what changed since yesterday, problems with their fix, and what already works |
 
-| Phase | What | Needs from the owner |
-|---|---|---|
-| ✅ 0 | Single data source, automated site check, rebuilt site health and action plan | — |
-| 1 | Guest review analysis: themes (food, service, wait, price), languages, trend over time, most-praised dishes | — (public reviews) |
-| 2 | Reply drafts for new reviews; weekly one-page brief in French; scheduled weekly refresh | An email address for the brief |
-| 3 | Real numbers: Google Business Profile (calls, directions, website clicks) and Search Console (actual searches) | Access to both |
+Every number has an ⓘ button saying where it comes from. Numbers not re-checked recently say "to confirm".
+
+## Updating the plan
+
+Edit `backend/snapshot/research.json`, then commit and push; Vercel redeploys.
+
+- Mark a task done: set its `"status"` to `"done"` (or `"doing"` while in progress).
+- When the owner gives an access item (Google Manager, website login, domain, bookings number), set that item's `"status"` to `"done"`; tasks that were waiting for it unlock automatically.
+- New readings for TheFork, Tripadvisor and the others: update `rating`, `reviews` and `checked_on` on that platform.
+
+The Google rating and review count do not need editing: the daily check reads them from the restaurant website's structured data (published from Google) and stores one reading per day in `site_check_history.json`.
 
 ## How the data flows
 
@@ -79,7 +85,8 @@ npm run build
 - `GET /api/health` — status, research date, last site-check time
 - `GET /api/profile` — restaurant profile
 - `GET /api/research` — curated research (profile, sources, owner checks, search ideas, recommendations)
-- `GET /api/site-check` — latest automated site check
+- `GET /api/site-check` — latest automated site check, including the Google rating and review count
+- `GET /api/history` — one line per day: check results plus Google rating and review count
 
 Interactive docs: http://localhost:8000/docs
 

@@ -594,6 +594,21 @@ def run(site: str, expected_name: str) -> dict:
     return finish(site, pages, checks)
 
 
+def read_reputation(pages: list[Page]) -> dict | None:
+    """Google rating and review count, as published in the site's own structured data.
+
+    Restaurant site builders such as Localisr copy these from Google every day,
+    which gives a free daily reading of the two numbers the owner cares most about.
+    """
+    home = pages[0] if pages and pages[0].response.ok else None
+    rating = ((home.restaurant_schema if home else None) or {}).get("aggregateRating") or {}
+    try:
+        return {"rating": round(float(rating["ratingValue"]), 2), "reviews": int(rating["reviewCount"]),
+                "source": home.url if home else None}
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
 def finish(site: str, pages: list[Page], checks: list[dict]) -> dict:
     summary = {status: sum(check["status"] == status for check in checks) for status in ("pass", "warn", "fail", "unknown")}
     return {
@@ -601,6 +616,7 @@ def finish(site: str, pages: list[Page], checks: list[dict]) -> dict:
         "site": site,
         "pages": [{"url": page.url, "status": page.response.status, "ms": page.response.ms, "title": page.parsed.title} for page in pages],
         "summary": summary,
+        "reputation": read_reputation(pages),
         "checks": checks,
     }
 
@@ -639,6 +655,9 @@ def update_history(history: list | None, current: dict) -> list:
         **current["summary"],
         "problems": sorted(check["id"] for check in current["checks"] if check["status"] in PROBLEM),
     }
+    if current.get("reputation"):
+        entry["rating"] = current["reputation"]["rating"]
+        entry["reviews"] = current["reputation"]["reviews"]
     kept = [item for item in (history or []) if item.get("date") != day]
     return sorted([*kept, entry], key=lambda item: item["date"])[-HISTORY_DAYS:]
 

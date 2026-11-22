@@ -1,45 +1,117 @@
-export type UiLanguage = 'EN' | 'FR'
+import type { Lang, Localized } from './types'
 
-const messages = {
-  EN: {
-    workspace: 'Workspace', overview: 'Overview', keywords: 'Keyword opportunities', audit: 'Site health', actions: 'Action plan', brandSub: 'GROWTH INTELLIGENCE', appTitle: 'Growth Intelligence', footerSub: 'GROWTH INTELLIGENCE',
-    intelligence: 'INTELLIGENCE', tools: 'TOOLS', sources: 'Research sources', strategyWorkspace: 'Strategy workspace', stepLocal: 'Step 1 · Local acquisition',
-    apiConnected: 'Research API connected', apiOffline: 'Showing saved research', apiLoading: 'Connecting to research API', openNavigation: 'Open navigation', closeNavigation: 'Close navigation', account: 'Account',
-    snapshot: 'Site last checked', step01: 'STEP 01', eyebrow: 'LOCAL SEO & CUSTOMER ACQUISITION', titleOverview: 'Find your next local customers', titleKeywords: 'Search intent, in plain sight', titleAudit: 'Is the website doing its job?', titleActions: 'Turn insight into action',
-    descOverview: 'A clear-eyed look at how diners find, choose and reach Piccolo Caratello.', descKeywords: 'Search themes built around the place, the food and the guest. No volume or rank claims without evidence.', descAudit: 'An automatic check of every public page: problems first, each with its fix.', descActions: 'A short, practical sequence built from the evidence available today.', viewSite: 'View restaurant site',
-    heroTitle1: 'Good food is here.', heroTitle2: 'Let more guests find it.', heroBody: 'The restaurant already gives visitors a way to browse the menu, book a table and order online. The next opportunity is to make those choices easy to find when guests are searching nearby.', seeActions: 'See recommended actions', live: 'LIVE', localSearch: 'LOCAL SEARCH', yourDoor: 'YOUR DOOR', sourceLinked: 'Source-linked observations', noMadeUp: 'No made-up performance data', snapshotDated: 'Site checked',
-    verifiedSite: 'Verified on the public site', verifiedSub: 'observations grounded in page content', needsCheck: 'Still needs a proper check', needsCheckSub: 'unknown or partially verified items', searchIdeas: 'Search phrase ideas', searchIdeasSub: 'FR + EN · intent based · no volumes', guestActions: 'Ways guests can act', guestActionsSub: 'paths shown on the restaurant site', bookingOrder: 'Booking + order',
-    firstMoves: 'THE FIRST MOVES', focusFirst: 'Where to focus first', fullPlan: 'Full action plan', businessSnapshot: 'BUSINESS SNAPSHOT', strongStart: 'A strong starting point', publicSite: 'PUBLIC SITE', profileNote: 'Position the next actions around a real strength: guests can already move from discovery to a menu, booking or order.',
-    recommendationMix: 'RECOMMENDATION MIX', opportunities: 'Five practical opportunities', effortEvidence: 'Effort + evidence based', recommendationCount: 'recommendations', count: 'Count', plannedCount: 'Count of planned actions, not business performance', reviewList: 'Review list', researchStatus: 'RESEARCH STATUS', honestDesign: 'Honest by design', visiblePublic: 'Visible in public pages', publicDetails: 'Menu · booking · contact · EN page', requiresAccess: 'Requires owner / technical access', accessDetails: 'Search terms · profile · page source', fullAudit: 'See the full site check', nextStep: 'One worthwhile next step', connectSearchConsole: 'Connect Search Console with the owner’s permission. Actual impressions and clicks can turn today’s search hypotheses into a prioritized plan.', exploreIdeas: 'Explore keyword ideas',
-    hypotheses: 'These are opportunity hypotheses, not measured rankings.', unavailableInsights: 'Search volume, ranking position and Google profile insights are unavailable in this snapshot. Connect Search Console to validate real queries.', aboutSearchConsole: 'About Search Console', queryIdeas: 'QUERY IDEAS', shown: 'SHOWN', matchMoment: 'Match the phrase to the guest’s moment', searchPlaceholder: 'Search phrase or intent', all: 'All', searchTheme: 'SEARCH THEME', language: 'LANGUAGE', guestIntent: 'GUEST INTENT', fit: 'FIT', searchVolume: 'SEARCH VOLUME', position: 'POSITION', notAvailable: 'Not available', notMeasured: 'Not measured', noKeywordMatches: 'No keyword ideas match that filter.', ideasEvidence: 'Ideas are based on location, menu and audience fit—not search-volume data.', researchDate: 'Research date', frenchNearby: 'French: capture nearby intent', frenchTip: 'Use accurate neighborhood and cuisine wording in the page title, menu page and Business Profile. Avoid repeating landmark phrases where they do not help a visitor.', englishDecide: 'English: help visitors decide fast', englishTip: 'Keep menu, hours, booking and directions easy to reach in English. Explain the location in relation to Abbesses and Montmartre for trip-planning guests.',
-    evidenceBoundary: 'Evidence boundary', auditScope: 'This audit reviews publicly rendered content. No access to Search Console, Google Business Profile owner view, page source, PageSpeed Insights or analytics was used.', checked: 'CHECKED', evidence: 'Evidence', googleDocs: 'Google docs', englishPage: 'English page', restaurantSite: 'Restaurant site', finishChecks: 'How to finish the technical checks', technicalChecks: 'Use page source / a crawler for title, description, canonical, hreflang and JSON-LD; run mobile tests on the booking and menu flow; ask the owner to confirm the live Business Profile.', actionSequence: 'See the action sequence',
-    firstSprint: 'A PRACTICAL FIRST SPRINT', guestChoice: 'Make the next guest’s choice easier.', actionIntro: 'Start with changes an owner can verify, then set a baseline before judging results. No rankings or revenue promises.', evidenceOpportunities: 'evidence-linked actions', observed: 'Observed:', recommendedAction: 'Recommended action', effort: 'Effort', confidence: 'Evidence confidence', value: 'Business value', measureOwner: 'Measure what a business owner cares about', measureCopy: 'Before making changes, record weekly booking clicks, phone taps, direction requests, order clicks and completed bookings/orders where available. Compare after changes; use POS or booking data for sales outcomes.',
-    footerBrand: 'PICCOLO CARATELLO', footerStep: 'Step 1 of 3', madeBy: 'Built by', changesEyebrow: 'SINCE THE PREVIOUS CHECK', changesTitle: 'What changed', fixedLabel: 'Fixed', newLabel: 'New problem', noChanges: 'No change since the previous check on', staleTitle: 'This data has not been refreshed recently', staleBody: 'The daily website check last ran on', staleBody2: 'Results may be out of date until it runs again.', checkedAtTime: 'at', researchTrail: 'RESEARCH TRAIL', sourceTitle: 'Sources & research notes', sourceIntro: 'Every public-site observation links back to its source.', closeSources: 'Close sources', checkedDate: 'Checked', sourceLimit: 'Search volumes and rankings are not available without first-party data access.',
-    checksPassed: 'Site checks passed', checksPassedSub: 'verified on the live website', toFix: 'To fix on the site', toFixSub: 'found by the latest check', checkedLive: 'checked live', seeFixes: 'fix included', passedLive: 'Passed on the live site', passedLiveSub: 'Titles · hours · languages · links', toFixRow: 'To fix on the site', toFixRowSub: 'Each one comes with its fix', ownerAccessRow: 'Only the owner can confirm', ownerAccessSub: 'Google listing · real searches · phone test',
-    liveBanner: 'Checked on the live site, not assumed', liveScope: 'Every result below comes from loading the restaurant’s public pages. The check can be rerun at any time; nothing here is estimated.', lastChecked: 'LAST CHECKED', pagesChecked: 'Pages checked', statusPass: 'OK', statusWarn: 'To improve', statusFail: 'Broken', statusNa: 'Not verifiable', needsAttention: 'NEEDS ATTENTION', needsAttentionTitle: 'Fix these first', allGood: 'Nothing to fix: every check passed.', howToFix: 'How to fix', whatWeSaw: 'What the check saw', passedTitle: 'What is already working', passedEyebrow: 'PASSED', groupFindability: 'Being found on Google', groupLanguages: 'French and English', groupGuestPath: 'From visit to table', groupMobileSharing: 'Phones and sharing', ownerOnlyEyebrow: 'OWNER ACCESS', ownerOnly: 'Only the owner can confirm these', needed: 'Needed', finishTitle: 'Every fix is already in the action plan', finishBody: 'Problems found by the check are listed with the other recommendations, most urgent first.',
-    siteCheckOrigin: 'Found by the site check', seeEvidence: 'See the evidence', kindSite: 'Restaurant website', kindGoogle: 'Google documentation', kindFuture: 'Future data connection', practicalOpportunities: 'Actions by priority',
-    priorityHigh: 'High', priorityMedium: 'Medium', priorityLow: 'Low', badgeHigh: 'High priority', badgeMedium: 'Medium priority', badgeLow: 'Low priority', observedStatus: 'Observed', partialStatus: 'Partial', unknownStatus: 'Unverified', confirmed: 'confirmed', needsAccess: 'needs access', researchIdeas: 'research ideas', conversionPath: 'conversion path', visiblePages: 'Visible in public pages', unknownPart: 'unknown or partially verified items',
-  },
-  FR: {
-    workspace: 'Espace de travail', overview: 'Vue d’ensemble', keywords: 'Opportunités de mots-clés', audit: 'Santé du site', actions: 'Plan d’action', brandSub: 'INTELLIGENCE DE CROISSANCE', appTitle: 'Intelligence de croissance', footerSub: 'INTELLIGENCE DE CROISSANCE',
-    intelligence: 'ANALYSE', tools: 'OUTILS', sources: 'Sources de recherche', strategyWorkspace: 'Espace stratégie', stepLocal: 'Étape 1 · Acquisition locale',
-    apiConnected: 'API de recherche connectée', apiOffline: 'Recherche enregistrée affichée', apiLoading: 'Connexion à l’API de recherche', openNavigation: 'Ouvrir la navigation', closeNavigation: 'Fermer la navigation', account: 'Compte',
-    snapshot: 'Dernier contrôle du site', step01: 'ÉTAPE 01', eyebrow: 'SEO LOCAL ET ACQUISITION CLIENT', titleOverview: 'Attirez de nouveaux clients locaux', titleKeywords: 'Les intentions de recherche, en clair', titleAudit: 'Le site fait-il son travail ?', titleActions: 'Passer des constats à l’action',
-    descOverview: 'Un regard concret sur la façon dont les clients découvrent et rejoignent Piccolo Caratello.', descKeywords: 'Des idées de recherche liées au quartier, à la cuisine et aux clients. Aucun volume ni classement annoncé sans preuve.', descAudit: 'Un contrôle automatique de chaque page publique : les problèmes d’abord, chacun avec sa correction.', descActions: 'Une séquence courte et concrète, fondée sur les éléments disponibles aujourd’hui.', viewSite: 'Voir le site du restaurant',
-    heroTitle1: 'La bonne cuisine est ici.', heroTitle2: 'Faites-la découvrir à plus de monde.', heroBody: 'Le restaurant permet déjà de consulter le menu, de réserver et de commander en ligne. La prochaine opportunité consiste à rendre ces options faciles à trouver lorsque les clients recherchent un restaurant à proximité.', seeActions: 'Voir les actions recommandées', live: 'EN DIRECT', localSearch: 'RECHERCHE LOCALE', yourDoor: 'JUSQU’À VOUS', sourceLinked: 'Constats liés à leurs sources', noMadeUp: 'Aucune statistique inventée', snapshotDated: 'Site contrôlé le',
-    verifiedSite: 'Vérifié sur le site public', verifiedSub: 'constats fondés sur le contenu des pages', needsCheck: 'À vérifier plus précisément', needsCheckSub: 'éléments inconnus ou partiellement vérifiés', searchIdeas: 'Idées de requêtes', searchIdeasSub: 'FR + EN · basées sur l’intention · sans volumes', guestActions: 'Actions possibles pour les clients', guestActionsSub: 'options visibles sur le site du restaurant', bookingOrder: 'Réservation + commande',
-    firstMoves: 'LES PREMIÈRES ACTIONS', focusFirst: 'Les priorités de départ', fullPlan: 'Plan d’action complet', businessSnapshot: 'APERÇU DU RESTAURANT', strongStart: 'Un bon point de départ', publicSite: 'SITE PUBLIC', profileNote: 'Appuyons les prochaines actions sur un atout réel : les clients peuvent déjà passer de la découverte au menu, à la réservation ou à la commande.',
-    recommendationMix: 'RÉPARTITION DES RECOMMANDATIONS', opportunities: 'Cinq pistes concrètes', effortEvidence: 'Selon l’effort et les preuves', recommendationCount: 'recommandations', count: 'Nombre', plannedCount: 'Nombre d’actions prévues, pas une mesure de performance', reviewList: 'Voir la liste', researchStatus: 'ÉTAT DE LA RECHERCHE', honestDesign: 'Des constats transparents', visiblePublic: 'Visible sur les pages publiques', publicDetails: 'Menu · réservation · contact · page EN', requiresAccess: 'Accès propriétaire ou technique requis', accessDetails: 'Requêtes · profil · code source', fullAudit: 'Voir le contrôle complet du site', nextStep: 'Une prochaine étape utile', connectSearchConsole: 'Avec l’accord du propriétaire, connectez Search Console. Les impressions et clics réels permettront de prioriser les pistes de recherche actuelles.', exploreIdeas: 'Explorer les idées de requêtes',
-    hypotheses: 'Ces pistes sont des hypothèses, pas des classements mesurés.', unavailableInsights: 'Les volumes, positions et données du profil Google ne sont pas disponibles dans cet instantané. Connectez Search Console pour vérifier les requêtes réelles.', aboutSearchConsole: 'À propos de Search Console', queryIdeas: 'IDÉES DE REQUÊTES', shown: 'AFFICHÉES', matchMoment: 'Relier chaque recherche au besoin du client', searchPlaceholder: 'Rechercher une requête ou une intention', all: 'Tout', searchTheme: 'THÈME DE RECHERCHE', language: 'LANGUE', guestIntent: 'INTENTION CLIENT', fit: 'PERTINENCE', searchVolume: 'VOLUME DE RECHERCHE', position: 'POSITION', notAvailable: 'Indisponible', notMeasured: 'Non mesurée', noKeywordMatches: 'Aucune idée ne correspond à ce filtre.', ideasEvidence: 'Les idées s’appuient sur le quartier, le menu et le public visé, pas sur des volumes de recherche.', researchDate: 'Date de recherche', frenchNearby: 'Français : capter les recherches à proximité', frenchTip: 'Utilisez des termes précis sur le quartier et la cuisine dans les titres, la page menu et la fiche d’établissement. Évitez les références aux lieux célèbres si elles n’aident pas le client.', englishDecide: 'Anglais : aider les visiteurs à choisir', englishTip: 'Rendez le menu, les horaires, la réservation et l’itinéraire faciles à consulter en anglais. Situez le restaurant par rapport à Abbesses et Montmartre.',
-    evidenceBoundary: 'Limites des preuves', auditScope: 'Cet audit porte sur le contenu public du site. Aucun accès à Search Console, à la vue propriétaire de la fiche Google, au code source, à PageSpeed Insights ou aux outils analytiques n’a été utilisé.', checked: 'VÉRIFIÉ LE', evidence: 'Élément vérifié', googleDocs: 'Documentation Google', englishPage: 'Page anglaise', restaurantSite: 'Site du restaurant', finishChecks: 'Finaliser les vérifications techniques', technicalChecks: 'Inspectez les titres, descriptions, liens canoniques, hreflang et JSON-LD avec le code source ou un robot. Testez le menu et la réservation sur mobile, puis demandez au propriétaire de confirmer la fiche Google.', actionSequence: 'Voir les étapes d’action',
-    firstSprint: 'UNE PREMIÈRE SÉRIE D’ACTIONS', guestChoice: 'Faciliter le choix du prochain client.', actionIntro: 'Commencez par des changements vérifiables par le propriétaire, puis établissez une référence avant d’évaluer les résultats. Aucune promesse de classement ou de chiffre d’affaires.', evidenceOpportunities: 'actions liées à des preuves', observed: 'Constat :', recommendedAction: 'Action recommandée', effort: 'Effort', confidence: 'Niveau de preuve', value: 'Valeur pour l’activité', measureOwner: 'Mesurer ce qui compte pour le restaurant', measureCopy: 'Avant tout changement, relevez chaque semaine les clics de réservation, appels, demandes d’itinéraire, clics de commande et réservations/commandes finalisées lorsqu’ils sont disponibles. Comparez ensuite les résultats et utilisez les données de caisse ou de réservation pour les ventes.',
-    footerBrand: 'PICCOLO CARATELLO', footerStep: 'Étape 1 sur 3', madeBy: 'Réalisé par', changesEyebrow: 'DEPUIS LE CONTRÔLE PRÉCÉDENT', changesTitle: 'Ce qui a changé', fixedLabel: 'Corrigé', newLabel: 'Nouveau problème', noChanges: 'Aucun changement depuis le contrôle du', staleTitle: 'Ces données n’ont pas été actualisées récemment', staleBody: 'Le contrôle quotidien du site a eu lieu pour la dernière fois le', staleBody2: 'Les résultats peuvent être dépassés jusqu’au prochain contrôle.', checkedAtTime: 'à', researchTrail: 'SOURCES DE RECHERCHE', sourceTitle: 'Sources et notes de recherche', sourceIntro: 'Chaque constat lié au site renvoie à sa source.', closeSources: 'Fermer les sources', checkedDate: 'Vérifié le', sourceLimit: 'Les volumes et classements ne sont pas disponibles sans accès aux données de première main.',
-    checksPassed: 'Contrôles réussis', checksPassedSub: 'vérifiés sur le site en ligne', toFix: 'À corriger sur le site', toFixSub: 'relevés lors du dernier contrôle', checkedLive: 'vérifié en ligne', seeFixes: 'correction fournie', passedLive: 'Réussis sur le site en ligne', passedLiveSub: 'Titres · horaires · langues · liens', toFixRow: 'À corriger sur le site', toFixRowSub: 'Chaque point est livré avec sa correction', ownerAccessRow: 'Seul le propriétaire peut confirmer', ownerAccessSub: 'Fiche Google · recherches réelles · test sur téléphone',
-    liveBanner: 'Vérifié sur le site en ligne, sans supposition', liveScope: 'Chaque résultat ci-dessous provient du chargement des pages publiques du restaurant. Le contrôle peut être relancé à tout moment ; rien n’est estimé.', lastChecked: 'DERNIER CONTRÔLE', pagesChecked: 'Pages contrôlées', statusPass: 'OK', statusWarn: 'À améliorer', statusFail: 'Cassé', statusNa: 'Non vérifiable', needsAttention: 'À TRAITER', needsAttentionTitle: 'À corriger en premier', allGood: 'Rien à corriger : tous les contrôles sont réussis.', howToFix: 'Comment corriger', whatWeSaw: 'Ce que le contrôle a relevé', passedTitle: 'Ce qui fonctionne déjà', passedEyebrow: 'RÉUSSIS', groupFindability: 'Être trouvé sur Google', groupLanguages: 'Français et anglais', groupGuestPath: 'De la visite à la table', groupMobileSharing: 'Téléphones et partage', ownerOnlyEyebrow: 'ACCÈS PROPRIÉTAIRE', ownerOnly: 'Seul le propriétaire peut confirmer ces points', needed: 'Nécessaire', finishTitle: 'Chaque correction figure déjà dans le plan d’action', finishBody: 'Les problèmes relevés par le contrôle sont classés avec les autres recommandations, les plus urgents d’abord.',
-    siteCheckOrigin: 'Relevé par le contrôle du site', seeEvidence: 'Voir les éléments relevés', kindSite: 'Site du restaurant', kindGoogle: 'Documentation Google', kindFuture: 'Connexion de données à venir', practicalOpportunities: 'Actions par priorité',
-    priorityHigh: 'Élevée', priorityMedium: 'Moyenne', priorityLow: 'Faible', badgeHigh: 'Priorité élevée', badgeMedium: 'Priorité moyenne', badgeLow: 'Priorité faible', observedStatus: 'Observé', partialStatus: 'Partiel', unknownStatus: 'Non vérifié', confirmed: 'confirmé', needsAccess: 'accès requis', researchIdeas: 'pistes de recherche', conversionPath: 'parcours de conversion', visiblePages: 'Visible sur les pages publiques', unknownPart: 'éléments inconnus ou partiellement vérifiés',
-  },
-} as const
+const en = {
+  appTitle: 'Growth dashboard',
+  tabToday: 'Today', tabPlan: '30-day plan', tabReputation: 'Reputation', tabWebsite: 'Website',
+  lastCheck: 'Last check', updatedDaily: 'Updated every morning', liveData: 'Live data', savedCopy: 'Saved copy (server not reachable)',
+  staleTitle: 'This data has not been refreshed recently', staleBody: 'The daily check last ran on {date}. Numbers may be out of date until it runs again.',
+  builtBy: 'Built by', sources: 'Sources', openSite: 'Website', openMaps: 'Google Maps', close: 'Close',
+  whereFrom: 'Where does this number come from?', at: 'at',
 
-export type MessageKey = keyof typeof messages.EN
-export const getMessages = (language: UiLanguage) => messages[language]
+  // Today
+  todayTitle: 'Piccolo Caratello today', todayIntro: 'Where the restaurant stands, what we are doing about it, and what we need from you.',
+  goalEyebrow: '30-DAY GOAL', dayOf: 'Day {n} of {total}', reviewMeeting: 'Review meeting', nowRank: 'Today', goalRank: 'Goal',
+  rankOf: 'No. {rank} of {of}', topZone: 'Top {n}',
+  kpiRating: 'Google rating', kpiReviews: 'Google reviews', kpiPlan: 'Plan progress', kpiWebsite: 'Website health',
+  sinceDay0: 'since Day 0', sinceDate: 'since {date}', perWeek: '≈ {n} new reviews per week', tasksDone: 'Done: {done} of {total} tasks', checksOk: '{ok} of {total} checks OK',
+  ratingSource: 'Google rating published on piccolocaratello.com, read automatically every morning.',
+  reviewsSource: 'Google review count, read every morning from piccolocaratello.com. The 2 Nov point comes from Rankeat.',
+  planSource: 'Tasks marked done on the plan. We update them as work is completed.',
+  websiteSource: 'Automatic check of every page of piccolocaratello.com, run every morning.',
+  chartTitle: 'Google reviews over time', chartSub: 'Each point is a real reading. A new point is added every morning.',
+  chartReviews: 'Reviews', chartRating: 'Rating', reviewsUnit: 'reviews',
+  nextTitle: 'Next steps', seePlan: 'See the full plan',
+  ownerTitle: 'What we need from you', ownerSub: 'No passwords. Each item takes a few minutes.', received: 'Received', toDo: 'To do',
+
+  // Plan
+  planTitle: 'The 30-day plan', planIntro: 'Every task, why it matters and how it gets done. Tap a task to open it.',
+  all: 'All', areaGoogle: 'Google profile', areaReviews: 'Reviews', areaWebsite: 'Website', areaListings: 'Other sites', areaMeasure: 'Measuring',
+  statusTodo: 'To do', statusDoing: 'In progress', statusDone: 'Done', statusWaiting: 'Waiting for access',
+  whoUs: 'Us', whoOwner: 'Owner', whoTogether: 'Together',
+  why: 'Why it matters', how: 'How', doneWhen: 'Done when', needs: 'Needs', showDone: 'Show done tasks', noTasks: 'No task in this group.',
+  progress: '{done} of {total} done',
+
+  // Reputation
+  repTitle: 'How guests see Piccolo', repIntro: 'Every site where guests read about the restaurant, side by side.',
+  managedYes: 'Managed', managedNo: 'Not claimed', managedLikely: 'Probably managed', managedUnknown: 'To check',
+  live: 'Live', reviews: 'reviews', open: 'Open', compareTitle: 'Ratings side by side', compareSub: 'Converted to a 5-point scale so they can be compared.',
+  mismatchTitle: 'Information that does not match', voiceTitle: 'What guests say', praise: 'Loved', concerns: 'To watch',
+  wordsTitle: 'Words to use everywhere', wordsSub: 'What people type when looking for a place like Piccolo. Use them in the Google description, the website and posts.',
+
+  // Website
+  webTitle: 'Is the website doing its job?', webIntro: 'piccolocaratello.com is checked automatically every morning. Problems first, each with its fix.',
+  statusPass: 'OK', statusWarn: 'To improve', statusFail: 'Broken', statusNa: 'Not verifiable', pagesChecked: 'Pages checked',
+  fixFirst: 'To fix', allGood: 'Nothing to fix: every check passed.', howToFix: 'How to fix', whatWeSaw: 'What the check saw',
+  working: 'Already working', changesTitle: 'Since the previous check ({date})', fixed: 'Fixed', newProblem: 'New problem', noChanges: 'No change since the previous check.',
+  groupFindability: 'Being found on Google', groupLanguages: 'French and English', groupGuestPath: 'From visit to table', groupMobileSharing: 'Phones and sharing',
+}
+
+const fr: Record<keyof typeof en, string> = {
+  appTitle: 'Tableau de croissance',
+  tabToday: 'Aujourd’hui', tabPlan: 'Plan 30 jours', tabReputation: 'Réputation', tabWebsite: 'Site web',
+  lastCheck: 'Dernier contrôle', updatedDaily: 'Mis à jour chaque matin', liveData: 'Données en direct', savedCopy: 'Copie enregistrée (serveur injoignable)',
+  staleTitle: 'Ces données n’ont pas été actualisées récemment', staleBody: 'Le contrôle quotidien a eu lieu pour la dernière fois le {date}. Les chiffres peuvent être dépassés jusqu’au prochain contrôle.',
+  builtBy: 'Réalisé par', sources: 'Sources', openSite: 'Site web', openMaps: 'Google Maps', close: 'Fermer',
+  whereFrom: 'D’où vient ce chiffre ?', at: 'à',
+
+  todayTitle: 'Piccolo Caratello aujourd’hui', todayIntro: 'Où en est le restaurant, ce que nous faisons, et ce dont nous avons besoin de vous.',
+  goalEyebrow: 'OBJECTIF 30 JOURS', dayOf: 'Jour {n} sur {total}', reviewMeeting: 'Bilan', nowRank: 'Aujourd’hui', goalRank: 'Objectif',
+  rankOf: 'N° {rank} sur {of}', topZone: 'Top {n}',
+  kpiRating: 'Note Google', kpiReviews: 'Avis Google', kpiPlan: 'Avancement du plan', kpiWebsite: 'Santé du site',
+  sinceDay0: 'depuis le Jour 0', sinceDate: 'depuis le {date}', perWeek: '≈ {n} nouveaux avis par semaine', tasksDone: 'Terminées : {done} sur {total} tâches', checksOk: '{ok} contrôles sur {total} OK',
+  ratingSource: 'Note Google publiée sur piccolocaratello.com, lue automatiquement chaque matin.',
+  reviewsSource: 'Nombre d’avis Google, lu chaque matin sur piccolocaratello.com. Le point du 2 nov. vient de Rankeat.',
+  planSource: 'Tâches marquées terminées dans le plan. Nous les mettons à jour au fil du travail.',
+  websiteSource: 'Contrôle automatique de chaque page de piccolocaratello.com, chaque matin.',
+  chartTitle: 'Avis Google dans le temps', chartSub: 'Chaque point est un relevé réel. Un nouveau point s’ajoute chaque matin.',
+  chartReviews: 'Avis', chartRating: 'Note', reviewsUnit: 'avis',
+  nextTitle: 'Prochaines étapes', seePlan: 'Voir tout le plan',
+  ownerTitle: 'Ce dont nous avons besoin de vous', ownerSub: 'Aucun mot de passe. Quelques minutes pour chaque point.', received: 'Reçu', toDo: 'À faire',
+
+  planTitle: 'Le plan sur 30 jours', planIntro: 'Chaque tâche, pourquoi elle compte et comment elle se fait. Touchez une tâche pour l’ouvrir.',
+  all: 'Tout', areaGoogle: 'Fiche Google', areaReviews: 'Avis', areaWebsite: 'Site web', areaListings: 'Autres sites', areaMeasure: 'Mesure',
+  statusTodo: 'À faire', statusDoing: 'En cours', statusDone: 'Terminé', statusWaiting: 'En attente d’accès',
+  whoUs: 'Nous', whoOwner: 'Propriétaire', whoTogether: 'Ensemble',
+  why: 'Pourquoi c’est important', how: 'Comment', doneWhen: 'Terminé quand', needs: 'Nécessite', showDone: 'Afficher les tâches terminées', noTasks: 'Aucune tâche dans ce groupe.',
+  progress: '{done} sur {total} terminées',
+
+  repTitle: 'Comment les clients voient Piccolo', repIntro: 'Tous les sites où les clients lisent sur le restaurant, côte à côte.',
+  managedYes: 'Gérée', managedNo: 'Non revendiquée', managedLikely: 'Probablement gérée', managedUnknown: 'À vérifier',
+  live: 'En direct', reviews: 'avis', open: 'Ouvrir', compareTitle: 'Les notes côte à côte', compareSub: 'Ramenées sur 5 pour pouvoir les comparer.',
+  mismatchTitle: 'Des informations qui ne concordent pas', voiceTitle: 'Ce que disent les clients', praise: 'Apprécié', concerns: 'À surveiller',
+  wordsTitle: 'Les mots à utiliser partout', wordsSub: 'Ce que les gens tapent pour trouver une adresse comme Piccolo. À utiliser dans la description Google, le site et les publications.',
+
+  webTitle: 'Le site fait-il son travail ?', webIntro: 'piccolocaratello.com est contrôlé automatiquement chaque matin. Les problèmes d’abord, chacun avec sa correction.',
+  statusPass: 'OK', statusWarn: 'À améliorer', statusFail: 'Cassé', statusNa: 'Non vérifiable', pagesChecked: 'Pages contrôlées',
+  fixFirst: 'À corriger', allGood: 'Rien à corriger : tous les contrôles sont réussis.', howToFix: 'Comment corriger', whatWeSaw: 'Ce que le contrôle a relevé',
+  working: 'Ce qui fonctionne déjà', changesTitle: 'Depuis le contrôle précédent ({date})', fixed: 'Corrigé', newProblem: 'Nouveau problème', noChanges: 'Aucun changement depuis le contrôle précédent.',
+  groupFindability: 'Être trouvé sur Google', groupLanguages: 'Français et anglais', groupGuestPath: 'De la visite à la table', groupMobileSharing: 'Téléphones et partage',
+}
+
+export type MessageKey = keyof typeof en
+const messages: Record<Lang, Record<MessageKey, string>> = { en, fr }
+
+export type Translator = {
+  lang: Lang
+  t: (key: MessageKey, vars?: Record<string, string | number>) => string
+  tx: (text: Localized) => string
+  date: (iso: string) => string
+  dateTime: (iso: string) => string
+  number: (value: number) => string
+  /** Ratings always keep one decimal: 4,0 not 4. */
+  rating: (value: number) => string
+}
+
+export function makeTranslator(lang: Lang): Translator {
+  const locale = lang === 'fr' ? 'fr-FR' : 'en-GB'
+  const parse = (iso: string) => new Date(iso.length === 10 ? `${iso}T12:00:00` : iso)
+  return {
+    lang,
+    t: (key, vars) => Object.entries(vars ?? {}).reduce((text, [name, value]) => text.replace(`{${name}}`, String(value)), messages[lang][key]),
+    tx: text => text[lang],
+    date: iso => parse(iso).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' }),
+    dateTime: iso => `${parse(iso).toLocaleDateString(locale, { day: 'numeric', month: 'short' })} ${messages[lang].at} ${parse(iso).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}`,
+    number: value => value.toLocaleString(locale),
+    rating: value => value.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 2 }),
+  }
+}

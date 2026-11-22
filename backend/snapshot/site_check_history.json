@@ -1,86 +1,16 @@
 [
  {
-  "date": "2026-11-17",
-  "pass": 12,
-  "warn": 4,
-  "fail": 1,
+  "date": "2026-11-22",
+  "pass": 14,
+  "warn": 3,
+  "fail": 0,
   "unknown": 0,
   "problems": [
    "language",
-   "links",
-   "name_match",
    "schema",
    "social_preview"
-  ]
- },
- {
-  "date": "2026-11-18",
-  "pass": 12,
-  "warn": 5,
-  "fail": 0,
-  "unknown": 0,
-  "problems": [
-   "language",
-   "name_match",
-   "schema",
-   "social_preview",
-   "speed"
-  ]
- },
- {
-  "date": "2026-11-19",
-  "pass": 12,
-  "warn": 5,
-  "fail": 0,
-  "unknown": 0,
-  "problems": [
-   "language",
-   "name_match",
-   "schema",
-   "social_preview",
-   "speed"
-  ]
- },
- {
-  "date": "2026-11-20",
-  "pass": 12,
-  "warn": 5,
-  "fail": 0,
-  "unknown": 0,
-  "problems": [
-   "language",
-   "name_match",
-   "schema",
-   "social_preview",
-   "speed"
-  ]
- },
- {
-  "date": "2026-11-21",
-  "pass": 12,
-  "warn": 5,
-  "fail": 0,
-  "unknown": 0,
-  "problems": [
-   "language",
-   "name_match",
-   "schema",
-   "social_preview",
-   "speed"
-  ]
- },
- {
-  "date": "2026-11-22",
-  "pass": 12,
-  "warn": 5,
-  "fail": 0,
-  "unknown": 0,
-  "problems": [
-   "language",
-   "name_match",
-   "schema",
-   "social_preview",
-   "speed"
-  ]
+  ],
+  "rating": 4.7,
+  "reviews": 597
  }
 ]

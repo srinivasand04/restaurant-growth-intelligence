@@ -1,171 +1,314 @@
 {
-  "researched_on": "2026-11-17",
+  "updated_on": "2026-11-22",
   "profile": {
     "name": "Piccolo Caratello",
-    "address": "8 Rue Audran, 75018 Paris, France",
-    "website": "https://pizzacaratello.com/",
-    "area": "Abbesses, Montmartre · Paris 18e",
-    "cuisine": { "en": "Italian · pizza, pasta, risotto", "fr": "Italien · pizza, pâtes, risotto" },
-    "services": [
-      { "en": "Dine in", "fr": "Sur place" },
-      { "en": "Takeaway", "fr": "À emporter" },
-      { "en": "Online ordering", "fr": "Commande en ligne" },
-      { "en": "Table booking", "fr": "Réservation" }
+    "address": "8 Rue Audran, 75018 Paris",
+    "phone": "+33 1 42 52 17 54",
+    "website": "https://piccolocaratello.com/",
+    "maps": "https://www.google.com/maps/place/?q=place_id:ChIJo9zqBiBv5kcR-cOzdNzXt5E",
+    "area": "Abbesses · Montmartre · Paris 18e",
+    "positioning": {
+      "en": "The small, warm Italian table of the Abbesses: fresh pasta, quick friendly service, a place for two.",
+      "fr": "La petite table italienne chaleureuse des Abbesses : pâtes fraîches, service rapide et souriant, une adresse pour deux."
+    }
+  },
+  "goal": {
+    "start": "2026-11-22",
+    "days": 30,
+    "title": { "en": "Top 3 Italian restaurants in the 18th", "fr": "Top 3 des restaurants italiens du 18e" },
+    "metric": { "en": "Rank among Italian restaurants in Paris 18e (Rankeat)", "fr": "Rang parmi les restaurants italiens de Paris 18e (Rankeat)" },
+    "rank": 11,
+    "of": 27,
+    "target": 3,
+    "rank_note": {
+      "en": "Reported on 21 Nov 2026 from Rankeat’s 18th-arrondissement Italian list; confirm on Rankeat before the review meeting.",
+      "fr": "Relevé le 21 nov. 2026 dans le classement italien du 18e sur Rankeat ; à confirmer sur Rankeat avant le bilan."
+    }
+  },
+  "reputation_points": [
+    { "date": "2026-11-02", "rating": 4.7, "reviews": 588, "source": "Rankeat (Google data)" }
+  ],
+  "platforms": [
+    {
+      "id": "google", "name": "Google Maps", "url": "https://www.google.com/maps/place/?q=place_id:ChIJo9zqBiBv5kcR-cOzdNzXt5E",
+      "rating": 4.7, "scale": 5, "reviews": 597, "managed": "unknown", "checked_on": "2026-11-22", "live": true,
+      "why": { "en": "Where most guests decide. The rating, photos and latest reviews are seen before anything else.", "fr": "Là où la plupart des clients choisissent : note, photos et derniers avis sont vus avant tout le reste." },
+      "source": { "en": "Read daily from piccolocaratello.com (Google data)", "fr": "Lu chaque jour sur piccolocaratello.com (données Google)" }
+    },
+    {
+      "id": "thefork", "name": "TheFork", "url": "https://en.dinnersite.nl/restaurant/piccolo-caratello-r706981/reviews",
+      "rating": 9.2, "scale": 10, "reviews": 591, "managed": "likely", "checked_on": "2026-11-21",
+      "why": { "en": "Only guests who booked through TheFork can review, so this is the booking channel’s own score.", "fr": "Seuls les clients ayant réservé via TheFork peuvent noter : c’est la note du canal de réservation." },
+      "source": { "en": "TheFork page, 21 Nov 2026 · to confirm", "fr": "Page TheFork, 21 nov. 2026 · à confirmer" }
+    },
+    {
+      "id": "tripadvisor", "name": "Tripadvisor", "url": "https://www.tripadvisor.com/owners",
+      "rating": 4.5, "scale": 5, "reviews": 157, "managed": "unknown", "checked_on": "2026-11-21",
+      "why": { "en": "Tourists planning a Montmartre visit check it before coming.", "fr": "Les touristes qui préparent leur visite de Montmartre le consultent avant de venir." },
+      "source": { "en": "Aggregator (Sluurpy), 21 Nov 2026 · to confirm", "fr": "Agrégateur (Sluurpy), 21 nov. 2026 · à confirmer" }
+    },
+    {
+      "id": "guru", "name": "Restaurant Guru", "url": "https://www.sluurpy.fr/paris/restaurant/2111137/piccolo-caratello",
+      "rating": 4.0, "scale": 5, "reviews": 454, "managed": "unknown", "checked_on": "2026-11-21",
+      "why": { "en": "The lowest score of all platforms. Worth finding out why.", "fr": "La note la plus basse de toutes les plateformes : à comprendre." },
+      "source": { "en": "Aggregator (Sluurpy), 21 Nov 2026 · to confirm", "fr": "Agrégateur (Sluurpy), 21 nov. 2026 · à confirmer" }
+    },
+    {
+      "id": "rankeat", "name": "Rankeat", "url": "https://rankeat.fr/restaurants/piccolo-caratello-paris-18e",
+      "rating": 4.68, "scale": 5, "reviews": 588, "managed": "no", "checked_on": "2026-11-22",
+      "why": { "en": "Unclaimed: nobody from the restaurant manages this page. Its ranking follows the Google rating. Ranked No. 1,541 of 5,181 in Paris.", "fr": "Non revendiquée : personne du restaurant ne gère cette page. Son classement suit la note Google. Classé n° 1 541 sur 5 181 à Paris." },
+      "source": { "en": "Rankeat page, checked 22 Nov 2026 (its data dates from 2 Nov)", "fr": "Page Rankeat, vérifiée le 22 nov. 2026 (données du 2 nov.)" }
+    },
+    {
+      "id": "ubereats", "name": "Uber Eats", "url": "https://www.ubereats.com/",
+      "rating": 4.7, "scale": 5, "reviews": null, "managed": "likely", "checked_on": "2026-11-21",
+      "why": { "en": "Delivery guests judge the restaurant on photos and the rating only.", "fr": "Les clients en livraison jugent le restaurant sur les photos et la note uniquement." },
+      "source": { "en": "Aggregator, 21 Nov 2026 · to confirm in the app", "fr": "Agrégateur, 21 nov. 2026 · à confirmer dans l’application" }
+    }
+  ],
+  "mismatches": [
+    {
+      "id": "price-rigatoni",
+      "title": { "en": "Two different prices for Rigatoni Caratello", "fr": "Deux prix différents pour les Rigatoni Caratello" },
+      "detail": {
+        "en": "The restaurant website says 19 €. Rankeat shows 20 €, taken from a delivery ordering page on 4 Nov. A guest who sees both may feel misled.",
+        "fr": "Le site du restaurant indique 19 €. Rankeat affiche 20 €, repris d’une page de commande en livraison le 4 nov. Un client qui voit les deux peut se sentir trompé."
+      },
+      "sources": ["https://piccolocaratello.com/", "https://rankeat.fr/restaurants/piccolo-caratello-paris-18e"]
+    },
+    {
+      "id": "site-links",
+      "title": { "en": "The website links to Google only", "fr": "Le site ne renvoie que vers Google" },
+      "detail": {
+        "en": "piccolocaratello.com does not link to TheFork, Tripadvisor, Instagram or Uber Eats, and does not tell Google about those pages either.",
+        "fr": "piccolocaratello.com ne renvoie ni vers TheFork, ni Tripadvisor, ni Instagram, ni Uber Eats, et ne signale pas non plus ces pages à Google."
+      },
+      "sources": ["https://piccolocaratello.com/"]
+    }
+  ],
+  "guest_voice": {
+    "note": {
+      "en": "A small sample from public pages, not a full analysis. Every review will be read once Google access is in place.",
+      "fr": "Un petit échantillon issu des pages publiques, pas une analyse complète. Tous les avis seront lus une fois l’accès Google obtenu."
+    },
+    "praise": [
+      { "en": "“Small place but totally worth it — incredible rigatoni with gorgonzola.”", "fr": "« Petit lieu mais ça vaut vraiment le coup — des rigatoni au gorgonzola incroyables. »", "source": "Google" },
+      { "en": "“Good value for money. Excellent welcome. Warm atmosphere.”", "fr": "« Bon rapport qualité prix. Excellent accueil. Cadre chaleureux. »", "source": "Google" },
+      { "en": "“Everything was perfect, from the food to the service.”", "fr": "« Tout était parfait, de la nourriture au service. »", "source": "Google" }
+    ],
+    "concerns": [
+      { "en": "One TheFork guest found both pasta dishes disappointing. Pasta is Piccolo’s signature, so this matters.", "fr": "Un client TheFork a trouvé ses deux plats de pâtes décevants. Les pâtes sont la signature de Piccolo : c’est important.", "source": "TheFork" },
+      { "en": "“Small place” comes up often. Turn it into a strength: intimate, cosy, a table for two.", "fr": "« Petit lieu » revient souvent. À transformer en atout : intime, chaleureux, une table pour deux.", "source": "Google" }
     ]
   },
-  "sources": [
-    { "id": "site-fr", "kind": "site", "label": { "en": "Restaurant · French home page", "fr": "Restaurant · page française" }, "url": "https://pizzacaratello.com/", "checked_at": "2026-11-17" },
-    { "id": "site-en", "kind": "site", "label": { "en": "Restaurant · English page", "fr": "Restaurant · page anglaise" }, "url": "https://pizzacaratello.com/en", "checked_at": "2026-11-17" },
-    { "id": "google-seo", "kind": "google", "label": { "en": "Google Search Central · SEO starter guide", "fr": "Google Search Central · guide de démarrage SEO" }, "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide", "checked_at": "2026-11-14" },
-    { "id": "google-local", "kind": "google", "label": { "en": "Google Business Profile · Improve local ranking", "fr": "Fiche d’établissement Google · améliorer le classement local" }, "url": "https://support.google.com/business/answer/7091", "checked_at": "2026-11-14" },
-    { "id": "google-schema", "kind": "google", "label": { "en": "Google Search Central · Local business structured data", "fr": "Google Search Central · données structurées d’établissement local" }, "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business", "checked_at": "2026-11-14" },
-    { "id": "gsc", "kind": "future", "label": { "en": "Google Search Console", "fr": "Google Search Console" }, "url": "https://search.google.com/search-console/", "checked_at": "2026-11-14" }
-  ],
-  "owner_checks": [
-    {
-      "id": "gbp",
-      "status": "partial",
-      "title": { "en": "Google Maps listing", "fr": "Fiche Google Maps" },
-      "detail": {
-        "en": "The site shows a Google rating, contact details, hours and a map link. The listing’s category, attributes, photo freshness, menu link and description can only be confirmed from the owner’s Google Business Profile.",
-        "fr": "Le site affiche une note Google, les coordonnées, les horaires et un lien vers la carte. La catégorie, les attributs, la fraîcheur des photos, le lien du menu et la description ne peuvent être confirmés que depuis la fiche d’établissement du propriétaire."
-      },
-      "needs": { "en": "Owner access to Google Business Profile", "fr": "Accès propriétaire à la fiche d’établissement Google" },
-      "source_ids": ["site-fr", "google-local"]
-    },
-    {
-      "id": "search-console",
-      "status": "unknown",
-      "title": { "en": "What people really search", "fr": "Ce que les gens recherchent vraiment" },
-      "detail": {
-        "en": "Which searches show the restaurant, how often, and how many people click are only visible in Search Console. Until then the search phrases here are informed ideas, not measurements.",
-        "fr": "Les recherches qui affichent le restaurant, leur fréquence et le nombre de clics ne sont visibles que dans Search Console. D’ici là, les requêtes proposées sont des pistes argumentées, pas des mesures."
-      },
-      "needs": { "en": "Owner access to Google Search Console", "fr": "Accès propriétaire à Google Search Console" },
-      "source_ids": ["gsc"]
-    },
-    {
-      "id": "mobile",
-      "status": "unknown",
-      "title": { "en": "Booking and menu on a real phone", "fr": "Réservation et menu sur un vrai téléphone" },
-      "detail": {
-        "en": "The automated check confirms pages are set up for phones. Tap comfort, the menu PDF and the booking steps still need a five-minute walk-through on an actual phone.",
-        "fr": "Le contrôle automatique confirme que les pages sont prévues pour les téléphones. Le confort tactile, le menu PDF et les étapes de réservation demandent encore un essai de cinq minutes sur un vrai téléphone."
-      },
-      "needs": { "en": "Five minutes with a phone", "fr": "Cinq minutes avec un téléphone" },
-      "source_ids": []
-    }
-  ],
   "keywords": [
-    { "phrase": "pizzeria près du Sacré-Cœur", "language": "FR", "fit": "High", "intent": { "en": "Nearby visit", "fr": "Visite à proximité" }, "rationale": { "en": "Connects the restaurant’s Montmartre location with a clear meal need.", "fr": "Associe le quartier de Montmartre à un besoin concret de restauration." } },
-    { "phrase": "restaurant italien Montmartre", "language": "FR", "fit": "High", "intent": { "en": "Cuisine + area", "fr": "Cuisine + quartier" }, "rationale": { "en": "Matches the Italian menu and the neighborhood positioning already used on the site.", "fr": "Correspond à la cuisine italienne et au positionnement de quartier déjà présents sur le site." } },
-    { "phrase": "pizzeria Paris 18", "language": "FR", "fit": "High", "intent": { "en": "Local category", "fr": "Catégorie locale" }, "rationale": { "en": "Useful neighborhood/category phrase for the landing page and business profile.", "fr": "Une expression de quartier et de catégorie utile pour la page et la fiche d’établissement." } },
-    { "phrase": "restaurant près de moi Montmartre", "language": "FR", "fit": "Medium", "intent": { "en": "Immediate visit", "fr": "Visite immédiate" }, "rationale": { "en": "Maps and location signals matter for this local discovery intent.", "fr": "La carte et les informations locales sont importantes pour cette recherche de proximité." } },
-    { "phrase": "pizza near Sacré-Cœur", "language": "EN", "fit": "High", "intent": { "en": "Tourist visit", "fr": "Visite touristique" }, "rationale": { "en": "Useful English phrasing for visitors exploring the nearby landmark.", "fr": "Une expression anglaise utile aux visiteurs qui explorent les environs du Sacré-Cœur." } },
-    { "phrase": "Italian restaurant in Montmartre", "language": "EN", "fit": "High", "intent": { "en": "Cuisine + area", "fr": "Cuisine + quartier" }, "rationale": { "en": "The existing English page already targets this cuisine and neighborhood pairing.", "fr": "La page anglaise actuelle cible déjà cette association de cuisine et de quartier." } },
-    { "phrase": "pizza restaurant Paris 18", "language": "EN", "fit": "Medium", "intent": { "en": "Local category", "fr": "Catégorie locale" }, "rationale": { "en": "Supports English-language local discovery; validate wording against Search Console queries.", "fr": "Soutient la visibilité locale en anglais ; validez la formulation avec les requêtes Search Console." } },
-    { "phrase": "restaurant near Sacré-Cœur", "language": "EN", "fit": "High", "intent": { "en": "Tourist visit", "fr": "Visite touristique" }, "rationale": { "en": "A direct landmark + dining need worth covering in helpful location content.", "fr": "Une recherche directe qui associe un lieu connu à un besoin de restauration." } }
+    { "phrase": "restaurant italien Abbesses", "language": "FR" },
+    { "phrase": "pâtes fraîches Montmartre", "language": "FR" },
+    { "phrase": "restaurant romantique Montmartre", "language": "FR" },
+    { "phrase": "restaurant italien Paris 18", "language": "FR" },
+    { "phrase": "Italian restaurant Montmartre", "language": "EN" },
+    { "phrase": "fresh pasta Montmartre", "language": "EN" },
+    { "phrase": "date night Montmartre", "language": "EN" },
+    { "phrase": "pasta near Sacré-Cœur", "language": "EN" }
   ],
-  "opportunities": [
+  "access": [
     {
-      "id": "french-copy",
-      "priority": "High",
-      "effort": "Low",
-      "confidence": "High",
-      "title": { "en": "Correct the French wording on the home page", "fr": "Corriger le texte français de la page d’accueil" },
-      "observation": {
-        "en": "Read on the French home page on 17 Nov 2026: “Nos menu”, “Une vrais cuisine italienne”, “des délicieux plat”, “se sont aussi deux restaurants”, “Nous vous invitons réserver”, and the booking heading “LIVRE DE TABLE”. The booking box itself is in English (“BOOK A TABLE”, “How many guests?”), and the reviews shown are marked “Translated by Google”.",
-        "fr": "Relevé sur la page d’accueil française le 17 nov. 2026 : « Nos menu », « Une vrais cuisine italienne », « des délicieux plat », « se sont aussi deux restaurants », « Nous vous invitons réserver » et le titre de réservation « LIVRE DE TABLE ». Le module de réservation est en anglais (« BOOK A TABLE », « How many guests? ») et les avis affichés portent la mention « Translated by Google »."
-      },
-      "recommendation": {
-        "en": "Fix to: “Nos menus”, “Une vraie cuisine italienne”, “de délicieux plats”, “ce sont aussi deux restaurants”, “Nous vous invitons à réserver”, “Réservation”. Show the booking box in French on the French page and pick reviews written in French.",
-        "fr": "Corriger en : « Nos menus », « Une vraie cuisine italienne », « de délicieux plats », « ce sont aussi deux restaurants », « Nous vous invitons à réserver », « Réservation ». Afficher le module de réservation en français sur la page française et choisir des avis rédigés en français."
-      },
-      "benefit": {
-        "en": "A local guest judges a restaurant’s care in seconds; clean French on the first screen removes a reason to hesitate.",
-        "fr": "Un client du quartier juge le soin d’un restaurant en quelques secondes ; un français soigné dès le premier écran enlève une raison d’hésiter."
-      },
-      "source_ids": ["site-fr"]
+      "id": "google", "status": "pending",
+      "title": { "en": "Add us as Managers on the Google profile", "fr": "Nous ajouter comme gestionnaires de la fiche Google" },
+      "how": { "en": "Business Profile → ⋮ → Business Profile settings → People and access → Add. No password needed; can be removed any time.", "fr": "Fiche d’établissement → ⋮ → Paramètres → Utilisateurs et accès → Ajouter. Aucun mot de passe ; révocable à tout moment." }
     },
     {
-      "id": "gbp-checklist",
-      "priority": "High",
-      "effort": "Low",
-      "confidence": "Medium",
-      "title": { "en": "Complete the Google Maps listing", "fr": "Compléter la fiche Google Maps" },
-      "observation": {
-        "en": "The website displays hours, contact details, map access and a Google rating; the live listing’s categories, attributes, photos and menu link are unverified.",
-        "fr": "Le site affiche les horaires, les coordonnées, l’accès à la carte et une note Google ; les catégories, attributs, photos et lien du menu de la fiche restent à vérifier."
-      },
-      "recommendation": {
-        "en": "With owner access, confirm the primary category and services; add a direct menu and booking link, current exterior and dish photos, holiday hours, and an accurate description in French and English.",
-        "fr": "Avec l’accès du propriétaire, confirmez la catégorie principale et les services ; ajoutez un lien direct vers le menu et la réservation, des photos récentes de la façade et des plats, les horaires exceptionnels et une description fidèle en français et en anglais."
-      },
-      "benefit": {
-        "en": "Makes it easier for nearby diners and visitors to decide and take the next step. Google says local results mainly reflect relevance, distance and prominence; no ranking outcome is promised.",
-        "fr": "Aide les clients du quartier et les visiteurs à choisir et à passer à l’étape suivante. Google indique que les résultats locaux reposent surtout sur la pertinence, la distance et la notoriété ; aucun classement n’est garanti."
-      },
-      "source_ids": ["site-fr", "google-local"]
+      "id": "website", "status": "pending",
+      "title": { "en": "Website login (Localisr) or the contact who manages it", "fr": "Accès au site (Localisr) ou le contact qui le gère" },
+      "how": { "en": "The site is built on Localisr. A separate login for us is safest.", "fr": "Le site est construit avec Localisr. Un accès séparé pour nous est le plus sûr." }
     },
     {
-      "id": "english-path",
-      "priority": "Medium",
-      "effort": "Low",
-      "confidence": "Medium",
-      "title": { "en": "Strengthen the tourist-to-table path in English", "fr": "Faciliter le parcours des visiteurs en anglais" },
-      "observation": {
-        "en": "An English page exists, with address, hours, menu highlights and booking, alongside a language switch.",
-        "fr": "Une page en anglais existe avec l’adresse, les horaires, des points forts du menu et la réservation, ainsi qu’un sélecteur de langue."
-      },
-      "recommendation": {
-        "en": "Walk through the full booking, menu and directions journey in English on a phone; give the English page a clear menu and booking button and concise directions from Abbesses and Sacré-Cœur.",
-        "fr": "Parcourez le menu, la réservation et l’itinéraire en anglais sur un téléphone. Ajoutez des boutons clairs vers le menu et la réservation, ainsi que des indications simples depuis Abbesses et le Sacré-Cœur."
-      },
-      "benefit": {
-        "en": "Reduces uncertainty for international visitors already searching in English; measure clicks to booking and directions before and after.",
-        "fr": "Aide les visiteurs internationaux qui recherchent déjà en anglais à décider plus facilement ; mesurez les clics vers la réservation et l’itinéraire avant et après."
-      },
-      "source_ids": ["site-en"]
+      "id": "domain", "status": "pending",
+      "title": { "en": "Who controls piccolocaratello.com", "fr": "Qui gère le nom de domaine piccolocaratello.com" },
+      "how": { "en": "Needed once, to connect Google Search Console and see real searches.", "fr": "Nécessaire une fois, pour connecter Google Search Console et voir les vraies recherches." }
     },
     {
-      "id": "query-data",
-      "priority": "Medium",
-      "effort": "Low",
-      "confidence": "High",
-      "title": { "en": "Replace keyword guesses with actual query evidence", "fr": "Remplacer les suppositions par les vraies requêtes" },
-      "observation": {
-        "en": "Search demand and current rankings are unavailable in this public-only review. The keyword phrases are hypotheses based on location, cuisine and audience.",
-        "fr": "Les volumes de recherche et les classements actuels ne sont pas disponibles dans cette analyse publique. Les requêtes proposées sont des hypothèses fondées sur le lieu, la cuisine et le public."
-      },
-      "recommendation": {
-        "en": "Connect Search Console with owner permission; review query impressions, clicks and landing pages by French and English intent before prioritizing new content.",
-        "fr": "Avec l’accord du propriétaire, connectez Search Console et étudiez les impressions, clics et pages de destination par intention et par langue avant de prioriser du contenu."
-      },
-      "benefit": {
-        "en": "Keeps time focused on searches the restaurant is actually appearing for; creates a baseline for monitoring.",
-        "fr": "Permet de concentrer les efforts sur les recherches où le restaurant apparaît réellement et de créer une référence mesurable."
-      },
-      "source_ids": ["gsc"]
-    },
-    {
-      "id": "conversion",
-      "priority": "Medium",
-      "effort": "Medium",
-      "confidence": "High",
-      "title": { "en": "Measure the path from discovery to booking or order", "fr": "Mesurer le parcours entre découverte et réservation" },
-      "observation": {
-        "en": "The website offers booking and third-party ordering links, but their click and completion data are not available here.",
-        "fr": "Le site propose la réservation et des liens de commande tiers, mais les clics et les commandes terminées ne sont pas disponibles ici."
-      },
-      "recommendation": {
-        "en": "Record baseline clicks for booking, phone, directions and delivery partners in a privacy-appropriate analytics setup, then review weekly with actual bookings and orders.",
-        "fr": "Relevez une base de clics vers la réservation, le téléphone, l’itinéraire et les partenaires de livraison dans un outil respectueux de la vie privée, puis comparez chaque semaine avec les réservations et commandes réelles."
-      },
-      "benefit": {
-        "en": "Shows whether visibility improvements result in useful customer actions without guessing revenue.",
-        "fr": "Permet de vérifier si les améliorations de visibilité entraînent des actions utiles sans estimer le chiffre d’affaires."
-      },
-      "source_ids": ["site-fr"]
+      "id": "bookings", "status": "pending",
+      "title": { "en": "Bookings per week today (TheFork + phone)", "fr": "Réservations par semaine aujourd’hui (TheFork + téléphone)" },
+      "how": { "en": "A rough number is enough. It is the “before” we compare against in 30 days.", "fr": "Un chiffre approximatif suffit : c’est le « avant » que l’on compare dans 30 jours." }
     }
+  ],
+  "tasks": [
+    {
+      "id": "baseline", "area": "measure", "who": "us", "status": "done", "needs": null,
+      "title": { "en": "Record today’s numbers (Day 0)", "fr": "Noter les chiffres d’aujourd’hui (Jour 0)" },
+      "why": { "en": "Without a “before”, nobody can prove the “after”.", "fr": "Sans « avant », impossible de prouver l’« après »." },
+      "steps": [
+        { "en": "Google rating and review count, read daily from the website.", "fr": "Note et nombre d’avis Google, lus chaque jour sur le site." },
+        { "en": "Ratings on TheFork, Tripadvisor, Restaurant Guru, Rankeat, Uber Eats.", "fr": "Notes sur TheFork, Tripadvisor, Restaurant Guru, Rankeat, Uber Eats." },
+        { "en": "Ranking: No. 11 of 27 Italian restaurants in the 18th.", "fr": "Classement : n° 11 sur 27 restaurants italiens du 18e." }
+      ],
+      "done_when": { "en": "All numbers are on this dashboard with their source and date.", "fr": "Tous les chiffres figurent sur ce tableau de bord avec leur source et leur date." }
+    },
+    {
+      "id": "g-check", "area": "google", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Check every detail on the Google profile", "fr": "Vérifier chaque information de la fiche Google" },
+      "why": { "en": "A wrong hour or phone number sends a hungry guest elsewhere.", "fr": "Un horaire ou un numéro faux envoie un client affamé ailleurs." },
+      "steps": [
+        { "en": "Main category “Italian restaurant”; add “Pasta” if offered.", "fr": "Catégorie principale « Restaurant italien » ; ajouter « Pâtes » si proposé." },
+        { "en": "Phone 01 42 52 17 54, hours, website link, holiday closures.", "fr": "Téléphone 01 42 52 17 54, horaires, lien du site, fermetures exceptionnelles." },
+        { "en": "Attributes: dine-in, takeaway, delivery, reservations, payment methods.", "fr": "Attributs : sur place, à emporter, livraison, réservation, moyens de paiement." }
+      ],
+      "done_when": { "en": "Every field matches the restaurant today.", "fr": "Chaque champ correspond au restaurant aujourd’hui." }
+    },
+    {
+      "id": "g-photos", "area": "google", "who": "together", "status": "todo", "needs": "google",
+      "title": { "en": "Add 10–15 real photos", "fr": "Ajouter 10 à 15 vraies photos" },
+      "why": { "en": "Guests cannot taste the food yet. They judge the photos.", "fr": "Le client ne peut pas encore goûter : il juge les photos." },
+      "steps": [
+        { "en": "Signature pastas in daylight: Rigatoni Caratello, gnocchi, lasagne.", "fr": "Les pâtes signature à la lumière du jour : Rigatoni Caratello, gnocchi, lasagnes." },
+        { "en": "The room set for two, and the street front so guests recognise it.", "fr": "La salle dressée pour deux, et la façade pour que les clients la reconnaissent." },
+        { "en": "Use the best one as the website’s share image too.", "fr": "Utiliser la meilleure aussi comme image de partage du site." }
+      ],
+      "done_when": { "en": "At least 10 recent photos are live on the profile.", "fr": "Au moins 10 photos récentes sont en ligne sur la fiche." }
+    },
+    {
+      "id": "g-links", "area": "google", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Add the menu link and a “Reserve” button", "fr": "Ajouter le lien du menu et un bouton « Réserver »" },
+      "why": { "en": "One tap from Google to a booked table.", "fr": "Un geste entre Google et une table réservée." },
+      "steps": [
+        { "en": "Menu link: piccolocaratello.com/menu.", "fr": "Lien du menu : piccolocaratello.com/menu." },
+        { "en": "Booking link: the website booking page or TheFork.", "fr": "Lien de réservation : la page de réservation du site ou TheFork." }
+      ],
+      "done_when": { "en": "Both buttons show on the Google profile on a phone.", "fr": "Les deux boutons apparaissent sur la fiche Google sur téléphone." }
+    },
+    {
+      "id": "g-description", "area": "google", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Write the description in French and English", "fr": "Rédiger la description en français et en anglais" },
+      "why": { "en": "Gives Piccolo its own identity next to Pizza Caratello and Al Caratello on the same street.", "fr": "Donne à Piccolo sa propre identité, à côté de Pizza Caratello et Al Caratello dans la même rue." },
+      "steps": [
+        { "en": "Lead with: small, warm, fresh pasta, a table for two in the Abbesses.", "fr": "Mettre en avant : petit, chaleureux, pâtes fraîches, une table pour deux aux Abbesses." },
+        { "en": "Use the words people search (see Reputation → Words to use).", "fr": "Employer les mots que les gens recherchent (voir Réputation → Mots à utiliser)." },
+        { "en": "The owner approves before it goes live.", "fr": "Le propriétaire valide avant publication." }
+      ],
+      "done_when": { "en": "Approved description is live.", "fr": "La description validée est en ligne." }
+    },
+    {
+      "id": "g-posts", "area": "google", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Post every week: the dish of the week", "fr": "Publier chaque semaine : le plat de la semaine" },
+      "why": { "en": "An active profile looks open and cared for.", "fr": "Une fiche active donne l’image d’un lieu ouvert et soigné." },
+      "steps": [
+        { "en": "One photo, one sentence, one link. Monday morning.", "fr": "Une photo, une phrase, un lien. Le lundi matin." }
+      ],
+      "done_when": { "en": "4 posts published by Day 30.", "fr": "4 publications d’ici le Jour 30." }
+    },
+    {
+      "id": "r-replies", "area": "reviews", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Reply to every review of the last 3 months", "fr": "Répondre à chaque avis des 3 derniers mois" },
+      "why": { "en": "A bad review with a kind reply looks professional. Without a reply it looks like nobody cares.", "fr": "Un avis négatif avec une réponse aimable paraît professionnel. Sans réponse, on croit que personne ne s’en soucie." },
+      "steps": [
+        { "en": "Negative reviews first, in the guest’s language, short and polite.", "fr": "Les avis négatifs d’abord, dans la langue du client, courts et polis." },
+        { "en": "We draft, the owner approves on WhatsApp, we post.", "fr": "Nous rédigeons, le propriétaire valide sur WhatsApp, nous publions." }
+      ],
+      "done_when": { "en": "No review from the last 3 months is left without a reply.", "fr": "Aucun avis des 3 derniers mois sans réponse." }
+    },
+    {
+      "id": "r-qr", "area": "reviews", "who": "together", "status": "todo", "needs": "google",
+      "title": { "en": "QR card on every table: “Enjoyed your meal?”", "fr": "Carte QR sur chaque table : « Vous avez aimé ? »" },
+      "why": { "en": "The fastest way up the ranking is more fresh 5-star reviews. Today about 3 new reviews arrive per week.", "fr": "Le moyen le plus rapide de monter au classement : plus d’avis 5 étoiles récents. Aujourd’hui, environ 3 nouveaux avis par semaine." },
+      "steps": [
+        { "en": "Get the review link from the Google profile.", "fr": "Récupérer le lien d’avis depuis la fiche Google." },
+        { "en": "Print a small bilingual card; staff mention it with the bill.", "fr": "Imprimer une petite carte bilingue ; l’équipe la mentionne avec l’addition." }
+      ],
+      "done_when": { "en": "Cards are on the tables; new reviews per week go up.", "fr": "Les cartes sont sur les tables ; le nombre d’avis par semaine augmente." }
+    },
+    {
+      "id": "r-themes", "area": "reviews", "who": "us", "status": "todo", "needs": "google",
+      "title": { "en": "Share the top 3 things guests praise and complain about", "fr": "Partager les 3 points les plus appréciés et les plus critiqués" },
+      "why": { "en": "Reviews say exactly what to protect and what to fix inside the restaurant.", "fr": "Les avis disent exactement quoi préserver et quoi corriger dans le restaurant." },
+      "steps": [
+        { "en": "Read every review, group them by food, service, wait, price, room.", "fr": "Lire chaque avis, les regrouper : cuisine, service, attente, prix, salle." }
+      ],
+      "done_when": { "en": "The owner has a one-page summary.", "fr": "Le propriétaire a un résumé d’une page." }
+    },
+    {
+      "id": "w-booking-fr", "area": "website", "who": "us", "status": "todo", "needs": "website",
+      "title": { "en": "French booking box on the French page", "fr": "Module de réservation en français sur la page française" },
+      "why": { "en": "Today the French page asks “How many guests?” in English.", "fr": "Aujourd’hui, la page française demande « How many guests? » en anglais." },
+      "steps": [
+        { "en": "Switch the booking widget language in Localisr, or ask Localisr support.", "fr": "Changer la langue du module dans Localisr, ou demander au support Localisr." }
+      ],
+      "done_when": { "en": "The French page reads fully in French.", "fr": "La page française est entièrement en français." }
+    },
+    {
+      "id": "w-reviews-fr", "area": "website", "who": "us", "status": "todo", "needs": "website",
+      "title": { "en": "Show French reviews on the French page", "fr": "Afficher des avis en français sur la page française" },
+      "why": { "en": "Most reviews shown are marked “Translated by Google”, and one praises pizza, which Piccolo is not known for.", "fr": "La plupart des avis affichés portent « Translated by Google », et l’un parle de pizza, qui n’est pas la spécialité de Piccolo." },
+      "steps": [
+        { "en": "Pick 3–4 French reviews that mention pasta and the warm welcome.", "fr": "Choisir 3 ou 4 avis en français qui parlent des pâtes et de l’accueil." }
+      ],
+      "done_when": { "en": "French reviews about pasta are shown.", "fr": "Des avis en français sur les pâtes sont affichés." }
+    },
+    {
+      "id": "w-technical", "area": "website", "who": "us", "status": "todo", "needs": "website",
+      "title": { "en": "Fix what the daily website check flags", "fr": "Corriger ce que signale le contrôle quotidien du site" },
+      "why": { "en": "Small fixes that help Google and make shared links look good.", "fr": "De petites corrections qui aident Google et embellissent les liens partagés." },
+      "steps": [
+        { "en": "Add a share photo, mark the English page as English, add price range and map position.", "fr": "Ajouter une photo de partage, déclarer la page anglaise en anglais, ajouter gamme de prix et position GPS." },
+        { "en": "See the Website tab for the exact list, updated every morning.", "fr": "Voir l’onglet Site web pour la liste exacte, mise à jour chaque matin." }
+      ],
+      "done_when": { "en": "The Website tab shows nothing to fix.", "fr": "L’onglet Site web n’affiche plus rien à corriger." }
+    },
+    {
+      "id": "w-links", "area": "website", "who": "us", "status": "todo", "needs": "website",
+      "title": { "en": "Link the website to TheFork, Instagram and Uber Eats", "fr": "Relier le site à TheFork, Instagram et Uber Eats" },
+      "why": { "en": "Guests find every way to book or order; Google connects the pages to the restaurant.", "fr": "Les clients trouvent toutes les façons de réserver ou commander ; Google relie ces pages au restaurant." },
+      "steps": [
+        { "en": "Add the links in the footer and in the site’s data for Google (sameAs).", "fr": "Ajouter les liens en pied de page et dans les données du site pour Google (sameAs)." }
+      ],
+      "done_when": { "en": "All links open from the site.", "fr": "Tous les liens s’ouvrent depuis le site." }
+    },
+    {
+      "id": "p-rankeat", "area": "listings", "who": "owner", "status": "todo", "needs": null,
+      "title": { "en": "Claim the Rankeat page and fix the price", "fr": "Revendiquer la page Rankeat et corriger le prix" },
+      "why": { "en": "Free, 10 minutes. Today nobody manages it and it shows 20 € instead of 19 €.", "fr": "Gratuit, 10 minutes. Aujourd’hui personne ne la gère et elle affiche 20 € au lieu de 19 €." },
+      "steps": [
+        { "en": "On the Rankeat page, “Revendiquer cet établissement”, verify by phone or email.", "fr": "Sur la page Rankeat, « Revendiquer cet établissement », vérification par téléphone ou e-mail." },
+        { "en": "Then we correct the menu, photos and hours.", "fr": "Ensuite nous corrigeons menu, photos et horaires." }
+      ],
+      "done_when": { "en": "Page claimed, prices match the website.", "fr": "Page revendiquée, prix identiques au site." }
+    },
+    {
+      "id": "p-tripadvisor", "area": "listings", "who": "owner", "status": "todo", "needs": null,
+      "title": { "en": "Claim Tripadvisor (free)", "fr": "Revendiquer Tripadvisor (gratuit)" },
+      "why": { "en": "Tourists read it before visiting Montmartre; replies to reviews are free once claimed.", "fr": "Les touristes le lisent avant de venir à Montmartre ; répondre aux avis est gratuit une fois revendiqué." },
+      "steps": [
+        { "en": "tripadvisor.com/owners → find Piccolo Caratello → claim.", "fr": "tripadvisor.com/owners → trouver Piccolo Caratello → revendiquer." }
+      ],
+      "done_when": { "en": "The owner can reply to Tripadvisor reviews.", "fr": "Le propriétaire peut répondre aux avis Tripadvisor." }
+    },
+    {
+      "id": "m-search-console", "area": "measure", "who": "us", "status": "todo", "needs": "domain",
+      "title": { "en": "Connect Search Console and Google’s profile numbers", "fr": "Connecter Search Console et les chiffres de la fiche Google" },
+      "why": { "en": "Real searches, calls, direction requests and website clicks instead of estimates.", "fr": "Les vraies recherches, appels, itinéraires et clics vers le site, au lieu d’estimations." },
+      "steps": [
+        { "en": "Verify the domain in Search Console.", "fr": "Valider le domaine dans Search Console." },
+        { "en": "Request access to Google’s Business Profile API (approval can take a while); until then, copy the Performance numbers weekly.", "fr": "Demander l’accès à l’API Business Profile de Google (l’accord peut prendre du temps) ; d’ici là, recopier les chiffres de Performance chaque semaine." }
+      ],
+      "done_when": { "en": "Calls, directions and clicks appear on this dashboard.", "fr": "Appels, itinéraires et clics apparaissent sur ce tableau de bord." }
+    },
+    {
+      "id": "m-review", "area": "measure", "who": "together", "status": "todo", "needs": null, "milestone": true,
+      "title": { "en": "Day 30: sit together and compare", "fr": "Jour 30 : faire le bilan ensemble" },
+      "why": { "en": "Judge the work on numbers, then decide on Pizza Caratello and Al Caratello.", "fr": "Juger le travail sur les chiffres, puis décider pour Pizza Caratello et Al Caratello." },
+      "steps": [
+        { "en": "Compare rating, reviews, ranking and bookings with Day 0 on this dashboard.", "fr": "Comparer note, avis, classement et réservations avec le Jour 0 sur ce tableau de bord." }
+      ],
+      "done_when": { "en": "Meeting held on 22 Dec 2026.", "fr": "Bilan tenu le 22 déc. 2026." }
+    }
+  ],
+  "sources": [
+    { "label": { "en": "Piccolo Caratello website", "fr": "Site de Piccolo Caratello" }, "url": "https://piccolocaratello.com/" },
+    { "label": { "en": "Rankeat · Piccolo Caratello", "fr": "Rankeat · Piccolo Caratello" }, "url": "https://rankeat.fr/restaurants/piccolo-caratello-paris-18e" },
+    { "label": { "en": "TheFork reviews", "fr": "Avis TheFork" }, "url": "https://en.dinnersite.nl/restaurant/piccolo-caratello-r706981/reviews" },
+    { "label": { "en": "Sluurpy (all platforms)", "fr": "Sluurpy (toutes plateformes)" }, "url": "https://www.sluurpy.fr/paris/restaurant/2111137/piccolo-caratello" },
+    { "label": { "en": "Google · claim a Business Profile", "fr": "Google · revendiquer une fiche" }, "url": "https://support.google.com/business/answer/2911778" },
+    { "label": { "en": "Google · reply to reviews", "fr": "Google · répondre aux avis" }, "url": "https://support.google.com/business/answer/3474050" },
+    { "label": { "en": "Tripadvisor for owners", "fr": "Tripadvisor pour les propriétaires" }, "url": "https://www.tripadvisor.com/owners" }
   ]
 }

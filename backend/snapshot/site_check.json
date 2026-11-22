@@ -1,43 +1,48 @@
 {
-  "checked_at": "2026-11-22T13:08:17+00:00",
-  "site": "https://pizzacaratello.com/",
+  "checked_at": "2026-11-22T16:36:57+00:00",
+  "site": "https://piccolocaratello.com/",
   "pages": [
     {
-      "url": "https://pizzacaratello.com/",
+      "url": "https://piccolocaratello.com/",
       "status": 200,
-      "ms": 1339,
-      "title": "Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
+      "ms": 503,
+      "title": "Piccolo Caratello — Restaurant italien aux Abbesses | Paris 18e"
     },
     {
-      "url": "https://pizzacaratello.com/menu",
+      "url": "https://piccolocaratello.com/menu",
       "status": 200,
-      "ms": 1253,
-      "title": "Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
+      "ms": 786,
+      "title": "Menu Piccolo Caratello — Italien aux Abbesses | Paris 18e"
     },
     {
-      "url": "https://pizzacaratello.com/book",
+      "url": "https://piccolocaratello.com/book",
       "status": 200,
-      "ms": 970,
-      "title": "Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e"
+      "ms": 285,
+      "title": "Réserver — Piccolo Caratello, italien rue Audran | Paris 18e"
     },
     {
-      "url": "https://pizzacaratello.com/acces",
+      "url": "https://piccolocaratello.com/acces",
       "status": 200,
-      "ms": 628,
-      "title": "Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e"
+      "ms": 367,
+      "title": "Accès & horaires — Piccolo Caratello, 8 rue Audran | Paris 18e"
     },
     {
-      "url": "https://pizzacaratello.com/en",
+      "url": "https://piccolocaratello.com/en",
       "status": 200,
-      "ms": 1133,
-      "title": "Pizza Caratello — Pizzeria in Montmartre, Paris 18th"
+      "ms": 411,
+      "title": "Piccolo Caratello — Italian Restaurant near Abbesses, Paris"
     }
   ],
   "summary": {
-    "pass": 12,
-    "warn": 5,
+    "pass": 14,
+    "warn": 3,
     "fail": 0,
     "unknown": 0
+  },
+  "reputation": {
+    "rating": 4.7,
+    "reviews": 597,
+    "source": "https://piccolocaratello.com/"
   },
   "checks": [
     {
@@ -54,12 +59,12 @@
       },
       "fix": null,
       "evidence": [
-        "https://pizzacaratello.com/sitemap.xml",
-        "https://pizzacaratello.com/",
-        "https://pizzacaratello.com/menu",
-        "https://pizzacaratello.com/book",
-        "https://pizzacaratello.com/acces",
-        "https://pizzacaratello.com/en"
+        "https://piccolocaratello.com/sitemap.xml",
+        "https://piccolocaratello.com/",
+        "https://piccolocaratello.com/menu",
+        "https://piccolocaratello.com/book",
+        "https://piccolocaratello.com/acces",
+        "https://piccolocaratello.com/en"
       ]
     },
     {
@@ -76,11 +81,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 200 · 1339 ms",
-        "/menu → 200 · 1253 ms",
-        "/book → 200 · 970 ms",
-        "/acces → 200 · 628 ms",
-        "/en → 200 · 1133 ms"
+        "/ → 200 · 503 ms",
+        "/menu → 200 · 786 ms",
+        "/book → 200 · 285 ms",
+        "/acces → 200 · 367 ms",
+        "/en → 200 · 411 ms"
       ]
     },
     {
@@ -97,11 +102,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → “Pizza Caratello — Pizzeria à Montmartre | Paris 18e” (51)",
-        "/menu → “Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e” (56)",
-        "/book → “Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e” (61)",
-        "/acces → “Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e” (60)",
-        "/en → “Pizza Caratello — Pizzeria in Montmartre, Paris 18th” (52)"
+        "/ → “Piccolo Caratello — Restaurant italien aux Abbesses | Paris 18e” (63)",
+        "/menu → “Menu Piccolo Caratello — Italien aux Abbesses | Paris 18e” (57)",
+        "/book → “Réserver — Piccolo Caratello, italien rue Audran | Paris 18e” (60)",
+        "/acces → “Accès & horaires — Piccolo Caratello, 8 rue Audran | Paris 18e” (62)",
+        "/en → “Piccolo Caratello — Italian Restaurant near Abbesses, Paris” (59)"
       ]
     },
     {
@@ -118,11 +123,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 152 characters",
-        "/menu → 144 characters",
-        "/book → 150 characters",
-        "/acces → 119 characters",
-        "/en → 144 characters"
+        "/ → 147 characters",
+        "/menu → 143 characters",
+        "/book → 153 characters",
+        "/acces → 121 characters",
+        "/en → 145 characters"
       ]
     },
     {
@@ -154,11 +159,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → “Pizza Caratello Pizzeria à Montmartre · Paris 18e”",
-        "/menu → “Pizza CaratelloPizzeria italienne à Montmartre · Paris 18e”",
-        "/book → “Réserver une table chez Pizza Caratello, pizzeria italienne à Montmartre (Paris 18e)”",
-        "/acces → “Accès et horaires — Pizza Caratello, pizzeria italienne à Montmartre (Paris 18e)”",
-        "/en → “Pizza Caratello — Pizzeria in Montmartre, Paris 18th”"
+        "/ → “Piccolo Caratello Restaurant italien · Rue Audran, Abbesses · Paris 18e”",
+        "/menu → “Piccolo CaratelloRestaurant italien rue Audran, aux Abbesses · Paris 18e”",
+        "/book → “Réserver une table chez Piccolo Caratello, restaurant italien aux Abbesses (Paris 18e)”",
+        "/acces → “Accès et horaires — Piccolo Caratello, restaurant italien aux Abbesses (Paris 18e)”",
+        "/en → “Piccolo Caratello — Italian restaurant near Abbesses, rue Audran”"
       ]
     },
     {
@@ -185,23 +190,17 @@
     {
       "id": "name_match",
       "group": "findability",
-      "status": "warn",
+      "status": "pass",
       "title": {
-        "en": "The site uses a different restaurant name",
-        "fr": "Le site utilise un autre nom de restaurant"
+        "en": "The restaurant name is consistent",
+        "fr": "Le nom du restaurant est cohérent"
       },
       "detail": {
-        "en": "The website and its data for Google say “Pizza Caratello”; this workspace is set up for “Piccolo Caratello”. Guests and Google should see one name everywhere (site, Maps, delivery apps).",
-        "fr": "Le site et ses données pour Google indiquent « Pizza Caratello » ; cet espace est configuré pour « Piccolo Caratello ». Les clients et Google doivent voir un seul nom partout (site, Maps, applications de livraison)."
+        "en": "The website declares the name “Piccolo Caratello”.",
+        "fr": "Le site déclare le nom « Piccolo Caratello »."
       },
-      "fix": {
-        "en": "Confirm with the owner which name this address, website and Google listing belong to, then use it everywhere.",
-        "fr": "Confirmez avec le propriétaire à quel nom correspondent cette adresse, ce site et la fiche Google, puis utilisez-le partout."
-      },
-      "evidence": [
-        "site: Pizza Caratello",
-        "workspace: Piccolo Caratello"
-      ]
+      "fix": null,
+      "evidence": []
     },
     {
       "id": "hours",
@@ -281,12 +280,12 @@
       },
       "fix": null,
       "evidence": [
-        "/ → fr: https://pizzacaratello.com/",
-        "/ → en: https://pizzacaratello.com/en",
-        "/ → x-default: https://pizzacaratello.com/",
-        "/en → fr: https://pizzacaratello.com/",
-        "/en → en: https://pizzacaratello.com/en",
-        "/en → x-default: https://pizzacaratello.com/"
+        "/ → fr: https://piccolocaratello.com/",
+        "/ → en: https://piccolocaratello.com/en",
+        "/ → x-default: https://piccolocaratello.com/",
+        "/en → fr: https://piccolocaratello.com/",
+        "/en → en: https://piccolocaratello.com/en",
+        "/en → x-default: https://piccolocaratello.com/"
       ]
     },
     {
@@ -336,30 +335,27 @@
         "fr": "Ajoutez une image de partage (og:image, environ 1200×630 px) montrant le meilleur plat du restaurant."
       },
       "evidence": [
-        "og:title → Pizza Caratello — Pizzeria à Montmartre | Paris 18e",
-        "og:description → Pizza Caratello, pizzeria italienne au 8 rue Audran à Montmartre (Paris 18e) : pizzas cuites à la commande, pâtes fraîches, risottos. Réservez en ligne.",
+        "og:title → Piccolo Caratello — Restaurant italien aux Abbesses | Paris 18e",
+        "og:description → Piccolo Caratello, restaurant italien au 8 rue Audran, aux Abbesses (Paris 18e) : antipasti, pâtes fraîches, raviolis, risottos, lasagnes, viandes.",
         "og:image → none"
       ]
     },
     {
       "id": "speed",
       "group": "mobile_sharing",
-      "status": "warn",
+      "status": "pass",
       "title": {
-        "en": "The home page is slow to answer",
-        "fr": "La page d’accueil met du temps à répondre"
+        "en": "The home page answers quickly",
+        "fr": "La page d’accueil répond rapidement"
       },
       "detail": {
-        "en": "The server answered in 1338 ms (76 KB of HTML). This is one request from one location, not a full phone-speed test.",
-        "fr": "Le serveur a répondu en 1338 ms (76 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+        "en": "The server answered in 406 ms (81 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 406 ms (81 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
       },
-      "fix": {
-        "en": "Run PageSpeed Insights on the home page and review hosting and image sizes.",
-        "fr": "Lancez PageSpeed Insights sur la page d’accueil et vérifiez l’hébergement et le poids des images."
-      },
+      "fix": null,
       "evidence": [
-        "1338 ms",
-        "76 KB"
+        "406 ms",
+        "81 KB"
       ]
     },
     {
@@ -376,9 +372,9 @@
       },
       "fix": null,
       "evidence": [
-        "tel:0142648851",
-        "tel:+33142648851",
-        "mailto:pizzacaratelloparis@gmail.com"
+        "tel:0142521754",
+        "tel:+33142521754",
+        "mailto:piccolocaratello@gmail.com"
       ]
     },
     {
@@ -390,40 +386,16 @@
         "fr": "Les liens menu, livraison et avis fonctionnent"
       },
       "detail": {
-        "en": "7 of 11 outgoing links were opened successfully. 4 could not be verified because those sites block automated checks; open them by hand once.",
-        "fr": "7 liens sortants sur 11 ont été ouverts avec succès. 4 n’ont pas pu être vérifiés car ces sites bloquent les contrôles automatiques ; ouvrez-les une fois à la main."
+        "en": "3 of 3 outgoing links were opened successfully.",
+        "fr": "3 liens sortants sur 3 ont été ouverts avec succès."
       },
       "fix": null,
       "evidence": [
-        "hindflnvbnqaunwodgev.supabase.co → OK",
-        "ubereats.com → OK",
-        {
-          "en": "deliveroo.fr → not verifiable (403): the site blocks automated checks",
-          "fr": "deliveroo.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
-        },
-        {
-          "en": "just-eat.fr → not verifiable (403): the site blocks automated checks",
-          "fr": "just-eat.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
-        },
-        {
-          "en": "tripadvisor.fr → not verifiable (403): the site blocks automated checks",
-          "fr": "tripadvisor.fr → non vérifiable (403) : le site bloque les contrôles automatiques"
-        },
-        {
-          "en": "yelp.com → not verifiable (403): the site blocks automated checks",
-          "fr": "yelp.com → non vérifiable (403) : le site bloque les contrôles automatiques"
-        },
-        "facebook.com → OK",
-        "instagram.com → OK",
-        "google.com → OK",
+        "maps.google.com → OK",
         "localisr.app → OK",
         "google.com → OK"
       ]
     }
   ],
-  "changes": {
-    "since": "2026-11-21T13:17:10+00:00",
-    "new": [],
-    "resolved": []
-  }
+  "changes": null
 }

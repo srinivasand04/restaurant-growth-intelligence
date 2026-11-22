@@ -59,6 +59,13 @@ def site_check() -> dict[str, Any]:
     return read_snapshot("site_check")
 
 
+@app.get("/api/history")
+def history() -> list[dict[str, Any]]:
+    """One line per day: check counts plus the Google rating and review count."""
+    path = SNAPSHOT_DIR / "site_check_history.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else []
+
+
 # On Vercel, `app.frontend()` publishes the Vite build through its CDN while
 # leaving the API routes above on FastAPI. Locally, keep API and Vite dev servers
 # separate; the Vite proxy forwards `/api` requests to FastAPI.
