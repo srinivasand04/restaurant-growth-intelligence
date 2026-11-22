@@ -1,35 +1,35 @@
 {
-  "checked_at": "2026-11-21T13:17:10+00:00",
+  "checked_at": "2026-11-22T13:08:17+00:00",
   "site": "https://pizzacaratello.com/",
   "pages": [
     {
       "url": "https://pizzacaratello.com/",
       "status": 200,
-      "ms": 2261,
+      "ms": 1339,
       "title": "Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/menu",
       "status": 200,
-      "ms": 1266,
+      "ms": 1253,
       "title": "Menu Pizza Caratello — Pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/book",
       "status": 200,
-      "ms": 905,
+      "ms": 970,
       "title": "Réserver — Pizza Caratello, pizzeria à Montmartre | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/acces",
       "status": 200,
-      "ms": 971,
+      "ms": 628,
       "title": "Accès & horaires — Pizza Caratello, 8 rue Audran | Paris 18e"
     },
     {
       "url": "https://pizzacaratello.com/en",
       "status": 200,
-      "ms": 956,
+      "ms": 1133,
       "title": "Pizza Caratello — Pizzeria in Montmartre, Paris 18th"
     }
   ],
@@ -76,11 +76,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 200 · 2261 ms",
-        "/menu → 200 · 1266 ms",
-        "/book → 200 · 905 ms",
-        "/acces → 200 · 971 ms",
-        "/en → 200 · 956 ms"
+        "/ → 200 · 1339 ms",
+        "/menu → 200 · 1253 ms",
+        "/book → 200 · 970 ms",
+        "/acces → 200 · 628 ms",
+        "/en → 200 · 1133 ms"
       ]
     },
     {
@@ -350,16 +350,16 @@
         "fr": "La page d’accueil met du temps à répondre"
       },
       "detail": {
-        "en": "The server answered in 986 ms (75 KB of HTML). This is one request from one location, not a full phone-speed test.",
-        "fr": "Le serveur a répondu en 986 ms (75 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+        "en": "The server answered in 1338 ms (76 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 1338 ms (76 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
       },
       "fix": {
         "en": "Run PageSpeed Insights on the home page and review hosting and image sizes.",
         "fr": "Lancez PageSpeed Insights sur la page d’accueil et vérifiez l’hébergement et le poids des images."
       },
       "evidence": [
-        "986 ms",
-        "75 KB"
+        "1338 ms",
+        "76 KB"
       ]
     },
     {
@@ -422,7 +422,7 @@
     }
   ],
   "changes": {
-    "since": "2026-11-20T13:53:02+00:00",
+    "since": "2026-11-21T13:17:10+00:00",
     "new": [],
     "resolved": []
   }
