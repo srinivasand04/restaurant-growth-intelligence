@@ -1,47 +1,47 @@
 {
-  "checked_at": "2026-11-25T15:22:03+00:00",
+  "checked_at": "2026-11-26T14:48:58+00:00",
   "site": "https://piccolocaratello.com/",
   "pages": [
     {
       "url": "https://piccolocaratello.com/",
       "status": 200,
-      "ms": 1183,
+      "ms": 1072,
       "title": "Piccolo Caratello — Restaurant italien aux Abbesses | Paris 18e"
     },
     {
       "url": "https://piccolocaratello.com/menu",
       "status": 200,
-      "ms": 1378,
+      "ms": 1297,
       "title": "Menu Piccolo Caratello — Italien aux Abbesses | Paris 18e"
     },
     {
       "url": "https://piccolocaratello.com/book",
       "status": 200,
-      "ms": 787,
+      "ms": 749,
       "title": "Réserver — Piccolo Caratello, italien rue Audran | Paris 18e"
     },
     {
       "url": "https://piccolocaratello.com/acces",
       "status": 200,
-      "ms": 782,
+      "ms": 891,
       "title": "Accès & horaires — Piccolo Caratello, 8 rue Audran | Paris 18e"
     },
     {
       "url": "https://piccolocaratello.com/en",
       "status": 200,
-      "ms": 908,
+      "ms": 857,
       "title": "Piccolo Caratello — Italian Restaurant near Abbesses, Paris"
     }
   ],
   "summary": {
-    "pass": 13,
-    "warn": 4,
+    "pass": 14,
+    "warn": 3,
     "fail": 0,
     "unknown": 0
   },
   "reputation": {
     "rating": 4.7,
-    "reviews": 597,
+    "reviews": 598,
     "source": "https://piccolocaratello.com/"
   },
   "checks": [
@@ -81,11 +81,11 @@
       },
       "fix": null,
       "evidence": [
-        "/ → 200 · 1183 ms",
-        "/menu → 200 · 1378 ms",
-        "/book → 200 · 787 ms",
-        "/acces → 200 · 782 ms",
-        "/en → 200 · 908 ms"
+        "/ → 200 · 1072 ms",
+        "/menu → 200 · 1297 ms",
+        "/book → 200 · 749 ms",
+        "/acces → 200 · 891 ms",
+        "/en → 200 · 857 ms"
       ]
     },
     {
@@ -343,22 +343,19 @@
     {
       "id": "speed",
       "group": "mobile_sharing",
-      "status": "warn",
+      "status": "pass",
       "title": {
-        "en": "The home page is slow to answer",
-        "fr": "La page d’accueil met du temps à répondre"
+        "en": "The home page answers quickly",
+        "fr": "La page d’accueil répond rapidement"
       },
       "detail": {
-        "en": "The server answered in 976 ms (81 KB of HTML). This is one request from one location, not a full phone-speed test.",
-        "fr": "Le serveur a répondu en 976 ms (81 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
+        "en": "The server answered in 604 ms (71 KB of HTML). This is one request from one location, not a full phone-speed test.",
+        "fr": "Le serveur a répondu en 604 ms (71 Ko de HTML). Il s’agit d’une seule requête depuis un seul endroit, pas d’un test complet sur téléphone."
       },
-      "fix": {
-        "en": "Run PageSpeed Insights on the home page and review hosting and image sizes.",
-        "fr": "Lancez PageSpeed Insights sur la page d’accueil et vérifiez l’hébergement et le poids des images."
-      },
+      "fix": null,
       "evidence": [
-        "976 ms",
-        "81 KB"
+        "604 ms",
+        "71 KB"
       ]
     },
     {
@@ -401,8 +398,10 @@
     }
   ],
   "changes": {
-    "since": "2026-11-24T15:37:07+00:00",
+    "since": "2026-11-25T15:22:03+00:00",
     "new": [],
-    "resolved": []
+    "resolved": [
+      "speed"
+    ]
   }
 }
