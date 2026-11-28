@@ -86,5 +86,19 @@
   ],
   "rating": 4.7,
   "reviews": 598
+ },
+ {
+  "date": "2026-11-28",
+  "pass": 14,
+  "warn": 3,
+  "fail": 0,
+  "unknown": 0,
+  "problems": [
+   "language",
+   "schema",
+   "social_preview"
+  ],
+  "rating": 4.7,
+  "reviews": 598
  }
 ]
